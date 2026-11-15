@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#1e293b">
+<meta name="theme-color" content="#5b4bdb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
 <title>N'EPS · Visites stagiaires</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
@@ -14,153 +17,229 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 :root{
-  --bg:#f1f5f9;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e2e8f0;--accent:#1e293b;
-  --pem:#6366f1;--echauf:#f59e0b;--sit:#10b981;--bi:#0ea5e9;--bf:#e11d48;
-  --fort:#16a34a;--vig:#ea580c;--secu:#dc2626;--conseil:#2563eb;--obs:#64748b;
-  --r:12px;
+  --bg:#fff6e5;--card:#fff;--ink:#1f2544;--mute:#62668a;--line:#1f2544;--soft:#f3ead6;--accent:#5b4bdb;--yellow:#ffd43b;
+  --pem:#7c6cf2;--echauf:#ffb020;--sit:#1fc28b;--bi:#2fb5f0;--bf:#ff4f7b;
+  --fort:#1fa463;--vig:#f07a1a;--secu:#e53935;--conseil:#2f6df0;--obs:#62668a;
+  --r:18px;--bw:2.5px;--sh:4px 4px 0 var(--ink);--shs:2px 2px 0 var(--ink);
+  --fh:"Fredoka","Baloo 2","Comic Sans MS",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;-webkit-tap-highlight-color:transparent}
+body{font-family:"Nunito",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:600;background:var(--bg);background-image:radial-gradient(#efdcb8 1.3px,transparent 1.5px);background-size:22px 22px;color:var(--ink);font-size:15px;-webkit-tap-highlight-color:transparent}
 button,input,select,textarea{font:inherit;color:inherit}
-button{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;min-height:40px}
-button:hover{background:#f8fafc}
-button.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
-button.pri:hover{background:#334155}
-button.ghost{border-color:transparent;background:transparent}
+button{cursor:pointer;border:var(--bw) solid var(--ink);background:#fff;border-radius:14px;padding:7px 14px;min-height:42px;font-weight:800;box-shadow:var(--shs);transition:transform .08s,box-shadow .08s,background .15s;white-space:nowrap}
+button:hover{background:#fffbea;transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+button:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+button.pri{background:var(--accent);color:#fff}
+button.pri:hover{background:#6b5cf0}
+button.hot{background:var(--bf);color:#fff}
+button.hot:hover{background:#ff6a90}
+button.yel{background:var(--yellow)}
+button.ghost{border-color:transparent;background:transparent;box-shadow:none}
+button.ghost:hover{background:rgba(31,37,68,.07);box-shadow:none;transform:none}
 button.danger{color:var(--secu)}
-button.sm{min-height:32px;padding:4px 10px;font-size:13px}
-input,select,textarea{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;width:100%}
-textarea{resize:vertical;min-height:90px;line-height:1.45}
-input:focus,select:focus,textarea:focus,[contenteditable]:focus{outline:2px solid #93c5fd;outline-offset:1px}
-label{font-size:12px;font-weight:600;color:var(--mute);text-transform:uppercase;letter-spacing:.03em;display:block;margin:10px 0 4px}
-h1,h2,h3{margin:0}
+button.sm{min-height:34px;padding:3px 10px;font-size:13px;border-radius:11px;border-width:2px}
+input,select,textarea{border:2px solid var(--ink);border-radius:12px;padding:9px 11px;background:#fff;width:100%;font-weight:600;box-shadow:inset 2px 2px 0 rgba(31,37,68,.07)}
+textarea{resize:vertical;min-height:110px;line-height:1.5}
+input:focus,select:focus,textarea:focus,[contenteditable]:focus{outline:3px solid var(--yellow);outline-offset:1px}
+label{font-family:var(--fh);font-size:13px;font-weight:600;color:var(--mute);text-transform:uppercase;letter-spacing:.04em;display:block;margin:12px 0 4px}
+h1,h2,h3{margin:0;font-family:var(--fh);font-weight:700}
+a{color:var(--accent);font-weight:800}
 .muted{color:var(--mute)}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .grow{flex:1}
-.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:600;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:1px 9px;border-radius:999px;background:#ece8ff;color:var(--ink);font-weight:800;white-space:nowrap;border:2px solid var(--ink)}
 .hidden{display:none!important}
+.lbl{display:inline}
 
 /* ---------- Top bar ---------- */
-.top{position:sticky;top:0;z-index:20;background:var(--accent);color:#fff;padding:8px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.top button{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff}
-.top button:hover{background:rgba(255,255,255,.18)}
-.brand{font-weight:800;letter-spacing:.02em}
-.brand small{font-weight:500;opacity:.7}
-.ctx{font-weight:600;line-height:1.15}
-.ctx small{display:block;font-weight:400;opacity:.75;font-size:12px}
-.chrono{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.25);border-radius:12px;padding:4px 6px 4px 12px}
-.chrono .t{font-variant-numeric:tabular-nums;font-size:24px;font-weight:700;min-width:84px;text-align:center}
-.chrono button{min-height:36px;padding:4px 10px}
-.measure.on{background:#f59e0b!important;border-color:#f59e0b!important;color:#111!important}
+.top{position:sticky;top:0;z-index:20;background:var(--accent);color:#fff;padding:8px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:3px solid var(--ink);background-image:repeating-linear-gradient(-45deg,rgba(255,255,255,.05) 0 14px,transparent 14px 28px)}
+.top button:not(.pri):not(.hot):not(.yel){background:#fff;color:var(--ink)}
+.brand{font-family:var(--fh);font-weight:700;font-size:23px;letter-spacing:.01em;display:flex;align-items:center;gap:10px;text-shadow:2px 2px 0 var(--ink)}
+.brand small{font-weight:500;font-size:16px;opacity:.9;text-shadow:none}
+.brand img{width:40px;height:40px;border-radius:12px;border:2.5px solid var(--ink);box-shadow:var(--shs);transform:rotate(-5deg);background:#fff}
+.ctx{font-family:var(--fh);font-weight:600;font-size:19px;line-height:1.15;text-shadow:1.5px 1.5px 0 var(--ink)}
+.ctx small{display:block;font-family:"Nunito",sans-serif;font-weight:700;opacity:.9;font-size:13px;text-shadow:none}
+.ctx a{color:var(--yellow)}
+.chrono{display:flex;align-items:center;gap:6px;background:var(--yellow);color:var(--ink);border:var(--bw) solid var(--ink);border-radius:18px;padding:4px 6px 4px 14px;box-shadow:var(--shs)}
+.chrono.run{background:#7cf2b4;animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:2px 2px 0 var(--ink),0 0 0 6px rgba(124,242,180,.35)}}
+.chrono .t{font-family:var(--fh);font-variant-numeric:tabular-nums;font-size:28px;font-weight:700;min-width:96px;text-align:center}
+.chrono button{min-height:36px;padding:3px 10px;box-shadow:none;border-width:2px}
+.chrono button:hover{box-shadow:none;transform:none}
+.measure.on{background:var(--bf)!important;color:#fff!important}
 
 /* ---------- Home ---------- */
-.wrap{max-width:1150px;margin:0 auto;padding:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
-.tcard h3{font-size:18px}
-.axe{border-left:4px solid var(--bf);background:#fff1f2;border-radius:8px;padding:6px 10px;margin:6px 0;font-size:14px}
-.hist{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
-.hist .h{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:14px}
+.wrap{padding:22px 28px 60px}
+.hero{display:flex;align-items:center;gap:18px;margin-bottom:20px;background:#fff;border:var(--bw) solid var(--ink);border-radius:24px;box-shadow:var(--sh);padding:14px 20px;background-image:radial-gradient(circle at 92% 30%,#fff1b8 0 70px,transparent 71px),radial-gradient(circle at 80% 110%,#e3ddff 0 60px,transparent 61px)}
+.hero h2{font-size:30px}
+.hero p{margin:2px 0 0}
+.hero svg{flex:none}
+.stats{display:flex;gap:10px}
+.stat{border:2px solid var(--ink);border-radius:14px;padding:4px 12px;text-align:center;background:var(--soft);box-shadow:var(--shs)}
+.stat b{display:block;font-family:var(--fh);font-size:24px;line-height:1}
+.stat span{font-size:11px;text-transform:uppercase;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:22px}
+.card{background:var(--card);border:var(--bw) solid var(--ink);border-radius:var(--r);padding:16px;box-shadow:var(--sh)}
+.tcard{position:relative}
+.tcard h3{font-size:21px}
+.av{width:50px;height:50px;border-radius:50%;border:var(--bw) solid var(--ink);display:grid;place-items:center;font-family:var(--fh);font-weight:700;font-size:20px;color:#fff;text-shadow:1.5px 1.5px 0 var(--ink);box-shadow:var(--shs);flex:none}
+.axe{border:2px solid var(--ink);border-left:8px solid var(--bf);background:#ffe8ee;border-radius:12px;padding:6px 10px;margin:6px 0;font-size:14px}
+.hist{margin-top:12px;border-top:2.5px dashed var(--ink);padding-top:8px}
+.hist .h{display:flex;align-items:center;gap:6px;padding:5px 6px;font-size:14px;border-radius:10px}
+.hist .h:hover{background:var(--soft)}
 .hist .h span{flex:1}
 .empty{text-align:center;padding:40px;color:var(--mute)}
 
 /* ---------- Obs layout ---------- */
-.banner{background:#fff;border-bottom:1px solid var(--line);padding:8px 14px}
-.banner .ax{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:4px 0}
-.banner .ax .txt{flex:1;min-width:220px;font-size:14px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.seg button{border:0;border-radius:0;min-height:32px;padding:4px 10px;font-size:13px;border-right:1px solid var(--line)}
+.banner{background:#fff;border-bottom:3px solid var(--ink);padding:6px 16px 8px}
+.banner .bt{font-family:var(--fh);font-size:15px;color:#d61f55;letter-spacing:.02em}
+.axgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:8px;margin-top:4px}
+.banner .ax{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:5px 8px 5px 10px;border:2px solid var(--ink);border-radius:14px;background:#fff0f4}
+.banner .ax{flex-wrap:nowrap}
+.banner .ax .txt{flex:1;min-width:0;font-size:14px;line-height:1.3}
+.banner .ax .txt .chip{display:block;width:max-content;max-width:100%;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
+.banner .ax .seg button{padding:3px 8px;font-size:12px}
+.seg{display:inline-flex;border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:#fff;box-shadow:var(--shs)}
+.seg button{border:0;border-radius:0;min-height:32px;padding:3px 10px;font-size:12.5px;border-right:2px solid var(--ink);box-shadow:none}
+.seg button:hover{transform:none;box-shadow:none;background:var(--soft)}
+.seg button:active{transform:none}
 .seg button:last-child{border-right:0}
 .seg button.on{background:var(--accent);color:#fff}
-.layout{display:grid;grid-template-columns:250px 1fr;gap:14px;padding:14px;max-width:1400px;margin:0 auto}
-.nav{display:flex;flex-direction:column;gap:6px}
-.nav .it{display:flex;align-items:center;gap:8px;text-align:left;border-left:6px solid var(--c,#94a3b8);padding:8px 10px;justify-content:flex-start}
-.nav .it.on{background:#0f172a;color:#fff;border-color:#0f172a;border-left-color:var(--c,#94a3b8)}
-.nav .it .n{flex:1;line-height:1.2}
-.nav .it small{display:block;font-size:11px;opacity:.7}
-.nav .it .cnt{font-size:11px;background:rgba(100,116,139,.18);border-radius:999px;padding:1px 7px}
-.nav hr{border:0;border-top:1px solid var(--line);margin:6px 0}
-.main{min-width:0}
-.fhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-left:8px solid var(--c);padding-left:12px;margin-bottom:10px}
-.fhead input.title{font-size:20px;font-weight:700;border-color:transparent;background:transparent;padding:4px 6px;width:auto;flex:1;min-width:200px}
-.fhead input.title:hover{border-color:var(--line)}
-.timing{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
-.sec{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:12px}
-.sec>h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
-.kinds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.kinds button{min-height:34px;padding:4px 10px;font-size:13px;border-width:2px}
-.kinds button.on{color:#fff}
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:18px;padding:16px}
+.nav{display:flex;flex-direction:column;gap:8px;padding:2px 6px 6px 2px}
+.nav .it{display:flex;align-items:center;gap:8px;text-align:left;padding:8px 10px 8px 22px;justify-content:flex-start;white-space:normal;background:linear-gradient(90deg,var(--c,#c9ccd9) 0 12px,#fff 12px);position:relative}
+.nav .it.on{background:var(--c,#c9ccd9);transform:translateX(4px);box-shadow:var(--sh)}
+.nav .it .n{flex:1;line-height:1.2;font-family:var(--fh);font-weight:600;font-size:15.5px}
+.nav .it small{display:block;font-family:"Nunito",sans-serif;font-size:11.5px;font-weight:700;opacity:.75}
+.nav .it .cnt{font-size:12px;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:0 7px;font-weight:800}
+.nav hr{border:0;border-top:2.5px dashed var(--ink);margin:6px 0;opacity:.5}
+.main{min-width:0;padding:2px 8px 90px 2px}
+.fhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--c);border:var(--bw) solid var(--ink);border-radius:var(--r);box-shadow:var(--sh);padding:8px 12px;margin-bottom:8px}
+.fhead h2{font-size:24px}
+.fhead input.title{font-family:var(--fh);font-size:24px;font-weight:700;border-color:transparent;background:transparent;box-shadow:none;padding:2px 6px;width:auto;flex:1;min-width:200px}
+.fhead input.title:hover{border-color:var(--ink);background:rgba(255,255,255,.5)}
+.timing{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;margin:0 0 0 14px}
+.sec{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:14px;margin-bottom:16px;box-shadow:var(--sh);position:relative}
+.sec>h4{display:inline-block;margin:-26px 0 8px -4px;font-family:var(--fh);font-weight:600;font-size:15px;background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:1px 12px;transform:rotate(-2deg);box-shadow:var(--shs)}
+.sec{margin-top:18px}
+.kinds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.kinds button{min-height:36px;padding:3px 11px;font-size:13.5px;color:var(--kc);border-width:2px}
+.kinds button.on{background:var(--kc);color:#fff;transform:translate(2px,2px);box-shadow:none}
 .addrow{display:flex;gap:8px;flex-wrap:wrap}
 .addrow input{flex:1;min-width:220px}
-.addrow select{width:auto;max-width:200px}
-.items{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.item{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:10px;background:#f8fafc;border-left:4px solid var(--k)}
-.item .ic{font-size:16px;line-height:1.4}
-.item .tx{flex:1;line-height:1.4;min-height:1.4em;white-space:pre-wrap}
-.item select{width:auto;font-size:12px;padding:2px 4px;border-radius:6px}
-.item.conseil{background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid var(--conseil);border-radius:14px 14px 14px 4px;position:relative}
+.addrow select{width:auto;max-width:210px}
+.items{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.item{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:14px;background:#fff;border:2px solid var(--ink);border-left:9px solid var(--k);box-shadow:var(--shs)}
+.item .ic{font-size:18px;line-height:1.35}
+.item .tx{flex:1;line-height:1.45;min-height:1.4em;white-space:pre-wrap}
+.item select{width:auto;font-size:12px;padding:2px 4px;border-radius:8px;box-shadow:none}
+.item.conseil{background:#e8f0ff;border-radius:20px 20px 20px 4px;border-left-width:2px}
 .item button{min-height:28px;padding:0 8px}
+.fgrid{display:block}
+.drawph{width:100%;min-height:200px;border:3px dashed var(--ink);border-radius:16px;background:repeating-linear-gradient(45deg,#fff 0 12px,#fff8e1 12px 24px);font-family:var(--fh);font-size:20px;box-shadow:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.drawph span{font-size:44px}
 
 /* ---------- Canvas ---------- */
-.draw{position:relative;width:100%;aspect-ratio:1000/560;border:1px solid var(--line);border-radius:10px;overflow:hidden;touch-action:none;background:#fff}
+.draw{position:relative;width:100%;aspect-ratio:1000/560;border:var(--bw) solid var(--ink);border-radius:14px;overflow:hidden;touch-action:none;background:#fff;box-shadow:var(--shs)}
 .draw canvas{position:absolute;inset:0;width:100%;height:100%}
-.tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
-.sw{width:34px;height:34px;min-height:34px;border-radius:50%;padding:0;border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
-.sw.on{box-shadow:0 0 0 3px var(--accent)}
+.tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.sw{width:36px;height:36px;min-height:36px;border-radius:50%;padding:0;border:2.5px solid var(--ink)}
+.sw.on{transform:scale(1.15);box-shadow:0 0 0 3px var(--yellow),0 0 0 5px var(--ink)}
+.sw.on:hover{transform:scale(1.15)}
 .tools .sz.on,.tools .tl.on{background:var(--accent);color:#fff}
+.tools select{width:auto;min-height:34px;padding:3px 8px;font-size:13px}
 
 /* ---------- Competences ---------- */
-.comp{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
-.comp .code{font-weight:800}
-.comp .lab{font-size:14px}
-.comp .ev{grid-column:2/4;font-size:12px;color:var(--mute)}
-.comp input{grid-column:2/4;padding:6px 9px;font-size:14px}
-.lv button.on[data-l="1"]{background:#dc2626;color:#fff}
-.lv button.on[data-l="2"]{background:#ea580c;color:#fff}
-.lv button.on[data-l="3"]{background:#16a34a;color:#fff}
-.lv button.on[data-l="0"]{background:#64748b;color:#fff}
-.group{margin-top:14px;font-weight:700;color:var(--mute);font-size:12px;text-transform:uppercase}
+.compgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.comp{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;padding:10px;border:2px solid var(--ink);border-radius:14px;background:#fff;box-shadow:var(--shs)}
+.comp.set{background:#fffbea}
+.comp .code{font-family:var(--fh);font-weight:700;background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:1px 8px;text-align:center;min-width:52px}
+.comp .lab{font-size:14px;line-height:1.3}
+.comp .lv{grid-column:1/-1;justify-self:start}
+.comp .ev{grid-column:1/-1;font-size:12.5px;color:var(--mute)}
+.comp input{grid-column:1/-1;padding:6px 9px;font-size:14px}
+.lv button.on[data-l="1"]{background:#e53935;color:#fff}
+.lv button.on[data-l="2"]{background:#f07a1a;color:#fff}
+.lv button.on[data-l="3"]{background:#1fa463;color:#fff}
+.lv button.on[data-l="0"]{background:#9aa0b8;color:#fff}
+.group{grid-column:1/-1;margin-top:10px;font-family:var(--fh);font-weight:600;font-size:16px}
+.sgrid{display:block}
+.axcard{border:var(--bw) solid var(--ink);border-left:10px solid var(--bf);border-radius:16px;padding:10px 12px;margin-bottom:10px;background:#fff;box-shadow:var(--shs)}
 
 /* ---------- Drawer / modal / bubble ---------- */
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(720px,100vw);background:#fff;z-index:40;box-shadow:-10px 0 30px rgba(0,0,0,.2);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .25s}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(760px,100vw);background:#fff;z-index:40;border-left:3px solid var(--ink);box-shadow:-8px 0 0 rgba(31,37,68,.18);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .25s}
 .drawer.open{transform:none}
-.drawer .dh{display:flex;gap:8px;align-items:center;padding:10px;border-bottom:1px solid var(--line)}
+.drawer .dh{display:flex;gap:8px;align-items:center;padding:10px 12px;border-bottom:3px solid var(--ink);background:var(--yellow);font-family:var(--fh);font-size:17px}
 .drawer iframe{flex:1;border:0;width:100%}
-.modalbg{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:4vh 12px;overflow:auto}
-.modal{background:#fff;border-radius:16px;max-width:620px;width:100%;padding:18px}
-.modal h2{margin-bottom:6px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.fab{position:fixed;right:18px;bottom:36px;z-index:30;width:62px;height:62px;border-radius:50%;font-size:28px;background:#2563eb;color:#fff;border:0;box-shadow:0 8px 24px rgba(37,99,235,.45)}
-.fab:hover{background:#1d4ed8}
-.bubble{position:fixed;right:18px;bottom:110px;z-index:31;width:min(400px,calc(100vw - 36px));max-height:70vh;background:#fff;border:1px solid #bfdbfe;border-radius:20px 20px 6px 20px;box-shadow:0 18px 50px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}
-.bubble .bh{padding:12px 14px;background:#eff6ff;border-bottom:1px solid #bfdbfe}
-.bubble .bl{overflow:auto;padding:8px 10px;flex:1}
-.bubble .cs{padding:8px 10px;border-radius:12px;border:1px solid var(--line);margin-bottom:6px;font-size:14px;display:flex;gap:8px;align-items:flex-start}
+.modalbg{position:fixed;inset:0;background:rgba(43,32,120,.45);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:4vh 12px;overflow:auto;backdrop-filter:blur(2px)}
+.modal{background:#fff;border:3px solid var(--ink);border-radius:24px;box-shadow:7px 7px 0 var(--ink);max-width:680px;width:100%;padding:20px 22px;animation:pop .18s ease-out}
+@keyframes pop{from{transform:scale(.94);opacity:0}}
+.modal h2{margin-bottom:6px;font-size:26px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fab{position:fixed;right:20px;bottom:38px;z-index:30;width:68px;height:68px;border-radius:50%;font-size:30px;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);box-shadow:var(--sh);padding:0}
+.fab:hover{background:#ffe066;transform:rotate(-8deg) scale(1.05)}
+.bubble{position:fixed;right:22px;bottom:122px;z-index:31;width:min(470px,calc(100vw - 40px));max-height:74vh;background:#fff;border:3px solid var(--ink);border-radius:24px 24px 6px 24px;box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column;animation:pop .18s ease-out}
+.bubble::after{content:"";position:absolute;right:16px;bottom:-20px;width:26px;height:20px;background:#fff;border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);clip-path:polygon(0 0,100% 0,100% 100%);transform:skewX(-20deg)}
+.bubble .bh{padding:12px 14px;background:#e8f0ff;border-bottom:3px solid var(--ink);border-radius:21px 21px 0 0;font-family:var(--fh);font-size:18px}
+.bubble .bh input{font-family:"Nunito",sans-serif;font-size:14px}
+.bubble .bl{overflow:auto;padding:10px 12px;flex:1}
+.bubble .cs{padding:8px 10px;border-radius:14px;border:2px solid var(--ink);margin-bottom:8px;font-size:14px;display:flex;gap:8px;align-items:flex-start;background:#fff;box-shadow:var(--shs)}
 .bubble .cs span{flex:1}
-.bubble .themes{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
-.bubble .themes button{min-height:28px;padding:2px 8px;font-size:12px}
-.bubble .themes button.on{background:#2563eb;color:#fff;border-color:#2563eb}
-.sign{position:fixed;right:12px;bottom:6px;z-index:29;font-size:12px;color:#64748b;pointer-events:none;letter-spacing:.02em;background:rgba(241,245,249,.85);padding:1px 6px;border-radius:6px}
-.sign b{color:#1e293b}
-.brand{display:flex;align-items:center;gap:8px}
-.brand img{width:32px;height:32px;border-radius:8px}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 16px;border-radius:10px;z-index:60;font-size:14px}
+.bubble .themes{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.bubble .themes button{min-height:28px;padding:1px 9px;font-size:12px;border-width:2px;box-shadow:none;font-family:"Nunito",sans-serif}
+.bubble .themes button.on{background:var(--conseil);color:#fff}
+.sign{position:fixed;right:12px;bottom:6px;z-index:29;font-size:12px;color:var(--mute);pointer-events:none;letter-spacing:.02em;background:rgba(255,246,229,.9);padding:1px 8px;border-radius:8px;border:1.5px solid rgba(31,37,68,.25)}
+.sign b{color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:14px;z-index:60;font-size:14px;font-weight:800;box-shadow:4px 4px 0 var(--yellow);animation:pop .18s ease-out}
+.setgrid{display:grid;grid-template-columns:1fr;gap:18px}
+.setgrid .card h3{font-size:20px;margin-bottom:4px}
 
+/* ---------- Paysage / grand écran : on exploite la largeur ---------- */
+@media (min-width:1000px){
+  .fgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:18px;align-items:start}
+  .fgrid>.col{min-width:0}
+  .fgrid>.col.right{position:sticky;top:0}
+  .compgrid{grid-template-columns:1fr 1fr}
+  .sgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+  .setgrid{grid-template-columns:1fr 1fr}
+  .setgrid .full{grid-column:1/-1}
+  .fgrid textarea[data-k="f.text"]{min-height:150px}
+}
+@media (min-width:900px) and (orientation:landscape){
+  .obsapp{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+  .obsapp .top{position:relative}
+  .obsapp .layout{flex:1;min-height:0;padding-bottom:0}
+  .obsapp .nav,.obsapp .main{overflow:auto;min-height:0;overscroll-behavior:contain}
+  .obsapp .main{padding-top:14px}
+  .obsapp .nav{padding-top:6px;padding-bottom:40px}
+}
+@media (min-width:1400px){
+  .layout{grid-template-columns:260px minmax(0,1fr)}
+  .compgrid{grid-template-columns:1fr 1fr 1fr}
+}
+@media (max-width:1180px){ .top .lbl{display:none} .brand small{display:none} }
 @media (max-width:860px){
   .layout{grid-template-columns:1fr}
-  .nav{flex-direction:row;overflow-x:auto;padding-bottom:4px}
-  .nav .it{min-width:150px}
+  .nav{flex-direction:row;overflow-x:auto;padding-bottom:8px}
+  .nav .it{min-width:160px}
+  .nav .it.on{transform:translateY(-2px)}
   .nav hr{display:none}
+  .nav>.row{min-width:220px}
+  .banner .ax{flex-wrap:wrap}
   .two{grid-template-columns:1fr}
-  .chrono .t{font-size:20px;min-width:70px}
+  .chrono .t{font-size:22px;min-width:76px}
+  .axgrid{grid-template-columns:1fr}
+  .hero svg{display:none}
+  .wrap{padding:16px}
 }
 
 /* ---------- PRINT ---------- */
 #print{display:none}
 @media print{
   @page{size:A4;margin:12mm}
-  body{background:#fff;font-size:10.5pt}
+  body{background:#fff;background-image:none;font-size:10.5pt;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-weight:400}
   #app,.fab,.bubble,.sign,.drawer,.modalbg,.toast{display:none!important}
   #print{display:block}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -201,11 +280,11 @@ h1,h2,h3{margin:0}
 const LS = 'neps-stagiaires-v1';
 
 const TYPES = {
-  pem:    {l:'Prise en main',        c:'var(--pem)',    hex:'#6366f1', r:0},
-  echauf: {l:'Échauffement',         c:'var(--echauf)', hex:'#f59e0b', r:1},
-  sit:    {l:'Situation de travail', c:'var(--sit)',    hex:'#10b981', r:2},
-  bi:     {l:'Bilan intermédiaire',  c:'var(--bi)',     hex:'#0ea5e9', r:3},
-  bf:     {l:'Bilan final',          c:'var(--bf)',     hex:'#e11d48', r:4},
+  pem:    {l:'Prise en main',        c:'var(--pem)',    hex:'#7c6cf2', r:0},
+  echauf: {l:'Échauffement',         c:'var(--echauf)', hex:'#ffb020', r:1},
+  sit:    {l:'Situation de travail', c:'var(--sit)',    hex:'#1fc28b', r:2},
+  bi:     {l:'Bilan intermédiaire',  c:'var(--bi)',     hex:'#2fb5f0', r:3},
+  bf:     {l:'Bilan final',          c:'var(--bf)',     hex:'#ff4f7b', r:4},
 };
 const KINDS = {
   obs:     {l:'Observation', ic:'📝', c:'#64748b'},
@@ -273,6 +352,10 @@ const today = () => new Date().toISOString().slice(0,10);
 const firstName = n => (n||'').trim().split(/\s+/)[0]||'';
 function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
 
+const MASCOT = (w=96)=>`<svg width="${w}" height="${w}" viewBox="0 0 100 100" aria-hidden="true"><rect x="42" y="4" width="16" height="10" rx="3" fill="#ffd43b" stroke="#1f2544" stroke-width="3"/><line x1="78" y1="22" x2="86" y2="14" stroke="#1f2544" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="56" r="38" fill="#fff" stroke="#1f2544" stroke-width="4"/><circle cx="50" cy="56" r="30" fill="#e8f0ff"/><circle cx="38" cy="50" r="5" fill="#1f2544"/><circle cx="62" cy="50" r="5" fill="#1f2544"/><circle cx="40" cy="48" r="1.6" fill="#fff"/><circle cx="64" cy="48" r="1.6" fill="#fff"/><path d="M36 64 Q50 78 64 64" fill="none" stroke="#1f2544" stroke-width="4" stroke-linecap="round"/><circle cx="29" cy="62" r="5" fill="#ff9fb6"/><circle cx="71" cy="62" r="5" fill="#ff9fb6"/><line x1="50" y1="26" x2="50" y2="34" stroke="#1f2544" stroke-width="4" stroke-linecap="round"/></svg>`;
+const AV_COL=['#7c6cf2','#ffb020','#1fc28b','#2fb5f0','#ff4f7b','#f07a1a','#a855f7'];
+const avatar = n => { const ini=(n||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(); let h=0; for(const c of n||'') h=(h*31+c.charCodeAt(0))>>>0; return `<div class="av" style="background:${AV_COL[h%AV_COL.length]}">${esc(ini)}</div>`; };
+
 /* ---------- State ---------- */
 function seed(){
   return {
@@ -313,7 +396,7 @@ function currentAxes(tid, exceptId){
 }
 
 /* ---------- UI state ---------- */
-let view='home', cur=null, curFrame=null, kind='obs', bubbleOpen=false, bubbleTheme='', bubbleQ='', measureStart=null;
+let axFold=false, view='home', cur=null, curFrame=null, kind='obs', bubbleOpen=false, bubbleTheme='', bubbleQ='', measureStart=null;
 const O = () => S.obs.find(o=>o.id===cur);
 const F = () => O()?.frames.find(f=>f.id===curFrame);
 
@@ -346,27 +429,29 @@ function homeHTML(){
     <div class="grow"></div>
     ${S.settings.edtUrl?`<button data-act="edt">📅 EDT</button>`:''}
     <button data-act="newTrainee">＋ Stagiaire</button>
-    <button data-act="settings">⚙︎ Paramètres</button>
+    <button data-act="settings">⚙︎ <span class="lbl">Paramètres</span></button>
   </div>
   <div class="wrap">
-    <div class="row" style="margin-bottom:14px">
-      <h2 class="grow">Mes stagiaires</h2>
-      <button class="pri" data-act="newObs" ${ts.length?'':'disabled'}>▶ Nouvelle visite</button>
+    <div class="hero">
+      ${MASCOT(84)}
+      <div class="grow"><h2>Mes stagiaires</h2><p class="muted">${new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})} · prêt pour une visite ?</p></div>
+      <div class="stats"><div class="stat"><b>${ts.length}</b><span>stagiaire${ts.length>1?'s':''}</span></div><div class="stat"><b>${S.obs.length}</b><span>visite${S.obs.length>1?'s':''}</span></div></div>
+      <button class="pri" style="min-height:52px;font-size:17px" data-act="newObs" ${ts.length?'':'disabled'}>▶ Nouvelle visite</button>
     </div>
     ${ts.length?`<div class="grid">${ts.map(tcardHTML).join('')}</div>`:
-      `<div class="card empty">Aucun stagiaire pour l'instant.<br><br><button class="pri" data-act="newTrainee">＋ Ajouter un stagiaire</button></div>`}
+      `<div class="card empty">${MASCOT(110)}<h3 style="margin:10px 0">Aucun stagiaire pour l'instant</h3><button class="pri" data-act="newTrainee">＋ Ajouter un stagiaire</button></div>`}
     <p class="muted" style="font-size:12px;margin-top:30px;text-align:center">Données enregistrées sur cet appareil uniquement · pense à exporter régulièrement (Paramètres)</p>
   </div>`;
 }
 function tcardHTML(t){
   const ca=currentAxes(t.id); const list=obsOf(t.id);
   return `<div class="card tcard">
-    <div class="row"><h3 class="grow">${esc(t.name)}</h3>
-      <button class="sm ghost" data-act="editTrainee" data-id="${t.id}">✎</button></div>
-    <div class="muted" style="font-size:13px">${esc(t.email||'— pas d\'email')}${t.lessonDoc?` · <a href="${esc(t.lessonDoc)}" target="_blank" rel="noopener">📄 Leçons</a>`:''}${t.drive?` · <a href="${esc(t.drive)}" target="_blank" rel="noopener">📂 Drive</a>`:''}</div>
+    <div class="row" style="flex-wrap:nowrap">${avatar(t.name)}<div class="grow" style="min-width:0"><h3>${esc(t.name)}</h3>
+      <div class="muted" style="font-size:13px;overflow:hidden;text-overflow:ellipsis">${esc(t.email||'— pas d\'email')}${t.lessonDoc?` · <a href="${esc(t.lessonDoc)}" target="_blank" rel="noopener">📄 Leçons</a>`:''}${t.drive?` · <a href="${esc(t.drive)}" target="_blank" rel="noopener">📂 Drive</a>`:''}</div></div>
+      <button class="sm" data-act="editTrainee" data-id="${t.id}">✎</button></div>
     <label>Axes en cours <span style="text-transform:none;font-weight:400">(${esc(ca.from)})</span></label>
     ${ca.axes.length?ca.axes.map((a,i)=>`<div class="axe"><b>Axe ${i+1}</b> ${a.prio?'<span class="chip" style="background:#ffe4e6;color:#be123c">prioritaire</span>':''} ${esc(a.text)} ${a.comp?`<span class="chip">${esc(a.comp)}</span>`:''}</div>`).join(''):'<div class="muted" style="font-size:14px">Aucun axe fixé.</div>'}
-    <div class="row" style="margin-top:10px"><button class="pri sm" data-act="newObs" data-id="${t.id}">▶ Nouvelle visite</button></div>
+    <div class="row" style="margin-top:12px"><button class="pri" data-act="newObs" data-id="${t.id}">▶ Nouvelle visite</button><span class="muted" style="font-size:13px">${list.length} visite${list.length>1?'s':''}</span></div>
     ${list.length?`<div class="hist">${list.map(o=>`<div class="h"><span>${shortDate(o.date)} · <b>L${esc(o.lesson||'?')}</b> ${esc(o.apsa)} · ${esc(o.classe)}</span>
       <button class="sm" data-act="openObs" data-id="${o.id}">Ouvrir</button>
       <button class="sm ghost danger" data-act="delObs" data-id="${o.id}">🗑</button></div>`).join('')}</div>`:''}
@@ -378,8 +463,9 @@ function settingsHTML(){
   const st=S.settings;
   return `
   <div class="top"><button data-act="home">← Accueil</button><div class="brand">Paramètres</div></div>
-  <div class="wrap" style="max-width:820px">
-    <div class="card">
+  <div class="wrap" style="max-width:1400px;margin:0 auto">
+    <div class="setgrid">
+    <div class="card"><h3>⚙︎ Général</h3>
       <div class="two">
         <div><label>Tuteur / signataire</label><input data-k="set.tutor" value="${esc(st.tutor)}"></div>
         <div><label>Établissement</label><input data-k="set.school" value="${esc(st.school)}"></div>
@@ -388,24 +474,25 @@ function settingsHTML(){
       <input data-k="set.edtUrl" value="${esc(st.edtUrl)}" placeholder="https://…/edt/">
       <p class="muted" style="font-size:13px">Le bouton 📅 EDT apparaît dès qu'une adresse est saisie.</p>
     </div>
-    <div class="card" style="margin-top:14px">
-      <h3>Référentiel de compétences</h3>
+    <div class="card" style="grid-row:span 2">
+      <h3>📋 Référentiel de compétences</h3>
       <p class="muted" style="font-size:13px">Une compétence par ligne : <code>CODE | libellé</code>. Les lignes commençant par <code>##</code> sont des titres de groupe. Par défaut : référentiel des compétences professionnelles des métiers du professorat et de l'éducation (2013). Remplace-le par la fiche de compétences de tes stagiaires si besoin.</p>
-      <textarea data-k="set.ref" style="min-height:260px;font-family:ui-monospace,monospace;font-size:13px">${esc(st.ref)}</textarea>
+      <textarea data-k="set.ref" style="min-height:420px;font-family:ui-monospace,monospace;font-size:13px">${esc(st.ref)}</textarea>
       <div class="row" style="margin-top:8px"><button class="sm" data-act="resetRef">Rétablir le référentiel 2013</button></div>
     </div>
-    <div class="card" style="margin-top:14px">
-      <h3>Bibliothèque de conseils (${S.conseils.length})</h3>
-      <p class="muted" style="font-size:13px">Accessible via la bulle 💡. Tu peux en ajouter depuis la bulle.</p>
-      ${S.conseils.map(c=>`<div class="row" style="border-bottom:1px solid var(--line);padding:6px 0"><span class="chip">${esc(c.theme)}</span><span class="grow" style="font-size:14px">${esc(c.text)}</span><button class="sm ghost danger" data-act="delConseil" data-id="${c.id}">🗑</button></div>`).join('')}
-    </div>
-    <div class="card" style="margin-top:14px">
-      <h3>Sauvegarde</h3>
+    <div class="card">
+      <h3>💾 Sauvegarde</h3>
       <div class="row" style="margin-top:8px">
         <button data-act="export">⬇ Exporter (JSON)</button>
         <button data-act="import">⬆ Importer</button>
         <button class="danger" data-act="wipe">Tout effacer</button>
       </div>
+    </div>
+    <div class="card full">
+      <h3>💡 Bibliothèque de conseils (${S.conseils.length})</h3>
+      <p class="muted" style="font-size:13px">Accessible via la bulle 💡. Tu peux en ajouter depuis la bulle.</p>
+      ${S.conseils.map(c=>`<div class="row" style="border-bottom:2px dashed var(--soft);padding:6px 0"><span class="chip">${esc(c.theme)}</span><span class="grow" style="font-size:14px">${esc(c.text)}</span><button class="sm ghost danger" data-act="delConseil" data-id="${c.id}">🗑</button></div>`).join('')}
+    </div>
     </div>
   </div>`;
 }
@@ -413,21 +500,21 @@ function settingsHTML(){
 /* ---------- OBSERVATION ---------- */
 function obsHTML(){
   const o=O(), t=trainee(o.traineeId)||{name:'?'}, running=!!o.chrono.startedAt;
-  return `
+  return `<div class="obsapp">
   <div class="top">
-    <button data-act="home">←</button>
+    <button data-act="home" title="Accueil">←</button>
     <div class="ctx grow">${esc(t.name)} · L${esc(o.lesson||'?')}${o.cycle?'/'+esc(o.cycle):''} ${esc(o.apsa)}
       <small>${esc(o.classe)} · ${shortDate(o.date)} <a href="#" data-act="editObs" style="color:#93c5fd">✎ modifier</a></small></div>
-    <div class="chrono">
+    <div class="chrono ${running?'run':''}" id="chronoBox">
       <span class="t" id="chronoT">${fmt(elapsed(o))}</span>
       <button data-act="chrono" title="Démarrer / pause">${running?'⏸':'▶'}</button>
       <button data-act="chronoReset" title="Remettre à zéro">↺</button>
-      <button id="measureBtn" class="measure ${measureStart!==null?'on':''}" data-act="measure" title="Mesurer une durée (consignes, temps mort…)">⏱ Mesurer</button>
+      <button id="measureBtn" class="measure ${measureStart!==null?'on':''}" data-act="measure" title="Mesurer une durée (consignes, temps mort…)">⏱ <span class="lbl">Mesurer</span></button>
     </div>
-    <button data-act="lesson" title="Voir la leçon du stagiaire">📄 Leçon</button>
+    <button data-act="lesson" title="Voir la leçon du stagiaire">📄 <span class="lbl">Leçon</span></button>
     ${t.drive?`<button data-act="drive" title="Dossier Drive">📂</button>`:''}
     ${S.settings.edtUrl?`<button data-act="edt" title="Emploi du temps">📅</button>`:''}
-    <button class="pri" style="background:#e11d48;border-color:#e11d48" data-act="pdf">🖨 Bilan PDF</button>
+    <button class="hot" data-act="pdf">🖨 <span class="lbl">Bilan </span>PDF</button>
     <button data-act="mail" title="Préparer le mail">✉️</button>
   </div>
   ${bannerHTML(o)}
@@ -435,33 +522,34 @@ function obsHTML(){
     <div class="nav" id="nav">${navHTML(o)}</div>
     <div class="main" id="main">${mainHTML(o)}</div>
   </div>
-  <div class="drawer" id="drawer"><div class="dh"><b class="grow" id="drawerT"></b><a id="drawerA" target="_blank" rel="noopener"><button class="sm">↗ Onglet</button></a><button class="sm" data-act="closeDrawer">✕</button></div><iframe id="drawerF" allow="fullscreen"></iframe></div>`;
+  <div class="drawer" id="drawer"><div class="dh"><b class="grow" id="drawerT"></b><a id="drawerA" target="_blank" rel="noopener"><button class="sm">↗ Onglet</button></a><button class="sm" data-act="closeDrawer">✕</button></div><iframe id="drawerF" allow="fullscreen"></iframe></div></div>`;
 }
 function bannerHTML(o){
   const pa=o.prevAxes||[];
   return `<div class="banner">
-    <div class="row"><b style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#be123c">🎯 Axes de travail en cours</b>
+    <div class="row"><span class="bt">🎯 Axes de travail en cours</span>
     <span class="muted" style="font-size:12px">${esc(o.prevFrom||'')}</span><div class="grow"></div>
-    <button class="sm ghost" data-act="refreshAxes" title="Récupérer les axes du dernier bilan">↻</button></div>
-    ${pa.length?pa.map((a,i)=>`<div class="ax">
+    <button class="sm ghost" data-act="refreshAxes" title="Récupérer les axes du dernier bilan">↻</button>
+    ${pa.length?`<button class="sm ghost" data-act="axFold" title="Replier / déplier">${axFold?'▾ afficher':'▴ replier'}</button>`:''}</div>
+    ${axFold?'':pa.length?'<div class="axgrid">'+pa.map((a,i)=>`<div class="ax">
       <div class="txt"><b>Axe ${i+1}</b> ${esc(a.text)} ${a.comp?`<span class="chip" title="${esc(compLabel(a.comp))}">${esc(a.comp)} · ${esc(compLabel(a.comp).slice(0,48))}${compLabel(a.comp).length>48?'…':''}</span>`:''}</div>
       <div class="seg">${AX_STATUS.map((s,k)=>`<button class="${(a.status||0)===k?'on':''}" data-act="axStatus" data-i="${i}" data-s="${k}">${s}</button>`).join('')}</div>
-    </div>`).join(''):`<div class="muted" style="font-size:14px;padding:4px 0">Premier passage : aucun axe précédent. Les axes fixés dans la synthèse de cette visite seront rappelés à la prochaine.</div>`}
+    </div>`).join('')+'</div>':`<div class="muted" style="font-size:14px;padding:4px 0">Premier passage : aucun axe précédent. Les axes fixés dans la synthèse de cette visite seront rappelés à la prochaine.</div>`}
   </div>`;
 }
 function navHTML(o){
-  const sp=(id,label,ic,sub,cnt)=>`<button class="it ${curFrame===id?'on':''}" data-act="goto" data-id="${id}" style="--c:#475569"><span>${ic}</span><span class="n">${label}${sub?`<small>${sub}</small>`:''}</span>${cnt?`<span class="cnt">${cnt}</span>`:''}</button>`;
+  const sp=(id,label,ic,sub,cnt,col)=>`<button class="it ${curFrame===id?'on':''}" data-act="goto" data-id="${id}" style="--c:${col}"><span>${ic}</span><span class="n">${label}${sub?`<small>${sub}</small>`:''}</span>${cnt?`<span class="cnt">${cnt}</span>`:''}</button>`;
   const ncomp=Object.values(o.comps||{}).filter(c=>c.lvl>0).length;
   return o.frames.map(f=>{
     const T=TYPES[f.type]; const n=f.items.length+(f.drawing?1:0);
     const sub = f.start!=null ? `${f.clock||''} · ${fmtShort((f.end??elapsed(o))-f.start)}${f.end==null?' ●':''}` : T.l!==f.title?T.l:'';
     return `<button class="it ${curFrame===f.id?'on':''}" data-act="goto" data-id="${f.id}" style="--c:${T.hex}"><span class="n">${esc(f.title)}<small>${esc(sub)}</small></span>${n?`<span class="cnt">${n}</span>`:''}</button>`;
   }).join('') + `
-  <div class="row"><select id="addType" style="flex:1;min-height:36px;padding:4px 8px">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k==='sit'?'selected':''}>${v.l}</option>`).join('')}</select><button class="sm" data-act="addFrame">＋</button></div>
+  <div class="row" style="flex-wrap:nowrap"><select id="addType" style="flex:1;min-height:38px;padding:4px 8px">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k==='sit'?'selected':''}>${v.l}</option>`).join('')}</select><button class="sm yel" data-act="addFrame" title="Ajouter un cadre">＋</button></div>
   <hr>
-  ${sp('__comp','Compétences','📋',ncomp?ncomp+' évaluée(s)':'',0)}
-  ${sp('__synth','Synthèse & axes','🎯','',(o.final.axes||[]).filter(a=>a.text.trim()).length)}
-  ${sp('__priv','Notes privées','🔒','non exportées','')}`;
+  ${sp('__comp','Compétences','📋',ncomp?ncomp+' évaluée(s)':'',0,'#ffd43b')}
+  ${sp('__synth','Synthèse & axes','🎯','',(o.final.axes||[]).filter(a=>a.text.trim()).length,'#ff9fb6')}
+  ${sp('__priv','Notes privées','🔒','non exportées','','#c9ccd9')}`;
 }
 function timingHTML(f){
   if(!f||f.start==null) return '';
@@ -471,8 +559,8 @@ function timingHTML(f){
 function mainHTML(o){
   if(curFrame==='__comp') return compHTML(o);
   if(curFrame==='__synth') return synthHTML(o);
-  if(curFrame==='__priv') return `<div class="fhead" style="--c:#475569"><h2>🔒 Notes privées</h2></div>
-    <div class="sec"><p class="muted" style="margin-top:0;font-size:13px">Pour toi seul (élève à changer de liste, info à transmettre…) : jamais imprimé dans le bilan.</p>
+  if(curFrame==='__priv') return `<div class="fhead" style="--c:#c9ccd9"><h2>🔒 Notes privées</h2></div>
+    <div class="sec"><h4>🔒 Pour toi seul</h4><p class="muted" style="margin-top:0;font-size:13px">Pour toi seul (élève à changer de liste, info à transmettre…) : jamais imprimé dans le bilan.</p>
     <textarea data-k="priv" style="min-height:260px">${esc(o.private||'')}</textarea></div>`;
   const f=F(); if(!f) return '';
   const T=TYPES[f.type];
@@ -482,14 +570,14 @@ function mainHTML(o){
     <button class="sm ${f.start!=null&&f.end==null?'':'pri'}" data-act="startPhase">${f.start!=null&&f.end==null?'⏹ Terminer la phase':(f.start!=null?'↻ Redémarrer la phase':'▶ Débuter la phase')}</button>
     <button class="sm ghost danger" data-act="delFrame" title="Supprimer ce cadre">🗑</button>
   </div>
-  <div class="timing" id="timing" style="margin:-4px 0 10px 20px">${timingHTML(f)}</div>
-
-  <div class="sec"><h4>Écrire</h4>
+  <div class="timing" id="timing">${timingHTML(f)}</div>
+  <div class="fgrid"><div class="col">
+  <div class="sec"><h4>✍️ Écrire</h4>
     <textarea data-k="f.text" placeholder="Ce que tu observes dans ce temps de la leçon…">${esc(f.text)}</textarea>
   </div>
 
-  <div class="sec"><h4>Commentaires</h4>
-    <div class="kinds">${Object.entries(KINDS).map(([k,v])=>`<button data-act="kind" data-k="${k}" class="${kind===k?'on':''}" style="border-color:${v.c};${kind===k?`background:${v.c}`:`color:${v.c}`}">${v.ic} ${v.l}</button>`).join('')}</div>
+  <div class="sec"><h4>💬 Commentaires</h4>
+    <div class="kinds">${Object.entries(KINDS).map(([k,v])=>`<button data-act="kind" data-k="${k}" class="${kind===k?'on':''}" style="--kc:${v.c}">${v.ic} ${v.l}</button>`).join('')}</div>
     <div class="addrow">
       <input id="itemIn" placeholder="${KINDS[kind].l}… (Entrée pour ajouter)" enterkeyhint="done">
       <select id="itemComp">${compOptions('','Compétence (option)')}</select>
@@ -498,10 +586,11 @@ function mainHTML(o){
     <div class="items">${f.items.map((it,i)=>itemHTML(it,i)).join('')}</div>
   </div>
 
-  <div class="sec"><h4>Croquis</h4>
+  </div><div class="col right">
+  <div class="sec"><h4>🎨 Croquis</h4>
     ${f.drawing||f.showDraw?drawToolsHTML(f)+`<div class="draw" id="draw"><canvas id="bgC" width="1000" height="560"></canvas><canvas id="inkC" width="1000" height="560"></canvas></div>`
-      :`<button data-act="showDraw">✏️ Ajouter un croquis</button>`}
-  </div>`;
+      :`<button class="drawph" data-act="showDraw"><span>✏️</span>Ajouter un croquis<small class="muted" style="font-family:Nunito,sans-serif;font-size:13px">terrain, piscine, quadrillage…</small></button>`}
+  </div></div></div>`;
 }
 function itemHTML(it,i){
   const K=KINDS[it.kind]||KINDS.obs;
@@ -523,19 +612,19 @@ function drawToolsHTML(f){
     <button class="sm tl ${pen.tool==='eraser'?'on':''}" data-act="penT" data-t="eraser">⌫ gomme</button>
     <button class="sm" data-act="undo">↶</button>
     <button class="sm danger" data-act="clearDraw">Effacer</button>
-    <select data-k="f.bg" style="width:auto;min-height:32px;padding:3px 8px;font-size:13px">
+    <select data-k="f.bg">
       ${[['blank','Fond vierge'],['grid','Quadrillage'],['gym','Salle / terrain'],['pool','Piscine 6 lignes']].map(([v,l])=>`<option value="${v}" ${f.bg===v?'selected':''}>${l}</option>`).join('')}
     </select>
   </div>`;
 }
 function compHTML(o){
   const ev={}; o.frames.forEach(f=>f.items.forEach(it=>{ if(it.comp)(ev[it.comp]=ev[it.comp]||[]).push(it); }));
-  let g=''; let h=`<div class="fhead" style="--c:#475569"><h2>📋 Compétences</h2></div><div class="sec">
-  <p class="muted" style="margin-top:0;font-size:13px">Positionne le stagiaire sur les compétences observées. Les commentaires liés à une compétence apparaissent comme éléments de preuve. Seules les compétences renseignées figurent dans le PDF.</p>`;
+  let g=''; let h=`<div class="fhead" style="--c:#ffd43b"><h2>📋 Compétences</h2></div>
+  <p class="muted" style="margin:6px 0 4px 6px;font-size:13px">Positionne le stagiaire sur les compétences observées. Les commentaires liés à une compétence apparaissent comme éléments de preuve. Seules les compétences renseignées figurent dans le PDF.</p><div class="compgrid">`;
   refList().forEach(c=>{
     if(c.group!==g){ g=c.group; h+=`<div class="group">${esc(g)}</div>`; }
     const v=o.comps[c.code]||{lvl:0,note:''}; const e=ev[c.code]||[];
-    h+=`<div class="comp"><div class="code">${esc(c.code)}</div><div class="lab">${esc(c.label)}</div>
+    h+=`<div class="comp ${v.lvl>0?'set':''}"><div class="code">${esc(c.code)}</div><div class="lab">${esc(c.label)}</div>
       <div class="seg lv">${LEVELS.map((l,k)=>`<button data-l="${k}" class="${v.lvl===k?'on':''}" data-act="lvl" data-c="${esc(c.code)}">${k===0?'—':l}</button>`).join('')}</div>
       ${e.length?`<div class="ev">${e.map(it=>KINDS[it.kind].ic+' '+esc(it.text)).join(' · ')}</div>`:''}
       ${v.lvl>0||v.note?`<input data-k="cmp.note:${esc(c.code)}" value="${esc(v.note)}" placeholder="Commentaire sur ${esc(c.code)}…">`:''}
@@ -545,19 +634,21 @@ function compHTML(o){
 }
 function synthHTML(o){
   const fi=o.final;
-  return `<div class="fhead" style="--c:#e11d48"><h2>🎯 Synthèse & axes de travail</h2></div>
-  <div class="sec"><h4>Bilan de la leçon</h4><textarea data-k="fin.synth" placeholder="Bilan global : engagement, préparation, cohérence…">${esc(fi.synth)}</textarea></div>
-  <div class="sec"><h4>Points forts</h4><textarea data-k="fin.forts" placeholder="Ce qui fonctionne et sur quoi t'appuyer…">${esc(fi.forts)}</textarea>
+  return `<div class="fhead" style="--c:#ff9fb6"><h2>🎯 Synthèse & axes de travail</h2></div>
+  <div class="sgrid"><div class="col">
+  <div class="sec"><h4>📝 Bilan de la leçon</h4><textarea data-k="fin.synth" placeholder="Bilan global : engagement, préparation, cohérence…">${esc(fi.synth)}</textarea></div>
+  <div class="sec"><h4>✅ Points forts</h4><textarea data-k="fin.forts" placeholder="Ce qui fonctionne et sur quoi t'appuyer…">${esc(fi.forts)}</textarea>
     <div class="row" style="margin-top:6px"><button class="sm" data-act="pullForts">↓ Reprendre les ✅ points forts notés</button></div></div>
-  <div class="sec"><h4>Axes de travail pour la prochaine visite</h4>
-    ${fi.axes.map((a,i)=>`<div class="card" style="margin-bottom:8px;border-left:5px solid #e11d48">
+  </div><div class="col">
+  <div class="sec"><h4>🎯 Axes pour la prochaine visite</h4>
+    ${fi.axes.map((a,i)=>`<div class="axcard">
       <div class="row"><b>Axe ${i+1}</b><label style="margin:0;display:flex;gap:6px;align-items:center;text-transform:none"><input type="checkbox" style="width:auto" data-k="ax.prio:${i}" ${a.prio?'checked':''}> prioritaire</label><div class="grow"></div><button class="sm ghost danger" data-act="delAxe" data-i="${i}">✕</button></div>
       <textarea data-k="ax.text:${i}" style="min-height:60px;margin-top:6px" placeholder="Ex. Anticiper et gérer les rôles pour gagner du temps…">${esc(a.text)}</textarea>
       <select data-k="ax.comp:${i}" style="margin-top:6px">${compOptions(a.comp,'Rattacher à une compétence du référentiel…')}</select>
     </div>`).join('')}
     <button data-act="addAxe">＋ Ajouter un axe</button>
     <p class="muted" style="font-size:13px">Ces axes seront automatiquement rappelés en haut de la prochaine visite de ce stagiaire.</p>
-  </div>`;
+  </div></div></div>`;
 }
 
 /* ---------- Drawing ---------- */
@@ -761,7 +852,7 @@ const ACT={
   editObs(b,e){ e.preventDefault(); obsModal(O()); },
   openObs(b){ cur=b.dataset.id; const o=O(); curFrame=o.frames[0]?.id||'__synth'; view='obs'; render(); },
   delObs(b){ if(!confirm('Supprimer cette visite ?')) return; S.obs=S.obs.filter(o=>o.id!==b.dataset.id); save(true); render(); },
-  goto(b){ curFrame=b.dataset.id; refreshMain(); renderBubble(); window.scrollTo({top:0}); },
+  goto(b){ curFrame=b.dataset.id; refreshMain(); renderBubble(); window.scrollTo({top:0}); const m=$('#main'); if(m) m.scrollTop=0; },
   chrono(){ const c=O().chrono; if(c.startedAt){ c.acc+=Date.now()-c.startedAt; c.startedAt=null; } else c.startedAt=Date.now(); save(true); render(); },
   chronoReset(){ if(!confirm('Remettre le chrono à zéro ? (les durées de phase seront effacées)')) return; const o=O(); o.chrono={acc:0,startedAt:null}; o.frames.forEach(f=>{f.start=f.end=null;f.clock='';}); measureStart=null; save(true); render(); },
   measure(){
@@ -793,7 +884,8 @@ const ACT={
   penT(b){ pen.tool = pen.tool===b.dataset.t?'pen':b.dataset.t; refreshMain(); },
   undo(){ const c=$('#inkC'); if(!c||!undoStack.length) return; c.getContext('2d').putImageData(undoStack.pop(),0,0); storeDraw(); },
   clearDraw(){ const f=F(); if(!confirm('Effacer le croquis ?')) return; f.drawing=null; f.showDraw=true; save(); refreshMain(); },
-  lvl(b){ const o=O(), c=b.dataset.c; o.comps[c]=o.comps[c]||{lvl:0,note:''}; o.comps[c].lvl=+b.dataset.l; save(); const y=window.scrollY; refreshMain(); window.scrollTo(0,y); },
+  lvl(b){ const o=O(), c=b.dataset.c; o.comps[c]=o.comps[c]||{lvl:0,note:''}; o.comps[c].lvl=+b.dataset.l; save(); const y=window.scrollY, m=$('#main'), my=m?m.scrollTop:0; refreshMain(); window.scrollTo(0,y); if(m) m.scrollTop=my; },
+  axFold(){ axFold=!axFold; render(); },
   axStatus(b){ O().prevAxes[+b.dataset.i].status=+b.dataset.s; save(); render(); },
   refreshAxes(){ const o=O(); const ca=currentAxes(o.traineeId,o.id); o.prevAxes=ca.axes.map(a=>({text:a.text,comp:a.comp,status:0})); o.prevFrom=fromLabel(ca); save(); render(); toast(ca.axes.length?'Axes récupérés':'Aucun axe trouvé'); },
   addAxe(){ O().final.axes.push({text:'',comp:'',prio:false}); save(); refreshMain(); },

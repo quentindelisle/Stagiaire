@@ -1,6 +1,6 @@
 /* N'EPS · Visites stagiaires — service worker
    Pense à changer VERSION à chaque mise à jour de index.html */
-const VERSION = 'stagiaires-v2';
+const VERSION = 'stagiaires-v3';
 const ASSETS = ['./', './index.html', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/logo-64.png'];
 
