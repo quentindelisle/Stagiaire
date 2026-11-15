@@ -1,0 +1,17 @@
+{
+  "name": "N'EPS · Visites stagiaires",
+  "short_name": "Stagiaires",
+  "description": "Observation et bilan des leçons des stagiaires EPS — by Quentin Delisle",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f1f5f9",
+  "theme_color": "#1e293b",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
