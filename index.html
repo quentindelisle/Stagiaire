@@ -104,6 +104,8 @@ a{color:var(--accent);font-weight:800}
 .banner .ax .txt{flex:1;min-width:0;font-size:14px;line-height:1.3}
 .banner .ax .txt .chip{display:block;width:max-content;max-width:100%;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
 .banner .ax .seg button{padding:3px 8px;font-size:12px}
+.banner .ax{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"txt q btn" "txt seg seg";gap:5px 10px;align-items:center}
+.banner .ax .txt{grid-area:txt}.banner .ax .axq{grid-area:q}.banner .ax .step{grid-area:btn}.banner .ax .seg{grid-area:seg;justify-self:end}
 .seg{display:inline-flex;border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:#fff;box-shadow:var(--shs)}
 .seg button{border:0;border-radius:0;min-height:32px;padding:3px 10px;font-size:12.5px;border-right:2px solid var(--ink);box-shadow:none}
 .seg button:hover{transform:none;box-shadow:none;background:var(--soft)}
@@ -229,6 +231,63 @@ a{color:var(--accent);font-weight:800}
 .bsel{margin-bottom:20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;background:var(--pc)}
 .stat.p{background:var(--pc)}
 
+/* ---------- Grille INSPE / sélecteur de brique ---------- */
+.fabB{bottom:118px;background:#ff9f43}
+.fabB:hover{background:#ffb26b}
+.modal.bpm{max-width:1200px;width:96vw;padding:0;overflow:hidden}
+.bp{display:grid;grid-template-columns:340px minmax(0,1fr);height:min(88vh,780px)}
+.bpl{overflow:auto;border-right:3px solid var(--ink);background:var(--soft);padding:10px;border-radius:21px 0 0 21px}
+.bpl .dom{font-family:var(--fh);font-weight:600;margin:10px 4px 4px;font-size:15px}
+.bpl .gi{display:flex;width:100%;gap:8px;align-items:center;text-align:left;white-space:normal;margin-bottom:5px;padding:6px 8px;min-height:0;font-size:13px;line-height:1.25;box-shadow:none;border-width:2px}
+.bpl .gi b{font-family:var(--fh);font-size:16px;min-width:20px}
+.bpl .gi.on{background:var(--accent);color:#fff}
+.bpl .gi .cnt{font-size:11px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;padding:0 6px}
+.bpr{overflow:auto;padding:16px 18px 0;display:flex;flex-direction:column;gap:6px}
+.bpf{position:sticky;bottom:0;background:#fff;padding:10px 0 14px;border-top:2px dashed var(--soft);z-index:2}
+.pv{display:inline-block;font-size:11.5px;font-weight:800;background:var(--pc);border:1.5px solid var(--ink);border-radius:999px;padding:0 7px;color:var(--ink);white-space:nowrap}
+.pcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pcard{border:2.5px solid var(--ink);border-radius:14px;background:var(--pc);padding:8px 10px;cursor:pointer;box-shadow:var(--shs);display:flex;flex-direction:column;gap:4px}
+.pcard.on{outline:4px solid var(--accent);outline-offset:2px;transform:translate(-1px,-1px);box-shadow:var(--sh)}
+.pcard.gone{opacity:.45;cursor:default}
+.pcard .pd{font-size:13.5px;line-height:1.4;flex:1}
+.passed{font-size:13px;background:#e8f8ef;border:2px dashed var(--ink);border-radius:10px;padding:4px 10px;margin-bottom:6px}
+.crs{display:flex;flex-wrap:wrap;gap:4px;margin:3px 0}
+.crc{font-size:12px;background:#fff;border:1.5px solid var(--ink);border-radius:8px;padding:1px 7px;font-weight:700}
+.crc button{min-height:0;padding:0 4px}
+.bt:empty:before{content:attr(data-ph);color:var(--mute);font-style:italic;font-size:12.5px}
+.domh{margin:24px 0 2px;font-size:19px}
+.tabs button{font-size:13.5px;min-height:36px}
+.bars{display:flex;gap:12px;align-items:flex-end;overflow:auto;padding:10px 4px 2px}
+.bar{display:flex;flex-direction:column;align-items:center;min-width:54px;font-size:12px}
+.stackbar{width:34px;display:flex;flex-direction:column;border:2px solid var(--ink);border-radius:8px 8px 3px 3px;overflow:hidden;min-height:4px;box-shadow:var(--shs)}
+.bar b{font-family:var(--fh);font-size:17px;margin-top:4px}
+.bar small{color:var(--mute);font-size:10.5px}
+.axt.suivi td{padding:5px 6px}
+.axt .domrow{font-family:var(--fh);font-weight:600;background:var(--soft);border-radius:8px}
+.axt tr.faint td{opacity:.4}
+.axt.grid td{vertical-align:top;font-size:13px;line-height:1.4;min-width:170px}
+.axt.grid th{vertical-align:top;border-radius:8px}
+@media (max-width:900px),(orientation:portrait){ .bp{grid-template-columns:1fr;height:auto;max-height:88vh;overflow:auto} .bpl{max-height:32vh;border-right:0;border-bottom:3px solid var(--ink);border-radius:21px 21px 0 0} .pcards{grid-template-columns:1fr} }
+
+/* ---------- Pas de progression sur les axes ---------- */
+.axq{display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:96px}
+.axb{display:flex;flex-wrap:wrap;gap:2px;justify-content:flex-end;max-width:170px}
+.axb i{width:14px;height:9px;border:1.5px solid var(--ink);border-radius:2px;display:inline-block}
+.axn{font-size:12px;color:var(--mute);white-space:nowrap}
+.axn b{font-family:var(--fh);font-size:18px;color:var(--ink)}
+.banner .ax .step{min-height:38px;padding:3px 10px;font-size:14px;background:var(--yellow)}
+.axmini{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;align-items:center}
+.axmini .chip{font-size:13px}
+.axt{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;margin-top:6px}
+.axt th,.axt td{border-bottom:2px dashed var(--soft);padding:6px 8px;text-align:left;vertical-align:middle}
+.axt th{font-family:var(--fh);font-weight:600}
+.axt th small{display:block;font-family:"Nunito",sans-serif;font-size:11px;color:var(--mute)}
+.axt .c,.p-axt .c{text-align:center}
+.axt .c .axb{justify-content:center;margin:2px auto 0}
+.axt .c b{font-family:var(--fh);font-size:18px}
+.steplist{margin-top:10px;display:flex;flex-direction:column;gap:5px}
+.steplist .brick{grid-column:auto}
+
 /* ---------- Transfert QR ---------- */
 .modal.wide{max-width:980px}
 .sendgrid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:start}
@@ -282,7 +341,8 @@ label.btn{display:inline-flex;align-items:center;cursor:pointer;border:var(--bw)
   .nav .it.on{transform:translateY(-2px)}
   .nav hr{display:none}
   .nav>.row{min-width:220px}
-  .banner .ax{flex-wrap:wrap}
+  .banner .ax{grid-template-columns:1fr auto;grid-template-areas:"txt txt" "q btn" "seg seg"}
+  .banner .ax .seg{justify-self:start}
   .two{grid-template-columns:1fr}
   .chrono .t{font-size:22px;min-width:76px}
   .axgrid{grid-template-columns:1fr}
@@ -323,6 +383,11 @@ label.btn{display:inline-flex;align-items:center;cursor:pointer;border:var(--bw)
 .p-mini div{margin:2px 0;font-size:9pt;break-inside:avoid}
 .p-mini i,.p-leg i{display:inline-block;width:13px;height:8px;border:1px solid #333;border-radius:2px;margin-right:2px;vertical-align:middle}
 .p-leg{font-size:8.5pt;color:#475569;margin:2px 0 6px}
+.p-axt .axb{display:block}
+.p-axt .axb i{display:inline-block;width:11px;height:7px;border:1px solid #333;border-radius:2px;margin:0 1px}
+.p-step{font-size:9pt;margin:1px 0 1px 14px;color:#334155}
+.p-axt td,.p-axt th{text-align:center}
+.p-axt td:first-child{text-align:left}
 .p-wcol{break-inside:avoid;margin:8px 0;border-left:4px solid #1f2544;padding-left:8px}
 .p-foot{margin-top:18px;display:flex;justify-content:space-between;font-size:9pt;color:#64748b;border-top:1px solid #cbd5e1;padding-top:6px}
 </style>
@@ -364,6 +429,10 @@ const LV_COL = ['#64748b','#dc2626','#ea580c','#16a34a'];
 const AX_STATUS = ['À observer','Non travaillé','En progrès','Atteint'];
 const PAL = [{l:'Palier non précisé',c:'#e3e5ee'},{l:'Palier 1',c:'#ffb3a7'},{l:'Palier 2',c:'#ffd43b'},{l:'Palier 3',c:'#7cd4f5'},{l:'Palier 4',c:'#5fd39a'}];
 const APP_ID = 'neps-stagiaires';
+/* Référentiels intégrés : Paliers de professionnalisation INSPE (Master MEEF EPS 2024-2025) et Critères (synthèse pour le professeur stagiaire) */
+const GRILLE = [{"t": "En amont de la leçon", "s": "De la logique formelle de préparations didactiques génériques, approximatives, juxtaposées à court terme… (Préparer) … vers la logique fonctionnelle de préparations cohérentes, opérationnelles, différenciées et à long terme. (Anticiper la réalité des situations d’enseignement-apprentissage)", "p": ["Ne permet pas l’apprentissage", "Propose des dispositifs didactiques peu opérants", "Conçoit un enseignement opérationnel et cohérent", "Favorise la réussite du plus grand nombre."], "items": [{"n": 1, "l": "Cibler « ce qu’il y a à apprendre » et assurer le suivi évaluatif de la séquence", "d": ["Le projet de séquence est absent, limité à des constats et des objectifs, ou n’est pas adapté aux élèves.", "Le projet de séquence identifie des objectifs d’apprentissage, nombreux et organisés par l’APSAD. La trame de séquence juxtapose des thèmes de travail. Aucune forme de pratique (support du suivi évaluatif) n’est envisagée.", "Le projet de séquence priorise « ce qu’il y a à apprendre » en lien avec les élèves et le projet de classe, et le formule en « langage élève ». La forme de pratique est anticipée, révélatrice de « ce qu’il y a à apprendre », et organise la trame de séquence via des situations plus ou moins simples/complexes.", "Le projet de séquence précise « ce qu’il y a à apprendre » à l’aide d’échelles descriptives. La forme de pratique prend en compte l’hétérogénéité des élèves pour impliquer, faire réussir le plus grand nombre. Le projet de séquence est ajusté au fil des 2-3 premières leçons au regard de l’activité des élèves."]}, {"n": 2, "l": "Concevoir des leçons et situations cohérentes avec « ce qu’il y a à apprendre »", "d": ["« Ce qu’il y a à apprendre » est flou et/ou difficile à transmettre aux élèves.", "« Ce qu’il y a à apprendre » est identifié et la préparation de leçon y répond globalement, malgré des incohérences et/ou propositions peu adaptées aux élèves.", "Dans la préparation de leçon, les objectifs, critères de réalisation et de réussite des situations convergent vers « ce qu’il y a à apprendre ». La leçon s’inscrit dans le projet de séquence.", "La préparation de leçon est formulée en « langage élève » favorise son appropriation par les élèves. Les différentes situations répondent à une « logique » de leçon."]}, {"n": 3, "l": "Outiller les élèves pour qu’ils apprennent et se régulent", "d": ["Les critères de réussite sont absents de la préparation de leçon ou non fonctionnels.", "La majorité des élèves progresse. Les critères de réussite prévus ne sont pas ou peu mobilisés par les élèves en situation. Les variables didactiques sont peu opérationnelles et/ou rarement utilisées durant la leçon.", "Des critères de réussite fonctionnels sont mobilisés par les élèves pour s’auto-co-évaluer. Des variables ou ateliers différenciés permettent à l’enseignant·e d'orienter les élèves entre les situations.", "Les outils et rôles sociaux du dispositif permettent l’auto-co-régulation des élèves en situation, grâce à l’articulation de critères de réalisation, d’observables et de régulations. Les outils numériques y contribuent le cas échéant."]}, {"n": 4, "l": "Transmettre des compétences motrices, méthodologiques et sociales", "d": ["Les situations envisagées ne répondent pas directement aux objectifs visés.", "Les situations visent des objectifs, souvent nombreux et/ou exclusivement moteurs. Les solutions sont le plus souvent données aux élèves, ne laissant que peu de place à leur réflexion.", "Les situations et les rôles sociaux permettent aux élèves de faire des choix (seuls et/ou en collectif) et de développer des savoirs, savoir-faire et savoir-être ciblés. Le « pourquoi » du travail est expliqué pour impliquer les élèves.", "Les situations mettent explicitement au travail des savoir-faire et savoir-être (tels que l’autonomie, les méthodes, le travail de groupe, ou l’entraide) et sont adaptés à la diversité des élèves. Une situation problème ou question inductive contribue à mobiliser un grand nombre d’élèves."]}, {"n": 5, "l": "Faire partager des valeurs au sein du groupe classe", "d": ["Le projet de classe est absent ou limité à des constats et objectifs.", "Le projet de classe oriente les séquences vers les objectifs éducatifs ciblés, mais leur concrétisation est approximative ou difficile.", "Le projet de classe prend en compte les spécificités de certain·e·s élèves ou groupes d’élèves et son opérationnalisation au sein des séquences est anticipée. Il s’inscrit dans le projet d’établissement.", "Le projet de classe s’ouvre à des enjeux interdisciplinaires. L’hétérogénéité des élèves y est pensée pour développer la fraternité et viser la réussite de tous·tes."]}]}, {"t": "Pendant la leçon", "s": "D’une logique d’organisation centrée l’activité de l’enseignant·e et les APSAD… (Faire faire) … vers une logique d’apprentissage centrée sur l’activité des élèves, voire de chaque élève. (Faire apprendre)", "p": ["Gère l’organisation", "Transmet des savoirs simples", "Permet aux élèves de développer leurs compétences", "Implique chaque élève dans un parcours d’apprentissage"], "items": [{"n": 6, "l": "Assurer la sécurité des élèves", "d": ["La sécurité physique des élèves n’est pas toujours effective.", "Fait respecter des règles de sécurité physique, passives et actives. Maîtrise le protocole de l’établissement en cas d’accident.", "Explicite et justifie auprès des élèves les règles et fonctionnements liés à la sécurité. Repère et réagit aux éventuels signes de mal-être d’élèves.", "Met en œuvre une éducation active à la sécurité. Anticipe et suit de manière différenciée d’éventuelles situations de mal-être d’élèves."]}, {"n": 7, "l": "Instaure un cadre propice au travail", "d": ["Gère globalement l’espace et le temps en cohérence avec sa préparation de leçon, pour mettre les élèves en activité.", "Explicite et met en œuvre des règles et routines de fonctionnement visant à maximiser le temps d’apprentissage des élèves.", "Se positionne lorsque nécessaire de manière juste et équitable pour faire respecter le cadre et impliquer les élèves dans le travail. Adapte si besoin sa préparation de leçon pour répondre au rythme réel d’apprentissage des élèves.", "Implique les élèves dans la construction du cadre de travail, et les responsabilise dans son application. Favorise par sa posture et ses choix didactique les interactions et coopérations entre élèves, ainsi que l’entraide et l’empathie."]}, {"n": 8, "l": "Délivrer des consignes efficaces", "d": ["Délivre des consignes longues, pas toujours entendues et/ou comprises par les élèves.", "Délivre des consignes courtes sur « ce qu’il y a à faire » et permet ainsi la mise en activité rapide des élèves.", "Diversifie les supports ou modalités de consignes et questionne les élèves pour s’assurer de leur compréhension. Met en avant quelques éléments clés de la situation et permettant la mise au travail des élèves autour de « ce qu’il y a à apprendre ».", "Les consignes attisent le désir d’apprendre des élèves, en co-construisant avec eux le sens du travail (réponse au problème, cohérence année/séquence/leçon/situation) et/ou par une théâtralisant du propos."]}, {"n": 9, "l": "Observer et réguler", "d": ["Ne prend pas ou peu de recul pour observer les élèves durant la leçon, ou n’intervient pas ou peu auprès des élèves.", "Observe régulièrement l’organisation de la leçon et intervient auprès des élèves pour les (ré)impliquer dans le travail demandé.", "Observe l’activité d’apprentissage (motrice, méthodologique et sociale) des élèves en lien avec les critères de réussite et de réalisation afin d’adapter si besoin le dispositif (à l’aide de variables) et /ou de les guider par ses interventions.", "Observe de manière différenciées les élèves ou groupes d’élèves pour les soutenir émotionnellement et/ou les guider dans l’auto-co-régulation de leur travail. Adapte ses interventions au degré d’autonomie des élèves."]}, {"n": 10, "l": "Entretenir une relation pédagogique positive", "d": ["Les échanges avec les élèves sont rares, descendants et/ou négatifs. La relation pédagogique n’est pas toujours sereine.", "Installe une relation respectueuse grâce à des échanges réguliers et réciproques avec les élèves. Est attentif aux sollicitations des élèves et y répond.", "Installe une relation positive en conseillant, encourageant ou valorisant les élèves. Parviens à résoudre d’éventuelles situations de domination, stigmatisation, discrimination ou dévalorisation entre élèves.", "Installe une relation de confiance avec les élèves, en prenant en compte de manière différenciée leurs vécus affectifs. Contribue à la confiance et au bien-être des élèves les plus en besoin par une posture bienveillante."]}]}, {"t": "Au-delà de la leçon", "s": "D’une logique passive de mise en œuvre individuelle… (Faire) … vers une logique active de développement professionnel au sein d’un collectif. (Se former)", "p": ["Est spectateur de sa pratique", "Analyse partiellement sa pratique", "Se met en projet et évolue en lien avec ses tuteur·ice·s", "Est acteur de sa formation et du collectif"], "items": [{"n": 11, "l": "Donner à voir son activité", "d": ["Le dossier de stage est incomplet ou non structuré.", "Complète son dossier de stage irrégulièrement ou en fin d’année. Ne respecte pas le droit d’auteur, le droit à l’image ou la taille maximale du dossier de 150Mo.", "Donne à voir (dans les temps) ses préparations à ses tuteur·ice·s dans son dossier de stage. Consigne chaque semaine ses tentatives dans son projet de développement professionnel.", "Communique ses préparations de manière anticipée pour permettre la régulation de ses tuteur·ice·s. Rend compte de ses réflexions dans son projet de développement professionnel."]}, {"n": 12, "l": "Analyser son activité professionnelle", "d": ["Décrit son activité professionnelle sans prise de recul.", "Analyse son activité au filtre d’éléments anecdotiques de la leçon. Envisage des pistes simples d’amélioration, sans les hiérarchiser.", "Extrait de l’analyse de son activité des axes de développement professionnel prioritaires ; les explicite, les évalue et les actualise dans son projet de développement professionnel.", "Analyse son action d’enseignant·e au regard de l’apprentissage des élèves, de manière continue et à l’échelle de la leçon comme du projet de développement professionnel."]}, {"n": 13, "l": "Faire évoluer sa pratique", "d": ["Ne concrétise pas toujours en actes les mises en œuvre envisagées.", "Fait évoluer certains aspects de son activité, avec des effets limités sur l’apprentissage des élèves.", "Favorise l’apprentissage des élèves grâce à de nouvelles tentatives hebdomadaires ciblées.", "Par des tentatives cohérentes, fait évoluer son enseignement de manière significative sur ses axes de développement prioritaires. Expérimente des démarches innovantes."]}, {"n": 14, "l": "S’impliquer dans le collectif de stage", "d": ["Ne perçoit ou n’accepte que rarement les remarques de ses tuteur·ice·s.", "S’appuie sur la responsabilité, les observations et les conseils de ses tuteur·ice·s (et binôme de stage le cas échéant)", "Sollicite de lui-même ses tuteur·ice·s pour étayer ses choix. Assiste à des réunions ou actions de l’équipe EPS, d’AS ou de son établissement.", "Se tourne vers les personnes ressources de l’établissement pour résoudre des situations éducatives. Contribue aux réflexions et/ou projets de l’établissement en s’impliquant au sein de l’équipe éducative."]}, {"n": 15, "l": "Adopter une posture professionnelle responsable", "d": ["Est parfois en retard ou absent en stage, sans prévenir et/ou sans justification recevable.", "Assume ses obligations règlementaires d’assiduité et de ponctualité. Respecte et fait respecter le règlement intérieur de son établissement (suivi d’assiduité, …). Ne réponds pas toujours aux exigences de formation lié au suivi de stage.", "Est « présent·e » pour ses élèves : impliqué·e, disponible et accompagnant·e. Parvient à résoudre d’éventuels dilemmes éthiques avec l’aide de ses tuteur·ice·s ou de l’équipe éducative. Respecte les délais et fonctionnements du suivi de stage.", "En stage comme en formation, agit avec justice, bienveillance et tact pour faire partager les valeurs et principes de l’École. Prévient et résout de manière éducative les dilemmes éthiques rencontrés avec les élèves."]}]}];
+const CRIT = [{"t": "Cadre institutionnel et éthique", "f": "Compétences relatives à la prise en compte des éléments réglementaires et institutionnels de son environnement professionnel en lien avec les responsabilités attachées à sa fonction.", "cc": "CC1 · CC2 · CC6", "c": [["Respecte et fait respecter les principes d’égalité, de neutralité, de laïcité, d’équité, de tolérance, de refus de toutes discriminations", ["Gère ses élèves de manière équitable et égalitaire", "Se montre tolérant et refuse toutes les marques de discrimination", "Adopte une attitude de neutralité politique et religieuse et fait respecter le principe de laïcité"]], ["Répond aux exigences de ponctualité, d’assiduité, de sécurité et de confidentialité", ["Surveille ses élèves", "Assidu et ponctuel", "Assure la sécurité morale et physique de chacun"]], ["Adopte une attitude et un positionnement d’adulte responsable au sein de sa classe et de l’établissement/l’école", ["Prend ses responsabilités", "Fait preuve de bienveillance-empathie-compréhension", "Assume son statut dans l’établissement (la cour, les sorties, les inter-cours…)"]], ["Fait preuve de respect à l’égard des élèves et des membres de la communauté éducative", ["Accueil des élèves chaleureux au début du cours", "Marques de politesse à l’égard des élèves et des personnels", "Se rend disponible pour tous"]], ["Fait respecter le règlement intérieur", ["Conformité avec les procédures vie scolaire (retards-absences)", "Applique le règlement en cas de manquement (sanctions-punitions)", "Gère les inaptitudes, PAI, PAP avec la vie scolaire et l’infirmière"]]]}, {"t": "Communication et coopération", "f": "Compétences relationnelles, de communication et d’animation favorisant la transmission, l’implication et la coopération au sein de la communauté éducative et de son environnement", "cc": "CC7 · CC10 · CC11 · CC12 · CC13", "c": [["Utilise un langage clair et adapté à son (ses) interlocuteur(s)", ["Vocabulaire adapté", "Consignes précises", "Utilise divers moyens de communication"]], ["Participe à sa mesure au travail d’équipe mis en œuvre par / dans l’établissement/l’école", ["Fait des propositions (régulation d’évaluation, situation de référence, forme de pratique…)", "Applique les projets – reste le plus possible dans le cadre du projet EPS", "Donne son avis sur les expériences vécues dans l’établissement"]], ["Adopte une attitude favorable à l’écoute et aux échanges avec les membres de la communauté éducative", ["Écouter activement", "Prendre part aux échanges – propose – prend la parole", "Se rend disponible, va à la rencontre des membres de la communauté éducative"]], ["Participe aux différentes instances et conseils", ["Conseil de classe", "Conseil péda ou conseil d’enseignement", "Assiste à un conseil d’administration"]], ["Communique autant que de besoin avec les familles ; participe, à son niveau, à leur information", ["Participe aux réunions parents-profs", "Communique via Pronote", "Téléphone si besoin"]]]}, {"t": "Contenus disciplinaires et didactique", "f": "Compétences liées à la maîtrise des contenus disciplinaires et à leur didactique", "cc": "P1 · P2", "c": [["Maîtrise les contenus disciplinaires et les concepts clés utiles à son enseignement", ["Contenus d’enseignement dans la leçon", "Méthodes d’apprentissages variées (imitation, problème,…)", "Élève acteur"]], ["Met en œuvre les transpositions didactiques appropriées", ["Difficulté adaptée", "Complexité adaptée", "Pertinence p/r à l’APSA support et au champ d’apprentissage concerné"]], ["Identifie les savoirs et savoir-faire à acquérir par les élèves en lien avec les programmes et référentiels", ["Sur le plan moteur", "Sur le plan cognitif", "Sur le plan affectif et social"]]]}, {"t": "Situations d’apprentissage et accompagnement", "f": "Compétences éducatives et pédagogiques nécessaires à la mise en œuvre de situations d’apprentissage et d’accompagnement des élèves diverses", "cc": "P3 · P4 · P5 · CC3 · CC4 · CC5", "c": [["Encadre les élèves et le groupe classe, fait preuve de vigilance à l’égard des comportements inadaptés et sait approprier le niveau d’autorité attendu à la situation", ["Fixe et fait respecter le cadre didactique et pédagogique mis en place", "Intervient et recadre les comportements déviants (sanctionne si besoin de manière adaptée-graduée)", "Fait preuve d’autorité de manière adaptée"]], ["Instaure un climat serein et de confiance au sein de la classe", ["Sécurise (affectif-psychologique)", "Met en œuvre des temps de partages/échanges/mutualisations", "Coopération plus que compétition – buts de maîtrise plus que performance"]], ["Encourage et valorise ses élèves", ["Valorise", "Encourage / stimule", "Donne accès à la réussite (difficulté optimale)"]], ["Fixe les objectifs à atteindre, les moyens d’y parvenir et donne du sens aux apprentissages", ["Informe les élèves des objectifs de la leçon", "Donne du sens aux apprentissages en créant le besoin, en assurant la cohérence au fil de la leçon/des leçons", "Situe les apprentissages des élèves : lien aux autres disciplines, lien à l’actualité ou à la culture contemporaine/historique"]], ["Prend en compte la diversité des élèves et s’assure de l’adéquation des propositions pédagogiques avec leur niveau", ["Utilise différentes formes de groupement (besoin, niveau,…)", "Prend connaissance des réussites des élèves aux situations proposées", "Met en œuvre un fonctionnement différencié au cours de la séance (tous les élèves ne font pas la même chose au même moment)"]], ["Prépare en amont les séquences pédagogiques et les inscrit dans une progression réfléchie", ["Projet de séquence pertinent", "Leçons préparées pour anticiper les apprentissages et les réponses des élèves", "Projet de classe cohérent (élèves-projet EPS-textes officiels) et vivant"]], ["Met en place les outils et supports d’évaluation en ciblant les compétences à évaluer", ["Document d’évaluation adapté aux élèves", "Critères d’observation déterminés en langage élève", "Les élèves sont informés des procédures et contenus d’évaluation"]], ["Prend en charge le suivi du travail personnel des élèves", ["Corrige les fiches élèves", "Assure le suivi des apprentissages via des fichiers numériques sur son ordinateur", "Communique aux élèves l’avancée de leurs apprentissages"]], ["S’appuie sur l’évaluation pour réguler sa pratique (remédiation, consolidation)", ["Définit, communique et utilise des critères de réussite", "Met en œuvre des situations de remédiation-consolidation", "Engage l’élève dans la connaissance des critères de réussite"]]]}, {"t": "Numérique", "f": "Compétences relatives à l’usage et à la maîtrise des technologies de l’information de la communication", "cc": "CC9", "c": [["Utilise les outils numériques et réseaux mis en place dans l’établissement/l’école", ["Utilise le cahier de texte en ligne", "Utilise « nuage »", "Utilise le réseau numérique de l’établissement pour les classes ou l’EPS"]], ["Distingue les usages personnels et professionnels dans sa pratique", ["Utilise la boîte mail académique pour communiquer", "Utilise Pronote (évaluations-bulletins-communications)", "Met en place le numérique éducatif en classe"]], ["Est attentif à la manière dont les élèves mobilisent l’outil numérique", ["Le numérique éducatif en classe est ciblé et adapté aux élèves", "L’utilisation du numérique fait l’objet d’un apprentissage (quoi ? comment ? pourquoi ?)", "Les élèves sont incités à manipuler le numérique hors de la classe (espaces de travail, travaux demandés…)"]]]}, {"t": "Développement professionnel", "f": "Compétences d’analyse et d’adaptation de sa pratique professionnelle en tenant compte des évolutions du métier et de son environnement de travail.", "cc": "CC14", "c": [["Prend en compte les conseils prodigués par les personnels d’encadrement et les formateurs tuteurs et s’efforce d’améliorer sa pratique", ["Prend en compte les conseils et les met en œuvre", "Expérimente", "S’engage dans une démarche de formation"]], ["Est capable de prendre du recul et de porter une analyse réflexive sur son positionnement et ses activités", ["Fait son bilan sur les aspects pédagogiques et didactiques", "Propose des pistes de remédiations sur les dysfonctionnements constatés", "Établit des points positifs et négatifs sur sa séance"]]]}];
+
 
 const DEFAULT_REF = `## Compétences communes à tous les professeurs et personnels d'éducation
 CC1 | Faire partager les valeurs de la République
@@ -473,6 +542,22 @@ function bricksOf(tid, upto){
     .forEach(o=>(o.bricks||[]).forEach(b=>res.push({...b,o})));
   return res;
 }
+const axKey = t => (t||'').trim().toLowerCase().replace(/\s+/g,' ');
+const NOCOMP = '—';
+/* progression sur les axes : briques liées à un axe (b.ax), par visite */
+function axisProgress(tid){
+  const visits=obsOf(tid).slice().reverse(), rows={};
+  visits.forEach(o=>(o.bricks||[]).filter(b=>b.ax).forEach(b=>{ const r=rows[b.ax]=rows[b.ax]||{t:b.axT,comp:b.comp,by:{}}; r.t=b.axT||r.t; (r.by[o.id]=r.by[o.id]||[]).push(b); }));
+  return {visits, rows:Object.entries(rows)};
+}
+function axisTableHTML(tid, print){
+  const {visits,rows}=axisProgress(tid); if(!rows.length) return '';
+  const vs=visits.filter(v=>rows.some(([,r])=>r.by[v.id]));
+  const sq=b=>`<i style="background:${PAL[b.p||0].c}" title="${esc(b.text)}"></i>`;
+  return `<table class="${print?'p-table p-axt':'axt'}"><tr><th>Axe de travail</th>${vs.map(v=>`<th>L${esc(v.lesson||'?')}<small>${shortDate(v.date)}</small></th>`).join('')}<th>Total</th></tr>
+    ${rows.map(([k,r])=>{ const tot=vs.reduce((n,v)=>n+(r.by[v.id]||[]).length,0);
+      return `<tr><td>${esc(r.t)}${r.comp&&r.comp!==NOCOMP?` <span class="${print?'':'chip'}" style="${print?'color:#64748b':''}">${esc(r.comp)}</span>`:''}</td>${vs.map(v=>{ const l=r.by[v.id]||[]; return `<td class="c">${l.length?`<b>${l.length}</b><div class="axb">${l.map(sq).join('')}</div>`:'<span class="muted">·</span>'}</td>`; }).join('')}<td class="c"><b>${tot}</b></td></tr>`; }).join('')}</table>`;
+}
 const hasDraw = f => !!(f.drawing || (f.strokes&&f.strokes.length));
 const obsOf = tid => S.obs.filter(o=>o.traineeId===tid).sort((a,b)=>(b.date+b.created).localeCompare(a.date+a.created));
 function currentAxes(tid, exceptId){
@@ -482,7 +567,7 @@ function currentAxes(tid, exceptId){
 }
 
 /* ---------- UI state ---------- */
-let axFold=false, wallT=null, wallFrom='home', wallAll=false, wallSel=null, view='home', cur=null, curFrame=null, kind='obs', bubbleOpen=false, bubbleTheme='', bubbleQ='', measureStart=null;
+let refsFrom='home', axFold=false, wallT=null, wallFrom='home', wallAll=false, wallSel=null, view='home', cur=null, curFrame=null, kind='obs', bubbleOpen=false, bubbleTheme='', bubbleQ='', measureStart=null;
 const O = () => S.obs.find(o=>o.id===cur);
 const F = () => O()?.frames.find(f=>f.id===curFrame);
 
@@ -503,6 +588,7 @@ function render(){
   if(view==='home') a.innerHTML=homeHTML();
   else if(view==='settings') a.innerHTML=settingsHTML();
   else if(view==='wall') a.innerHTML=wallHTML();
+  else if(view==='refs') a.innerHTML=refsHTML();
   else if(view==='obs'){ if(!O()){view='home';return render();} a.innerHTML=obsHTML(); afterObsRender(); }
   renderBubble();
 }
@@ -565,7 +651,7 @@ function settingsHTML(){
       <p class="muted" style="font-size:13px">Le bouton 📅 EDT apparaît dès qu'une adresse est saisie.</p>
     </div>
     <div class="card" style="grid-row:span 2">
-      <h3>📋 Référentiel de compétences</h3>
+      <div class="row"><h3 class="grow">📋 Référentiel 2013 (pour les axes)</h3><button class="sm" data-act="refs">📘 Grille des paliers & critères</button></div>
       <p class="muted" style="font-size:13px">Une compétence par ligne : <code>CODE | libellé</code>. Les lignes commençant par <code>##</code> sont des titres de groupe. Par défaut : référentiel des compétences professionnelles des métiers du professorat et de l'éducation (2013). Remplace-le par la fiche de compétences de tes stagiaires si besoin.</p>
       <textarea data-k="set.ref" style="min-height:420px;font-family:ui-monospace,monospace;font-size:13px">${esc(st.ref)}</textarea>
       <div class="row" style="margin-top:8px"><button class="sm" data-act="resetRef">Rétablir le référentiel 2013</button></div>
@@ -616,6 +702,7 @@ function obsHTML(){
   </div>
   <div class="drawer" id="drawer"><div class="dh"><b class="grow" id="drawerT"></b><a id="drawerA" target="_blank" rel="noopener"><button class="sm">↗ Onglet</button></a><button class="sm" data-act="closeDrawer">✕</button></div><iframe id="drawerF" allow="fullscreen"></iframe></div></div>`;
 }
+function axStats(o,a){ const k=axKey(a.text); return { k, mine:(o.bricks||[]).filter(b=>b.ax===k), before:bricksOf(o.traineeId,o).filter(b=>b.ax===k&&b.o.id!==o.id).length }; }
 function bannerHTML(o){
   const pa=o.prevAxes||[];
   return `<div class="banner">
@@ -623,10 +710,12 @@ function bannerHTML(o){
     <span class="muted" style="font-size:12px">${esc(o.prevFrom||'')}</span><div class="grow"></div>
     <button class="sm ghost" data-act="refreshAxes" title="Récupérer les axes du dernier bilan">↻</button>
     ${pa.length?`<button class="sm ghost" data-act="axFold" title="Replier / déplier">${axFold?'▾ afficher':'▴ replier'}</button>`:''}</div>
-    ${axFold?'':pa.length?'<div class="axgrid">'+pa.map((a,i)=>`<div class="ax">
+    ${axFold?(pa.length?`<div class="axmini">${pa.map((a,i)=>{ const st=axStats(o,a); return `<span class="chip">🎯 Axe ${i+1} · 🧱 ${st.mine.length}</span><button class="sm step yel" data-act="axStep" data-i="${i}" title="Noter un pas de progression sur l'axe ${i+1}">＋🧱</button>`; }).join('')}</div>`:''):pa.length?'<div class="axgrid">'+pa.map((a,i)=>{ const st=axStats(o,a); return `<div class="ax">
       <div class="txt"><b>Axe ${i+1}</b> ${esc(a.text)} ${a.comp?`<span class="chip" title="${esc(compLabel(a.comp))}">${esc(a.comp)} · ${esc(compLabel(a.comp).slice(0,48))}${compLabel(a.comp).length>48?'…':''}</span>`:''}</div>
+      <div class="axq" title="Pas de progression notés sur cet axe"><div class="axb">${st.mine.map(b=>`<i style="background:${PAL[b.p||0].c}" title="${esc(b.text)}"></i>`).join('')}</div><span class="axn"><b>${st.mine.length}</b> cette leçon${st.before?` · ${st.before+st.mine.length} au total`:''}</span></div>
+      <button class="step" data-act="axStep" data-i="${i}" title="Noter un pas de progression sur cet axe">＋🧱</button>
       <div class="seg">${AX_STATUS.map((s,k)=>`<button class="${(a.status||0)===k?'on':''}" data-act="axStatus" data-i="${i}" data-s="${k}">${s}</button>`).join('')}</div>
-    </div>`).join('')+'</div>':`<div class="muted" style="font-size:14px;padding:4px 0">Premier passage : aucun axe précédent. Les axes fixés dans la synthèse de cette visite seront rappelés à la prochaine.</div>`}
+    </div>`; }).join('')+'</div>':`<div class="muted" style="font-size:14px;padding:4px 0">Premier passage : aucun axe précédent. Les axes fixés dans la synthèse de cette visite seront rappelés à la prochaine.</div>`}
   </div>`;
 }
 function navHTML(o){
@@ -691,7 +780,7 @@ function itemHTML(it,i){
     <span class="ic" title="${K.l}">${K.ic}</span>
     <div class="tx" contenteditable="true" data-k="it.text:${i}">${esc(it.text)}</div>
     <select data-k="it.comp:${i}" title="Compétence liée">${compOptions(it.comp,'—').replace(/ — [^<]*/g,'')}</select>
-    ${it.comp?`<button class="ghost" data-act="itemBrick" data-i="${i}" title="Poser une brique dans ${esc(it.comp)}">🧱</button>`:''}
+    <button class="ghost" data-act="itemBrick" data-i="${i}" title="En faire une brique">🧱</button>
     <button class="ghost danger" data-act="delItem" data-i="${i}">✕</button>
   </div>`;
 }
@@ -711,63 +800,202 @@ function drawToolsHTML(f){
     </select>
   </div>`;
 }
+/* ---------- Grille INSPE & critères : helpers ---------- */
+const GI = n => { for(const d of GRILLE){ const it=d.items.find(x=>x.n===+n); if(it) return {...it, dom:d}; } return null; };
+const ALLGI = GRILLE.flatMap(d=>d.items.map(it=>it.n));
+const palOf = (t,n) => +(t?.pal?.[n]?.p||0);              // palier validé par le tuteur (0 = aucun)
+function critLabel(id){ const [f,c,i]=String(id).split('.').map(Number); const F_=CRIT[f]; if(!F_||!F_.c[c]) return id; const C_=F_.c[c]; return i>=0&&!isNaN(i)?C_[1][i]:C_[0]; }
+function critShort(id){ const [f,c,i]=String(id).split('.').map(Number); const C_=CRIT[f]?.c[c]; if(!C_) return id; return !isNaN(i)?C_[1][i]:C_[0]; }
+const brickKey = b => b.gi ? 'g'+b.gi : (b.comp||NOCOMP);
 function palLegend(){ return `<div class="legend">${PAL.slice(1).map(p=>`<span><i style="background:${p.c}"></i>${p.l}</span>`).join('')}<span><i style="background:${PAL[0].c}"></i>non précisé</span></div>`; }
-function brickHTML(b,i){ return `<div class="brick" style="--pc:${PAL[b.p||0].c}"><button class="pal" data-act="cycPal" data-i="${i}" title="Changer le palier">${b.p?'P'+b.p:'P ?'}</button><div class="bt" contenteditable="true" data-k="br.text:${i}">${esc(b.text)}</div><button class="ghost danger sm" data-act="delBrick" data-i="${i}" title="Retirer la brique">✕</button></div>`; }
-function compHTML(o){
-  const ev={}; o.frames.forEach(f=>f.items.forEach(it=>{ if(it.comp)(ev[it.comp]=ev[it.comp]||[]).push(it); }));
-  const before={}; bricksOf(o.traineeId,o).filter(b=>b.o.id!==o.id).forEach(b=>(before[b.comp]=before[b.comp]||[]).push(b));
-  const mine={}; (o.bricks||[]).forEach((b,i)=>(mine[b.comp]=mine[b.comp]||[]).push([b,i]));
-  let g='', h=`<div class="fhead" style="--c:#ffd43b"><h2 class="grow">🧱 Briques de la leçon</h2><button data-act="wall" data-id="${o.traineeId}">🏗️ Voir le mur</button></div>
-  <p class="muted" style="margin:6px 0 2px 6px;font-size:13px">Pour chaque compétence travaillée, écris ce qui a été construit puis touche le palier <b>1 2 3 4</b> : la brique s'ajoute au mur du stagiaire (Entrée = palier non précisé). Touche « P » sur une brique pour changer son palier. Les commentaires liés à la compétence sont proposés en dessous.</p>
-  ${palLegend()}<div class="compgrid">`;
-  refList().forEach(c=>{
-    if(c.group!==g){ g=c.group; h+=`<div class="group">${esc(g)}</div>`; }
-    const m=mine[c.code]||[], bf=before[c.code]||[], e=ev[c.code]||[];
-    h+=`<div class="comp ${m.length?'set':''}"><div class="code">${esc(c.code)}</div><div class="lab">${esc(c.label)}</div>
-      ${bf.length?`<div class="prev">${bf.map(b=>`<i style="background:${PAL[b.p||0].c}" title="L${esc(b.o.lesson||'?')} · ${esc(b.text)}"></i>`).join('')}<span>${bf.length} brique${bf.length>1?'s':''} déjà posée${bf.length>1?'s':''}</span></div>`:''}
-      ${m.map(([b,i])=>brickHTML(b,i)).join('')}
-      <div class="addb"><input data-bin="${esc(c.code)}" placeholder="Ce qui a été travaillé…" enterkeyhint="done">
-        ${[1,2,3,4].map(p=>`<button class="pb" style="--pc:${PAL[p].c}" data-act="addBrick" data-c="${esc(c.code)}" data-p="${p}" title="Poser une brique — ${PAL[p].l}">${p}</button>`).join('')}</div>
-      ${e.length?`<div class="ev">${e.map(it=>`<button class="evb" data-act="evBrick" data-c="${esc(c.code)}" data-t="${esc(it.text)}" title="Reprendre ce commentaire comme brique">${KINDS[it.kind].ic} ${esc(it.text)}</button>`).join('')}</div>`:''}
-    </div>`;
-  });
-  return h+'</div>';
+function brickHTML(b,i){
+  const it=b.gi?GI(b.gi):null;
+  return `<div class="brick" style="--pc:${PAL[b.p||0].c}"><button class="pal" data-act="cycPal" data-i="${i}" title="Changer le palier">${b.p?'P'+b.p:'P ?'}</button>${b.ax?`<span title="Pas de progression sur l'axe : ${esc(b.axT||'')}">🎯</span>`:''}
+    <div class="grow" style="min-width:0"><div class="bt" contenteditable="true" data-k="br.text:${i}" data-ph="${it?esc(it.d[(b.p||1)-1].slice(0,90)+'…'):''}">${esc(b.text)}</div>
+    ${(b.cr||[]).length?`<div class="crs">${b.cr.map(c=>`<span class="crc">${esc(critShort(c))}</span>`).join('')}</div>`:''}</div>
+    <button class="ghost sm" data-act="editBrick" data-i="${i}" title="Modifier l'item, le palier ou les critères">✎</button><button class="ghost danger sm" data-act="delBrick" data-i="${i}" title="Retirer la brique">✕</button></div>`;
 }
 
-/* ---------- MUR DES COMPÉTENCES ---------- */
+/* ---------- Sélecteur de brique (item de la grille + palier + critères) ---------- */
+let lastGi=null;
+function brickPicker(opts={}){
+  const o=O(); if(!o) return; const t=trainee(o.traineeId);
+  const edit = opts.edit!=null ? o.bricks[opts.edit] : null;
+  const st={ gi: edit?.gi || opts.gi || lastGi || null, p: edit?.p || null, cr: [...(edit?.cr||[])] };
+  const all=bricksOf(o.traineeId);
+  const bg=document.createElement('div'); bg.className='modalbg';
+  bg.innerHTML=`<div class="modal bpm"><div class="bp"><div class="bpl" id="bpL"></div><div class="bpr">
+    <div class="row"><h2 class="grow">🧱 ${edit?'Modifier la brique':'Poser une brique'}</h2>${opts.ax?`<span class="chip">🎯 ${esc(opts.ax.t)}</span>`:''}</div>
+    <textarea id="bpT" style="min-height:64px" placeholder="Ce que je vois (facultatif : sinon le descriptif du palier sert de texte)…">${esc(edit?edit.text:(opts.text||''))}</textarea>
+    <div id="bpD"></div>
+    <label>Critères (facultatif)</label><div id="bpC"></div>
+    <div class="row bpf" style="justify-content:flex-end;margin-top:auto"><span class="muted grow" id="bpMsg" style="font-size:13px"></span><button data-x="c">Annuler</button><button class="pri" id="bpOK">🧱 ${edit?'Enregistrer':'Poser la brique'}</button></div>
+  </div></div></div>`;
+  document.body.appendChild(bg);
+  bg.close=()=>bg.remove();
+  const drawL=()=>{ bg.querySelector('#bpL').innerHTML=GRILLE.map(d=>`<div class="dom">${esc(d.t)}</div>`+d.items.map(it=>{ const v=palOf(t,it.n), n=all.filter(b=>b.gi===it.n).length;
+      return `<button class="gi ${st.gi===it.n?'on':''}" data-gi="${it.n}"><b>${it.n}</b><span class="grow">${esc(it.l)}</span>${v?`<span class="pv" style="--pc:${PAL[v].c}">P${v} ✓</span>`:''}${n?`<span class="cnt">${n}</span>`:''}</button>`; }).join('')).join(''); };
+  const drawD=()=>{ const el=bg.querySelector('#bpD'); if(!st.gi){ el.innerHTML='<p class="muted">← Choisis l\'item de la grille INSPE concerné.</p>'; return; }
+    const it=GI(st.gi), v=palOf(t,st.gi), rec=t.pal?.[st.gi];
+    el.innerHTML=`<div class="row" style="margin:2px 0 6px"><b style="font-family:var(--fh);font-size:17px">${it.n}. ${esc(it.l)}</b><span class="muted" style="font-size:12.5px">${esc(it.dom.t)}</span></div>
+      ${v>1?`<div class="passed">✓ Palier${v>2?'s':''} ${Array.from({length:v-1},(_,k)=>k+1).join(', ')} dépassé${v>2?'s':''} : non proposé${v>2?'s':''} (palier ${v} validé${rec?.d?' le '+shortDate(rec.d):''})</div>`:''}
+      <div class="pcards">${[1,2,3,4].filter(p=>p>=Math.max(1,v)).map(p=>`<div class="pcard ${st.p===p?'on':''}" style="--pc:${PAL[p].c}" data-p="${p}">
+        <div class="row" style="flex-wrap:nowrap"><b class="grow">Palier ${p} · ${esc(it.dom.p[p-1])}</b>${v===p?'<span class="chip">✓ validé</span>':''}</div>
+        <div class="pd">${esc(it.d[p-1])}</div>
+        <div class="row" style="justify-content:flex-end">${v===p?`<button class="sm ghost" data-unval="${p}" title="Annuler la validation">↺ annuler</button>`:p>Math.max(1,v)-(v?0:1)&&p>1&&p>v?`<button class="sm" data-val="${p}" title="Le stagiaire a atteint ce palier : les paliers inférieurs ne seront plus proposés">✓ Palier ${p} atteint</button>`:''}</div></div>`).join('')}</div>`; };
+  const drawC=()=>{ bg.querySelector('#bpC').innerHTML=`<div class="crs">${st.cr.map(c=>`<span class="crc">${esc(critLabel(c))} <button class="ghost sm" data-rmc="${c}">✕</button></span>`).join('')}</div>
+    <select id="bpS"><option value="">＋ Rattacher un critère…</option>${CRIT.map((F_,f)=>`<optgroup label="${esc(F_.t)} (${esc(F_.cc)})">${F_.c.map((C_,c)=>`<option value="${f}.${c}">${esc(C_[0])}</option>${C_[1].map((x,i)=>`<option value="${f}.${c}.${i}">   ↳ ${esc(x)}</option>`).join('')}`).join('')}</optgroup>`).join('')}</select>`;
+    bg.querySelector('#bpS').onchange=e=>{ const v=e.target.value; if(v&&!st.cr.includes(v)) st.cr.push(v); drawC(); }; };
+  const draw=()=>{ drawL(); drawD(); drawC(); };
+  draw();
+  bg.addEventListener('click',e=>{
+    const b=e.target.closest('button,[data-p]'); if(e.target===bg) return bg.remove(); if(!b) return;
+    if(b.dataset.x==='c') return bg.remove();
+    if(b.dataset.gi){ st.gi=+b.dataset.gi; const v=palOf(t,st.gi); if(st.p&&st.p<v) st.p=null; drawL(); drawD(); return; }
+    if(b.dataset.val){ const p=+b.dataset.val; t.pal=t.pal||{}; t.pal[st.gi]={p,d:o.date||today(),o:o.id}; t.u=Date.now(); if(st.p&&st.p<p) st.p=null; save(true,true); drawL(); drawD(); toast(`✓ Item ${st.gi} : palier ${p} validé`); return; }
+    if(b.dataset.unval){ const p=+b.dataset.unval; t.pal=t.pal||{}; if(p>2) t.pal[st.gi]={p:p-1,d:o.date||today(),o:o.id}; else delete t.pal[st.gi]; t.u=Date.now(); save(true,true); drawL(); drawD(); return; }
+    if(b.dataset.rmc){ st.cr=st.cr.filter(c=>c!==b.dataset.rmc); drawC(); return; }
+    if(b.dataset.p){ st.p=+b.dataset.p; drawD(); return; }
+    if(b.id==='bpOK'){
+      if(!st.gi){ bg.querySelector('#bpMsg').textContent='Choisis un item de la grille.'; return; }
+      if(!st.p){ bg.querySelector('#bpMsg').textContent='Touche le palier observé.'; return; }
+      const text=bg.querySelector('#bpT').value.trim();
+      lastGi=st.gi;
+      if(edit){ Object.assign(edit,{gi:st.gi,p:st.p,cr:st.cr,text}); }
+      else { const run=o.frames.find(f=>f.start!=null&&f.end==null), ph=run||(F()&&!String(curFrame).startsWith('__')?F():null);
+        o.bricks.push({id:uid(),gi:st.gi,p:st.p,text,cr:st.cr,...(opts.ax?{ax:opts.ax.k,axT:opts.ax.t}:{}),ph:ph?ph.title:'',tm:elapsed(o)}); }
+      save(); bg.remove(); render(); toast(edit?'Brique modifiée':`🧱 Brique posée · item ${st.gi} · palier ${st.p}`);
+    }
+  });
+  if(!edit) setTimeout(()=>bg.querySelector('#bpT').focus(),50);
+  const sel=bg.querySelector('.gi.on'); sel&&sel.scrollIntoView({block:'center'});
+}
+
+/* ---------- Onglet Briques de la visite ---------- */
+function compHTML(o){
+  const t=trainee(o.traineeId);
+  const before={}; bricksOf(o.traineeId,o).filter(b=>b.o.id!==o.id).forEach(b=>(before[brickKey(b)]=before[brickKey(b)]||[]).push(b));
+  const mine={}; (o.bricks||[]).forEach((b,i)=>(mine[brickKey(b)]=mine[brickKey(b)]||[]).push([b,i]));
+  let h=`<div class="fhead" style="--c:#ffd43b"><h2 class="grow">🧱 Briques de la leçon</h2><button class="pri" data-act="pickBrick">＋ Poser une brique</button><button data-act="wall" data-id="${o.traineeId}">🏗️ Mur & suivi</button></div>
+  <p class="muted" style="margin:6px 0 2px 6px;font-size:13px">Chaque brique est rattachée à un item de la grille des paliers INSPE (et, si tu veux, à des critères). Quand tu valides un palier sur un item, les paliers inférieurs ne sont plus proposés. Le bouton 🧱 jaune reste disponible partout pendant la visite.</p>
+  ${palLegend()}`;
+  GRILLE.forEach(d=>{
+    h+=`<div class="group" style="margin-top:14px">${esc(d.t)}</div><div class="compgrid">`;
+    d.items.forEach(it=>{ const k='g'+it.n, m=mine[k]||[], bf=before[k]||[], v=palOf(t,it.n);
+      h+=`<div class="comp ${m.length?'set':''}"><div class="code">${it.n}</div><div class="lab">${esc(it.l)} ${v?`<span class="pv" style="--pc:${PAL[v].c}">palier ${v} validé</span>`:''}</div>
+        ${bf.length?`<div class="prev">${bf.map(b=>`<i style="background:${PAL[b.p||0].c}" title="L${esc(b.o.lesson||'?')} · ${esc(b.text)}"></i>`).join('')}<span>${bf.length} brique${bf.length>1?'s':''} lors des leçons précédentes</span></div>`:''}
+        ${m.map(([b,i])=>brickHTML(b,i)).join('')}
+        <div class="addb"><button class="sm" data-act="pickGi" data-gi="${it.n}">＋ brique</button><button class="sm ghost" data-act="itemPal" data-gi="${it.n}" title="Voir les paliers / valider">📊 paliers</button></div>
+      </div>`; });
+    h+='</div>';
+  });
+  const legacy=Object.keys(mine).filter(k=>!k.startsWith('g'));
+  if(legacy.length) h+=`<div class="group" style="margin-top:14px">Briques posées avant l'intégration de la grille (référentiel 2013)</div><div class="compgrid">${legacy.map(k=>`<div class="comp set"><div class="code">${esc(k)}</div><div class="lab">${esc(compLabel(k)||'Axe sans compétence rattachée')}</div>${mine[k].map(([b,i])=>brickHTML(b,i)).join('')}</div>`).join('')}</div>`;
+  return h;
+}
+function itemPalModal(n){
+  const o=view==='obs'?O():null; const tid=o?o.traineeId:wallT; const t=trainee(tid); const it=GI(n);
+  const bs=bricksOf(tid).filter(b=>b.gi===n);
+  const bg=document.createElement('div'); bg.className='modalbg';
+  const draw=()=>{ const v=palOf(t,n); bg.innerHTML=`<div class="modal wide"><h2>${it.n}. ${esc(it.l)}</h2><p class="muted" style="margin:0 0 8px">${esc(it.dom.t)} · ${bs.length} brique${bs.length>1?'s':''} posée${bs.length>1?'s':''}${v?` · palier ${v} validé${t.pal[n].d?' le '+shortDate(t.pal[n].d):''}`:''}</p>
+    <div class="pcards">${[1,2,3,4].map(p=>`<div class="pcard ${p<v?'gone':''}" style="--pc:${PAL[p].c}"><div class="row" style="flex-wrap:nowrap"><b class="grow">Palier ${p} · ${esc(it.dom.p[p-1])}</b>${v===p?'<span class="chip">✓ validé</span>':p<v?'<span class="chip">dépassé</span>':''}</div>
+      <div class="pd">${esc(it.d[p-1])}</div>
+      <div class="axb" style="justify-content:flex-start;max-width:none;margin:4px 0">${bs.filter(b=>b.p===p).map(b=>`<i style="background:${PAL[p].c}" title="L${esc(b.o.lesson||'?')} · ${esc(b.text)}"></i>`).join('')}</div>
+      <div class="row" style="justify-content:flex-end">${v===p?`<button class="sm ghost" data-unval="${p}">↺ annuler</button>`:p>v&&p>1?`<button class="sm" data-val="${p}">✓ Palier ${p} atteint</button>`:''}</div></div>`).join('')}</div>
+    <div class="row" style="margin-top:14px;justify-content:flex-end"><button data-x="c">Fermer</button></div></div>`; };
+  draw(); document.body.appendChild(bg); bg.close=()=>bg.remove();
+  bg.addEventListener('click',e=>{ const b=e.target.closest('button'); if(e.target===bg||b?.dataset.x==='c'){ bg.remove(); render(); return; }
+    if(b?.dataset.val){ const p=+b.dataset.val; t.pal=t.pal||{}; t.pal[n]={p,d:o?.date||today(),o:o?.id||''}; t.u=Date.now(); save(true,true); draw(); }
+    if(b?.dataset.unval){ const p=+b.dataset.unval; t.pal=t.pal||{}; if(p>2) t.pal[n]={p:p-1,d:o?.date||today(),o:o?.id||''}; else delete t.pal[n]; t.u=Date.now(); save(true,true); draw(); } });
+}
+
+/* ---------- MUR & SUIVI DANS LE TEMPS ---------- */
+let wallTab='mur';
 function wallHTML(){
   const t=trainee(wallT); if(!t){ view='home'; return homeHTML(); }
-  const all=bricksOf(t.id), by={}; all.forEach(b=>(by[b.comp]=by[b.comp]||[]).push(b));
-  const ref=refList(), known=new Set(ref.map(c=>c.code));
-  const cols=ref.filter(c=>wallAll||by[c.code]).map(c=>[c.code,c.label]).concat(Object.keys(by).filter(k=>!known.has(k)).map(k=>[k,'']));
+  const all=bricksOf(t.id), by={}; all.forEach(b=>(by[brickKey(b)]=by[brickKey(b)]||[]).push(b));
   const cnt=[0,1,2,3,4].map(p=>all.filter(b=>(b.p||0)===p).length);
+  const nv=obsOf(t.id).length, nval=Object.keys(t.pal||{}).length;
   const sel=all.find(b=>b.id===wallSel);
-  const col=([code,label])=>{ const bs=by[code]||[]; const mx=Math.max(0,...bs.map(b=>b.p||0));
-    return `<div class="wcol ${bs.length?'':'vide'}">${mx?`<div class="flag">🏁 palier ${mx}</div>`:''}<div class="stack">${bs.map((b,k)=>`<button class="wb ${k%2?'off':''} ${wallSel===b.id?'on':''}" style="--pc:${PAL[b.p||0].c}" data-act="selBrick" data-id="${b.id}"><b>L${esc(b.o.lesson||'?')}</b> ${esc(b.text)}</button>`).join('')}</div>
-      <div class="ground"><span class="code">${esc(code)}</span><small>${esc(label)}</small></div></div>`; };
+  const col=(key,code,label,n)=>{ const bs=by[key]||[]; const v=n?palOf(t,n):0; const mx=Math.max(0,...bs.map(b=>b.p||0));
+    return `<div class="wcol ${bs.length||v?'':'vide'}">${v?`<div class="flag"><span class="pv" style="--pc:${PAL[v].c}">✓ palier ${v} validé</span></div>`:mx?`<div class="flag">🏁 palier ${mx}</div>`:''}<div class="stack">${bs.map((b,k)=>`<button class="wb ${k%2?'off':''} ${wallSel===b.id?'on':''}" style="--pc:${PAL[b.p||0].c}" data-act="selBrick" data-id="${b.id}"><b>L${esc(b.o.lesson||'?')}</b> ${esc(b.text||(b.gi?GI(b.gi).d[(b.p||1)-1]:''))}</button>`).join('')}</div>
+      <div class="ground" ${n?`data-act="itemPal" data-gi="${n}" title="Paliers et validation" style="cursor:pointer"`:''}><span class="code">${esc(code)}</span><small>${esc(label)}</small></div></div>`; };
+  const legacy=Object.keys(by).filter(k=>!k.startsWith('g'));
+  const selIt=sel?.gi?GI(sel.gi):null;
   return `
   <div class="top"><button data-act="wallBack" title="Retour">←</button>
-    <div class="ctx grow">🏗️ Mur des compétences · ${esc(t.name)}<small>${all.length} brique${all.length>1?'s':''} · ${Object.keys(by).length} compétence${Object.keys(by).length>1?'s':''} travaillée${Object.keys(by).length>1?'s':''} · ${obsOf(t.id).length} visite${obsOf(t.id).length>1?'s':''}</small></div>
-    <button data-act="wallAll">${wallAll?'👁 Compétences travaillées':'👁 Toutes les compétences'}</button>
+    <div class="ctx grow">🏗️ ${esc(t.name)}<small>${all.length} brique${all.length>1?'s':''} · ${nval} item${nval>1?'s':''} avec palier validé · ${nv} visite${nv>1?'s':''}</small></div>
+    <div class="seg tabs"><button class="${wallTab==='mur'?'on':''}" data-act="wallTab" data-t="mur">🧱 Mur</button><button class="${wallTab==='suivi'?'on':''}" data-act="wallTab" data-t="suivi">📈 Suivi dans le temps</button></div>
+    ${wallTab==='mur'?`<button data-act="wallAll">${wallAll?'👁 Items travaillés':'👁 Tous les items'}</button>`:''}
+    <button data-act="refs" title="Grille des paliers et critères">📘</button>
     <button data-act="printWall">🖨 <span class="lbl">Imprimer</span></button>
   </div>
   <div class="wrap">
-    ${sel?`<div class="card bsel" style="--pc:${PAL[sel.p||0].c}"><div class="grow" style="min-width:260px"><span class="chip">${esc(sel.comp)}</span> <b>${esc(compLabel(sel.comp))}</b>
+  ${wallTab==='suivi'?suiviHTML(t):`
+    ${sel?`<div class="card bsel" style="--pc:${PAL[sel.p||0].c}"><div class="grow" style="min-width:260px">${selIt?`<span class="chip">${selIt.n}</span> <b>${esc(selIt.l)}</b>`:`<span class="chip">${esc(sel.comp||'')}</span> <b>${esc(compLabel(sel.comp))}</b>`}
         <p style="font-size:17px;margin:8px 0">${esc(sel.text)||'<i class="muted">sans texte</i>'}</p>
-        <div class="muted" style="font-size:13px">Leçon ${esc(sel.o.lesson||'?')} · ${esc(sel.o.apsa)} · ${esc(sel.o.classe)} · ${shortDate(sel.o.date)}</div></div>
+        ${selIt&&sel.p?`<p class="muted" style="font-size:13px;margin:0 0 6px"><b>Palier ${sel.p}</b> · ${esc(selIt.d[sel.p-1])}</p>`:''}
+        ${(sel.cr||[]).length?`<div class="crs">${sel.cr.map(c=>`<span class="crc">${esc(critLabel(c))}</span>`).join('')}</div>`:''}
+        <div class="muted" style="font-size:13px;margin-top:6px">Leçon ${esc(sel.o.lesson||'?')} · ${esc(sel.o.apsa)} · ${esc(sel.o.classe)} · ${shortDate(sel.o.date)}${sel.ph?' · '+esc(sel.ph):''}${sel.axT?' · 🎯 '+esc(sel.axT):''}</div></div>
       <div><div class="seg">${[1,2,3,4,0].map(p=>`<button class="${(sel.p||0)===p?'on':''}" data-act="setPal" data-id="${sel.id}" data-p="${p}">${p?'Palier '+p:'?'}</button>`).join('')}</div>
         <div class="row" style="margin-top:10px;justify-content:flex-end"><button class="sm" data-act="openObs" data-id="${sel.o.id}">Ouvrir la visite</button><button class="sm ghost" data-act="selBrick" data-id="">✕</button></div></div></div>`:''}
     <div class="row" style="margin-bottom:6px">${palLegend()}<div class="grow"></div>${[1,2,3,4].map(p=>`<div class="stat p" style="--pc:${PAL[p].c}"><b>${cnt[p]}</b><span>palier ${p}</span></div>`).join('')}</div>
-    ${cols.length?`<div class="wall">${cols.map(col).join('')}</div>`:`<div class="card empty">${MASCOT(100)}<h3 style="margin:10px 0">Pas encore de brique</h3><p>Dans une visite, ouvre <b>🧱 Briques</b> et pose une brique pour chaque compétence travaillée.</p></div>`}
+    ${GRILLE.map(d=>{ const items=d.items.filter(it=>wallAll||by['g'+it.n]||palOf(t,it.n)); if(!items.length) return '';
+      return `<h3 class="domh">${esc(d.t)}</h3><div class="wall">${items.map(it=>col('g'+it.n,String(it.n),it.l,it.n)).join('')}</div>`; }).join('')}
+    ${legacy.length?`<h3 class="domh">Briques posées avant l'intégration de la grille</h3><div class="wall">${legacy.map(k=>col(k,k,compLabel(k)||(k===NOCOMP?'Axes sans compétence rattachée':''),0)).join('')}</div>`:''}
+    ${!all.length&&!nval&&!wallAll?`<div class="card empty">${MASCOT(100)}<h3 style="margin:10px 0">Pas encore de brique</h3><p>Pendant une visite, touche le bouton jaune 🧱 dès que tu vois quelque chose d'intéressant. <button class="sm" data-act="wallAll">Voir tous les items</button></p></div>`:''}
+  `}
   </div>`;
 }
+/* Suivi dans le temps : une colonne par leçon */
+function suiviData(t){
+  const visits=obsOf(t.id).slice().reverse();
+  const valAt={}; Object.entries(t.pal||{}).forEach(([n,r])=>{ let vi=visits.findIndex(v=>v.id===r.o); if(vi<0){ vi=-1; visits.forEach((v,k)=>{ if((v.date||'')<=(r.d||'')) vi=k; }); } valAt[n]={...r,vi}; });
+  return {visits,valAt};
+}
+function suiviHTML(t){
+  const {visits,valAt}=suiviData(t);
+  if(!visits.length) return `<div class="card empty">${MASCOT(100)}<h3>Aucune visite pour l'instant</h3></div>`;
+  const per=visits.map(v=>(v.bricks||[]));
+  const mx=Math.max(1,...per.map(b=>b.length));
+  const bars=`<div class="card"><h3>Briques posées à chaque leçon</h3><div class="bars">${visits.map((v,k)=>`<div class="bar"><div class="stackbar" style="height:${Math.round(per[k].length/mx*150)}px">${[4,3,2,1,0].map(p=>{ const n=per[k].filter(b=>(b.p||0)===p).length; return n?`<div style="flex:${n};background:${PAL[p].c}" title="${n} · ${PAL[p].l}"></div>`:''; }).join('')}</div><b>${per[k].length}</b><span>L${esc(v.lesson||'?')}</span><small>${shortDate(v.date)}</small></div>`).join('')}</div></div>`;
+  const cell=(n,k)=>{ const bs=per[k].filter(b=>b.gi===n); const va=valAt[n]&&valAt[n].vi===k?valAt[n]:null;
+    return `<td class="c">${bs.length?`<div class="axb">${bs.map(b=>`<i style="background:${PAL[b.p||0].c}" title="${esc(b.text)}"></i>`).join('')}</div>`:''}${va?`<span class="pv" style="--pc:${PAL[va.p].c}">✓P${va.p}</span>`:''}${!bs.length&&!va?'<span class="muted">·</span>':''}</td>`; };
+  const matrix=`<div class="card" style="margin-top:20px;overflow:auto"><h3>Frise des items de la grille</h3><p class="muted" style="margin:2px 0 6px;font-size:13px">Chaque case = les briques posées sur l'item pendant la leçon (couleur = palier). ✓P2 = palier validé lors de cette leçon.</p>
+    <table class="axt suivi"><tr><th>Item</th>${visits.map(v=>`<th class="c">L${esc(v.lesson||'?')}<small>${shortDate(v.date)}</small></th>`).join('')}<th class="c">Palier validé</th></tr>
+    ${GRILLE.map(d=>`<tr><td colspan="${visits.length+2}" class="domrow">${esc(d.t)}</td></tr>`+d.items.map(it=>{ const v=palOf(t,it.n); const any=v||visits.some((_,k)=>per[k].some(b=>b.gi===it.n));
+      return `<tr class="${any?'':'faint'}"><td><b>${it.n}</b> ${esc(it.l)}</td>${visits.map((_,k)=>cell(it.n,k)).join('')}<td class="c">${v?`<span class="pv" style="--pc:${PAL[v].c}">palier ${v}</span>`:'—'}</td></tr>`; }).join('')).join('')}
+    </table></div>`;
+  const ax=axisTableHTML(t.id);
+  return bars+matrix+(ax?`<div class="card" style="margin-top:20px"><h3>🎯 Pas de progression sur les axes de travail</h3><p class="muted" style="margin:2px 0 0;font-size:13px">Nombre d'éléments mis en place à chaque leçon pour faire progresser chaque axe.</p>${ax}</div>`:'');
+}
 function buildWallPrint(){
-  const t=trainee(wallT), st=S.settings, all=bricksOf(t.id), by={}; all.forEach(b=>(by[b.comp]=by[b.comp]||[]).push(b));
-  const ref=refList(), codes=ref.map(c=>c.code).filter(c=>by[c]).concat(Object.keys(by).filter(k=>!ref.find(c=>c.code===k)));
+  const t=trainee(wallT), st=S.settings, all=bricksOf(t.id), by={}; all.forEach(b=>(by[brickKey(b)]=by[brickKey(b)]||[]).push(b));
+  const {visits,valAt}=suiviData(t);
+  const legacy=Object.keys(by).filter(k=>!k.startsWith('g'));
+  const bk=b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>L${esc(b.o.lesson||'?')}</b> ${shortDate(b.o.date)} · ${b.p?'P'+b.p:'P?'} — ${esc(b.text||'')}${(b.cr||[]).length?` <i style="color:#475569">[${b.cr.map(c=>esc(critShort(c))).join(' ; ')}]</i>`:''}</span>`;
   $('#print').innerHTML=`<div class="p-head"><div><div style="font-size:9pt;color:#64748b">${esc(st.school)}</div><h1>Mur des compétences — ${esc(t.name)}</h1></div><div style="text-align:right;font-weight:800">N'EPS</div></div>
-  <div class="p-leg">${all.length} briques · ${codes.length} compétences · ${obsOf(t.id).length} visites · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')} <i style="background:${PAL[0].c}"></i>non précisé · édité le ${shortDate(today())}</div>
-  ${codes.map(code=>`<div class="p-wcol"><b>${esc(code)}</b> — ${esc(compLabel(code))}<div>${by[code].map(b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>L${esc(b.o.lesson||'?')}</b> ${shortDate(b.o.date)} · ${b.p?'P'+b.p:'P?'} — ${esc(b.text)}</span>`).join('')}</div></div>`).join('')||'<p>Aucune brique.</p>'}
+  <div class="p-leg">${all.length} briques · ${visits.length} visites · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')} <i style="background:${PAL[0].c}"></i>non précisé · Grille : Paliers de professionnalisation INSPE · édité le ${shortDate(today())}</div>
+  <div class="p-h2">Suivi dans le temps</div>
+  <table class="p-table p-axt"><tr><th>Item</th>${visits.map(v=>`<th class="c">L${esc(v.lesson||'?')}<br><span style="font-weight:400">${shortDate(v.date)}</span></th>`).join('')}<th class="c">Validé</th></tr>
+  ${GRILLE.map(d=>`<tr><td colspan="${visits.length+2}" style="background:#f1f5f9;font-weight:700">${esc(d.t)}</td></tr>`+d.items.map(it=>`<tr><td>${it.n}. ${esc(it.l)}</td>${visits.map((v,k)=>{ const bs=(v.bricks||[]).filter(b=>b.gi===it.n); const va=valAt[it.n]&&valAt[it.n].vi===k; return `<td class="c"><span class="axb">${bs.map(b=>`<i style="background:${PAL[b.p||0].c}"></i>`).join('')}</span>${va?` ✓P${valAt[it.n].p}`:''}</td>`; }).join('')}<td class="c">${palOf(t,it.n)?'P'+palOf(t,it.n):'—'}</td></tr>`).join('')).join('')}</table>
+  ${(()=>{ const tb=axisTableHTML(t.id,true); return tb?`<div class="p-h2">Pas de progression sur les axes de travail</div>${tb}`:''; })()}
+  <div class="p-h2">Briques par item de la grille</div>
+  ${GRILLE.map(d=>d.items.filter(it=>by['g'+it.n]||palOf(t,it.n)).map(it=>{ const v=palOf(t,it.n); return `<div class="p-wcol"><b>${it.n}. ${esc(it.l)}</b> <span style="color:#64748b">— ${esc(d.t)}</span>${v?` · <b>palier ${v} validé</b> : <i>${esc(it.d[v-1])}</i>`:''}<div>${(by['g'+it.n]||[]).map(bk).join('')}</div></div>`; }).join('')).join('')}
+  ${legacy.map(k=>`<div class="p-wcol"><b>${esc(k)}</b> — ${esc(compLabel(k)||'Axes sans compétence rattachée')}<div>${by[k].map(bk).join('')}</div></div>`).join('')}
   <div class="p-foot"><span>${esc(st.tutor)} — tuteur</span><span>N'EPS · by Quentin Delisle</span></div>`;
+}
+/* ---------- Consultation des référentiels ---------- */
+function refsHTML(){
+  return `<div class="top"><button data-act="refsBack">←</button><div class="ctx grow">📘 Référentiels<small>Paliers de professionnalisation (Master MEEF EPS 2024-2025) · Critères</small></div></div>
+  <div class="wrap">
+  ${GRILLE.map(d=>`<div class="card" style="margin-bottom:18px;overflow:auto"><h3>${esc(d.t)}</h3><p class="muted" style="margin:2px 0 8px;font-size:13px">${esc(d.s)}</p>
+    <table class="axt grid"><tr><th></th>${d.p.map((p,k)=>`<th style="background:${PAL[k+1].c}">Palier ${k+1}<small>${esc(p)}</small></th>`).join('')}</tr>
+    ${d.items.map(it=>`<tr><td><b>${it.n}. ${esc(it.l)}</b></td>${it.d.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</table></div>`).join('')}
+  <h2 style="margin:26px 0 10px">Les critères</h2>
+  <div class="setgrid">${CRIT.map(F_=>`<div class="card"><h3>${esc(F_.t)} <span class="chip">${esc(F_.cc)}</span></h3><p class="muted" style="margin:2px 0 8px;font-size:13px">${esc(F_.f)}</p>
+    ${F_.c.map(C_=>`<div style="margin:8px 0"><b>${esc(C_[0])}</b><div class="crs">${C_[1].map(x=>`<span class="crc">${esc(x)}</span>`).join('')}</div></div>`).join('')}</div>`).join('')}</div>
+  </div>`;
 }
 
 function synthHTML(o){
@@ -860,6 +1088,8 @@ function addItem(text, k, comp){
    ========================================================= */
 function renderBubble(){
   let fab=$('#fab'); if(!fab){ fab=document.createElement('button'); fab.id='fab'; fab.className='fab'; fab.dataset.act='bubble'; fab.title='Conseils'; fab.textContent='💡'; document.body.appendChild(fab); }
+  let fb=$('#fabB'); if(!fb){ fb=document.createElement('button'); fb.id='fabB'; fb.className='fab fabB'; fb.dataset.act='pickBrick'; fb.title='Poser une brique (grille des paliers)'; fb.textContent='🧱'; document.body.appendChild(fb); }
+  fb.classList.toggle('hidden', view!=='obs');
   let b=$('#bubble'); if(!bubbleOpen){ b&&b.remove(); fab.textContent='💡'; return; }
   fab.textContent='✕';
   if(!b){ b=document.createElement('div'); b.id='bubble'; b.className='bubble'; document.body.appendChild(b); }
@@ -964,7 +1194,7 @@ async function buildPrint(){
   const timed=o.frames.filter(f=>f.start!=null); const total=timed.reduce((s,f)=>s+((f.end??elapsed(o))-f.start),0);
   const ev={}; o.frames.forEach(f=>f.items.forEach(it=>{ if(it.comp)(ev[it.comp]=ev[it.comp]||[]).push(it); }));
   const mineB=o.bricks||[]; const bRows=ref.filter(c=>mineB.some(b=>b.comp===c.code));
-  const upto=bricksOf(o.traineeId,o), upBy={}; upto.forEach(b=>(upBy[b.comp]=upBy[b.comp]||[]).push(b));
+  const tr=t, upto=bricksOf(o.traineeId,o), upBy={}; upto.forEach(b=>(upBy[brickKey(b)]=upBy[brickKey(b)]||[]).push(b));
   const itemP=it=>`<div class="p-it ${it.kind==='conseil'?'conseil':''}" style="--k:${KINDS[it.kind].c}">${KINDS[it.kind].ic} <b>${KINDS[it.kind].l}</b>${it.comp?` <span style="color:#64748b">[${esc(it.comp)}]</span>`:''} — ${esc(it.text)}</div>`;
   const axes=o.final.axes.filter(a=>a.text.trim());
   $('#print').innerHTML=`
@@ -972,7 +1202,9 @@ async function buildPrint(){
   <div class="p-meta"><div><b>Stagiaire :</b> ${esc(t.name)}</div><div><b>Classe :</b> ${esc(o.classe)}</div><div><b>Date :</b> ${frDate(o.date)}</div>
     <div><b>Tuteur :</b> ${esc(st.tutor)}</div><div><b>Leçon :</b> ${esc(o.lesson||'?')}${o.cycle?' sur '+esc(o.cycle):''} du cycle</div><div>${total?`<b>Durée observée :</b> ${fmtShort(total)}`:''}</div></div>
   ${(o.prevAxes||[]).length?`<div class="p-box"><b>Rappel des axes de travail</b> <span style="color:#64748b;font-size:9pt">(${esc(o.prevFrom)})</span>
-    ${o.prevAxes.map((a,i)=>`<div style="margin-top:3px">Axe ${i+1} : ${esc(a.text)} ${a.comp?`<i style="color:#64748b">(${esc(a.comp)})</i>`:''} → <b>${AX_STATUS[a.status||0]}</b></div>`).join('')}</div>`:''}
+    ${o.prevAxes.map((a,i)=>{ const st=axStats(o,a); return `<div style="margin-top:4px">Axe ${i+1} : ${esc(a.text)} ${a.comp?`<i style="color:#64748b">(${esc(a.comp)})</i>`:''} → <b>${AX_STATUS[a.status||0]}</b>
+      · <b>${st.mine.length}</b> élément${st.mine.length>1?'s':''} mis en place cette leçon${st.before?` (${st.before+st.mine.length} depuis le début du suivi)`:''}</div>
+      ${st.mine.map(b=>`<div class="p-step"><span class="p-b" style="--pc:${PAL[b.p||0].c};margin:0 4px 0 0">${b.p?'P'+b.p:'P?'}</span>${esc(b.text)}${b.ph?` <span style="color:#94a3b8">· ${esc(b.ph)}</span>`:''}</div>`).join('')}`; }).join('')}</div>`:''}
   ${total?`<div class="p-h2">Gestion du temps</div><div class="p-tl">${timed.map(f=>{const d=(f.end??elapsed(o))-f.start;return `<div style="flex:${d};background:${TYPES[f.type].hex}">${d/total>.09?esc(f.title)+' '+fmtShort(d):''}</div>`}).join('')}</div>
     <div style="font-size:8.5pt;color:#475569">${timed.map(f=>`${esc(f.title)} ${fmtShort((f.end??elapsed(o))-f.start)}`).join(' · ')}</div>`:''}
   <div class="p-h2">Déroulé de la leçon</div>
@@ -981,10 +1213,11 @@ async function buildPrint(){
     ${f.text.trim()?`<div class="p-txt">${esc(f.text)}</div>`:''}
     ${f.items.filter(i=>i.kind==='secu').map(itemP).join('')}${f.items.filter(i=>i.kind!=='secu'&&i.kind!=='conseil').map(itemP).join('')}${f.items.filter(i=>i.kind==='conseil').map(itemP).join('')}
     ${imgs[f.id]?`<img class="p-img" src="${imgs[f.id]}">`:''}</div>`).join('')||'<p style="color:#64748b">—</p>'}
-  ${bRows.length?`<div class="p-h2">Compétences : briques construites pendant la leçon</div><table class="p-table"><tr><th style="width:42px">Code</th><th style="width:36%">Compétence</th><th>Ce qui a été travaillé</th></tr>
-    ${bRows.map(c=>`<tr><td><b>${esc(c.code)}</b></td><td>${esc(c.label)}</td><td>${mineB.filter(b=>b.comp===c.code).map(b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>${b.p?'Palier '+b.p:'Palier ?'}</b> — ${esc(b.text)}</span>`).join('')}</td></tr>`).join('')}</table>`:''}
-  ${upto.length?`<div class="p-h2">Le mur des compétences à ce jour</div><div class="p-leg">${upto.length} briques posées depuis le début du suivi · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')}</div>
-    <div class="p-mini">${ref.filter(c=>upBy[c.code]).map(c=>`<div><b style="display:inline-block;width:44px">${esc(c.code)}</b>${upBy[c.code].map(b=>`<i style="background:${PAL[b.p||0].c}"></i>`).join('')} <span style="color:#64748b">${esc(c.label.slice(0,70))}${c.label.length>70?'…':''}</span></div>`).join('')}</div>`:''}
+  ${mineB.length?`<div class="p-h2">Briques construites pendant la leçon</div><table class="p-table"><tr><th style="width:38%">Item de la grille des paliers</th><th>Ce qui a été observé</th></tr>
+    ${GRILLE.flatMap(d=>d.items).filter(it=>mineB.some(b=>b.gi===it.n)).map(it=>`<tr><td><b>${it.n}. ${esc(it.l)}</b><div style="font-size:8.5pt;color:#64748b">${esc(it.dom?.t||GI(it.n).dom.t)}${palOf(tr,it.n)?` · palier ${palOf(tr,it.n)} validé`:''}</div></td><td>${mineB.filter(b=>b.gi===it.n).map(b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>Palier ${b.p||'?'}</b> — ${esc(b.text||it.d[(b.p||1)-1])}${(b.cr||[]).length?`<br><i style="color:#475569;font-size:8.5pt">Critères : ${b.cr.map(c=>esc(critLabel(c))).join(' ; ')}</i>`:''}</span>`).join('')}</td></tr>`).join('')}
+    ${[...new Set(mineB.filter(b=>!b.gi).map(b=>b.comp))].map(k=>`<tr><td><b>${esc(k)}</b> ${esc(compLabel(k))}</td><td>${mineB.filter(b=>!b.gi&&b.comp===k).map(b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>Palier ${b.p||'?'}</b> — ${esc(b.text)}</span>`).join('')}</td></tr>`).join('')}</table>`:''}
+  ${upto.length||Object.keys(tr.pal||{}).length?`<div class="p-h2">Le mur à ce jour</div><div class="p-leg">${upto.length} briques posées depuis le début du suivi · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')}</div>
+    <div class="p-mini">${GRILLE.flatMap(d=>d.items).filter(it=>upBy['g'+it.n]||palOf(tr,it.n)).map(it=>`<div><b style="display:inline-block;width:22px">${it.n}</b>${(upBy['g'+it.n]||[]).map(b=>`<i style="background:${PAL[b.p||0].c}"></i>`).join('')} <span style="color:#64748b">${esc(it.l)}</span>${palOf(tr,it.n)?` · <b>palier ${palOf(tr,it.n)} validé</b>`:''}</div>`).join('')}</div>`:''}
   <div class="p-h2">Bilan</div>
   ${o.final.synth.trim()?`<div class="p-box"><div class="p-txt">${esc(o.final.synth)}</div></div>`:''}
   ${o.final.forts.trim()?`<div class="p-box" style="border-color:#86efac;background:#f0fdf4"><b>✅ Points forts</b><div class="p-txt">${esc(o.final.forts)}</div></div>`:''}
@@ -1031,7 +1264,7 @@ function timeModal(html,onPick){
   bg.innerHTML=`<div class="modal">${html}<div class="row" style="margin-top:14px;justify-content:flex-end"><button data-x="c">Fermer</button></div></div>`;
   document.body.appendChild(bg);
   bg.addEventListener('click',e=>{ const b=e.target.closest('button'); if(e.target===bg||b?.dataset.x==='c') return bg.remove();
-    if(b?.dataset.m!=null){ onPick(b.dataset.x,+b.dataset.m); bg.remove(); }
+    if(b?.dataset.m!=null){ if(onPick(b.dataset.x,+b.dataset.m)!==false) bg.remove(); }
     if(b?.dataset.x==='custom'){ const v=parseFloat(bg.querySelector('#cMin').value.replace(',','.')); if(!isFinite(v)||v<0) return toast('Nombre de minutes ?'); onPick(b.dataset.k,v); bg.remove(); } });
   return bg;
 }
@@ -1126,6 +1359,14 @@ const ACT={
     else toast('Durée mesurée : '+fmtShort(d));
     render();
   },
+  axStep(b){ const o=O(), a=o.prevAxes[+b.dataset.i]; if(!a) return; brickPicker({ax:{k:axKey(a.text),t:a.text}}); },
+  pickBrick(){ brickPicker(); },
+  pickGi(b){ brickPicker({gi:+b.dataset.gi}); },
+  editBrick(b){ brickPicker({edit:+b.dataset.i}); },
+  itemPal(b){ itemPalModal(+b.dataset.gi); },
+  wallTab(b){ wallTab=b.dataset.t; render(); },
+  refs(){ refsFrom=view; view='refs'; render(); window.scrollTo(0,0); },
+  refsBack(){ view=refsFrom==='refs'?'home':refsFrom; if(view==='obs'&&!O()) view='home'; render(); },
   shiftPhase(){
     const o=O(), f=F(); const started=f.start!=null;
     const st=started?`Commencée à <b>${esc(f.clock||'?')}</b> (chrono ${fmtShort(f.start)}) · durée <b>${fmtShort((f.end??elapsed(o))-f.start)}</b>${f.end==null?' · en cours':''}`:'Pas encore commencée.';
@@ -1169,10 +1410,9 @@ const ACT={
   lvl(b){ const o=O(), c=b.dataset.c; o.comps[c]=o.comps[c]||{lvl:0,note:''}; o.comps[c].lvl=+b.dataset.l; save(); const y=window.scrollY, m=$('#main'), my=m?m.scrollTop:0; refreshMain(); window.scrollTo(0,y); if(m) m.scrollTop=my; },
   axFold(){ axFold=!axFold; render(); },
   addBrick(b){ addBrick(b.dataset.c,+b.dataset.p); },
-  evBrick(b){ const i=document.querySelector(`[data-bin="${CSS.escape(b.dataset.c)}"]`); if(i){ i.value=b.dataset.t; i.focus(); toast('Choisis le palier 1 2 3 4 (ou Entrée)'); } },
   cycPal(b){ const br=O().bricks[+b.dataset.i]; br.p=((br.p||0)+1)%5; save(); keepScroll(refreshMain); },
   delBrick(b){ O().bricks.splice(+b.dataset.i,1); save(); keepScroll(refreshMain); },
-  itemBrick(b){ const it=F().items[+b.dataset.i]; O().bricks.push({id:uid(),comp:it.comp,text:it.text,p:0}); save(); refreshNav(); toast(`🧱 Brique posée dans ${it.comp} · précise le palier dans 🧱 Briques`); },
+  itemBrick(b){ const it=F().items[+b.dataset.i]; brickPicker({text:it.text}); },
   wall(b){ wallT=b.dataset.id; wallFrom=view; wallSel=null; view='wall'; render(); window.scrollTo(0,0); },
   wallBack(){ view = wallFrom==='obs'&&O() ? 'obs' : 'home'; render(); },
   wallAll(){ wallAll=!wallAll; render(); },
