@@ -269,6 +269,35 @@ a{color:var(--accent);font-weight:800}
 .axt.grid th{vertical-align:top;border-radius:8px}
 @media (max-width:900px),(orientation:portrait){ .bp{grid-template-columns:1fr;height:auto;max-height:88vh;overflow:auto} .bpl{max-height:32vh;border-right:0;border-bottom:3px solid var(--ink);border-radius:21px 21px 0 0} .pcards{grid-template-columns:1fr} }
 
+/* ---------- Jauge & critères rapprochés ---------- */
+.gauge{position:relative;flex:1;max-width:190px;height:24px;background:#fff;border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin-right:auto}
+.gauge div{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(45deg,#1fc28b 0 8px,#3fd7a3 8px 16px)}
+.gauge span{position:relative;display:block;text-align:center;font-size:12px;font-weight:800;line-height:20px}
+.crrel{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.crg{border:2px solid var(--ink);border-radius:12px;padding:6px 8px;background:#fafbff}
+.crf{display:block;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.03em;font-weight:800}
+.tc{min-height:0;padding:3px 9px;font-size:12.5px;border-width:1.5px;box-shadow:none;white-space:normal;text-align:left;font-weight:700;background:#fff}
+.tc.main{font-size:13px;width:100%;margin:3px 0 4px;border-width:2px}
+.tc.on{background:var(--accent);color:#fff}
+.crall summary{cursor:pointer;font-size:13px;font-weight:800;color:var(--mute);margin:6px 0}
+@media (max-width:900px),(orientation:portrait){ .crrel{grid-template-columns:1fr} }
+
+/* ---------- Chemin & pistes ---------- */
+.tracks{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px 18px}
+.trk{display:grid;grid-template-columns:1fr;gap:3px}
+.trl{font-size:13px;line-height:1.25}
+.trl b{font-family:var(--fh);font-size:15px;margin-right:4px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.stp{position:relative;height:26px;border:2px solid #1f2544;border-radius:6px;background:#fff;overflow:hidden}
+.stp:nth-child(1){margin-top:9px}.stp:nth-child(2){margin-top:6px}.stp:nth-child(3){margin-top:3px}
+.stp.done{background:var(--pc)}
+.stp i{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(45deg,var(--pc) 0 6px,#fff8 6px 9px);border-right:2px dashed #1f2544}
+.stp span{position:relative;display:block;text-align:center;font-size:11.5px;font-weight:800;line-height:22px}
+.trn{font-size:11.5px;color:var(--mute);text-align:right}
+.p-prog{break-before:page;page-break-before:always}
+.p-cheer{border:2px solid #1f2544;border-radius:10px;background:#fff8d6;padding:8px 12px;font-size:11pt;margin:6px 0 4px}
+@media print{ .tracks{grid-template-columns:1fr 1fr;gap:6px 14px} .trl{font-size:8.5pt} .trn{font-size:8pt} .stp{height:18px} .stp span{font-size:8pt;line-height:14px} svg{break-inside:avoid} }
+
 /* ---------- Pas de progression sur les axes ---------- */
 .axq{display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:96px}
 .axb{display:flex;flex-wrap:wrap;gap:2px;justify-content:flex-end;max-width:170px}
@@ -649,6 +678,9 @@ function settingsHTML(){
       <label>Adresse de l'appli EDT</label>
       <input data-k="set.edtUrl" value="${esc(st.edtUrl)}" placeholder="https://…/edt/">
       <p class="muted" style="font-size:13px">Le bouton 📅 EDT apparaît dès qu'une adresse est saisie.</p>
+      <label>Repère de briques pour envisager la validation d'un palier</label>
+      <input data-k="set.seuil" type="number" min="1" max="30" value="${esc(S.settings.seuil||5)}" style="width:110px">
+      <p class="muted" style="font-size:13px">Indicatif seulement : la jauge se remplit à ce nombre et le bouton « Palier atteint » se met en avant, mais c'est toujours toi qui valides.</p>
     </div>
     <div class="card" style="grid-row:span 2">
       <div class="row"><h3 class="grow">📋 Référentiel 2013 (pour les axes)</h3><button class="sm" data-act="refs">📘 Grille des paliers & critères</button></div>
@@ -806,6 +838,14 @@ const ALLGI = GRILLE.flatMap(d=>d.items.map(it=>it.n));
 const palOf = (t,n) => +(t?.pal?.[n]?.p||0);              // palier validé par le tuteur (0 = aucun)
 function critLabel(id){ const [f,c,i]=String(id).split('.').map(Number); const F_=CRIT[f]; if(!F_||!F_.c[c]) return id; const C_=F_.c[c]; return i>=0&&!isNaN(i)?C_[1][i]:C_[0]; }
 function critShort(id){ const [f,c,i]=String(id).split('.').map(Number); const C_=CRIT[f]?.c[c]; if(!C_) return id; return !isNaN(i)?C_[1][i]:C_[0]; }
+/* Critères rapprochés de chaque item de la grille (proposition, modifiable ici) — "famille.critère" */
+const ITEM_CRIT = {
+  1:['3.5','3.6','3.8','2.2'], 2:['3.5','3.3','2.0','2.1','2.2'], 3:['3.6','3.8','3.4','4.2'], 4:['2.0','2.1','2.2','3.3','3.4'],
+  5:['0.0','0.3','3.1','3.4'], 6:['0.1','0.2','0.4','3.1'], 7:['3.0','3.1','0.2','0.4'], 8:['1.0','3.3','2.0'],
+  9:['3.4','3.8','3.2','2.1'], 10:['3.2','3.1','0.3','0.0'], 11:['5.0','4.0','4.1','1.1'], 12:['5.1','5.0'],
+  13:['5.0','5.1','3.8'], 14:['1.1','1.2','1.3','1.4','5.0'], 15:['0.1','0.2','0.3','0.4','0.0','1.4'] };
+const seuil = () => Math.max(1, +S.settings.seuil || 5);
+function gaugeHTML(n){ const s_=seuil(); return `<div class="gauge" title="Briques posées à ce palier · repère indicatif : ${s_}"><div style="width:${Math.min(100,Math.round(n/s_*100))}%"></div><span>🧱 ${n} / ${s_}</span></div>`; }
 const brickKey = b => b.gi ? 'g'+b.gi : (b.comp||NOCOMP);
 function palLegend(){ return `<div class="legend">${PAL.slice(1).map(p=>`<span><i style="background:${p.c}"></i>${p.l}</span>`).join('')}<span><i style="background:${PAL[0].c}"></i>non précisé</span></div>`; }
 function brickHTML(b,i){
@@ -842,19 +882,28 @@ function brickPicker(opts={}){
       <div class="pcards">${[1,2,3,4].filter(p=>p>=Math.max(1,v)).map(p=>`<div class="pcard ${st.p===p?'on':''}" style="--pc:${PAL[p].c}" data-p="${p}">
         <div class="row" style="flex-wrap:nowrap"><b class="grow">Palier ${p} · ${esc(it.dom.p[p-1])}</b>${v===p?'<span class="chip">✓ validé</span>':''}</div>
         <div class="pd">${esc(it.d[p-1])}</div>
-        <div class="row" style="justify-content:flex-end">${v===p?`<button class="sm ghost" data-unval="${p}" title="Annuler la validation">↺ annuler</button>`:p>Math.max(1,v)-(v?0:1)&&p>1&&p>v?`<button class="sm" data-val="${p}" title="Le stagiaire a atteint ce palier : les paliers inférieurs ne seront plus proposés">✓ Palier ${p} atteint</button>`:''}</div></div>`).join('')}</div>`; };
-  const drawC=()=>{ bg.querySelector('#bpC').innerHTML=`<div class="crs">${st.cr.map(c=>`<span class="crc">${esc(critLabel(c))} <button class="ghost sm" data-rmc="${c}">✕</button></span>`).join('')}</div>
-    <select id="bpS"><option value="">＋ Rattacher un critère…</option>${CRIT.map((F_,f)=>`<optgroup label="${esc(F_.t)} (${esc(F_.cc)})">${F_.c.map((C_,c)=>`<option value="${f}.${c}">${esc(C_[0])}</option>${C_[1].map((x,i)=>`<option value="${f}.${c}.${i}">   ↳ ${esc(x)}</option>`).join('')}`).join('')}</optgroup>`).join('')}</select>`;
+        <div class="row" style="justify-content:flex-end;flex-wrap:nowrap">${gaugeHTML(cntP(p))}${v===p?`<button class="sm ghost" data-unval="${p}" title="Annuler la validation">↺ annuler</button>`:p>1&&p>v?`<button class="sm ${cntP(p)>=seuil()?'pri':''}" data-val="${p}" title="${cntP(p)>=seuil()?'Assez de briques pour envisager la validation':'Tu valides quand le palier est construit par suffisamment de briques'}">✓ Palier ${p} atteint</button>`:''}</div></div>`).join('')}</div>`; };
+  const cntP=p=>all.filter(b=>b.gi===st.gi&&b.p===p).length;
+  const drawC=()=>{
+    const rel=st.gi?(ITEM_CRIT[st.gi]||[]):[];
+    const chip=(id,txt,main)=>`<button class="tc ${main?'main':''} ${st.cr.includes(id)?'on':''}" data-tc="${id}">${esc(txt)}</button>`;
+    const other=st.cr.filter(c=>!rel.some(r=>c===r||c.startsWith(r+'.')));
+    bg.querySelector('#bpC').innerHTML=(rel.length?`<div class="crrel">${rel.map(id=>{ const [f,c]=id.split('.').map(Number), C_=CRIT[f].c[c];
+        return `<div class="crg"><span class="crf">${esc(CRIT[f].t)}</span>${chip(id,C_[0],true)}<div class="crs">${C_[1].map((x,i)=>chip(id+'.'+i,x,false)).join('')}</div></div>`; }).join('')}</div>`
+      :'<p class="muted" style="margin:0;font-size:13px">Choisis un item : les critères qui s\'en rapprochent s\'affichent ici.</p>')
+      +(other.length?`<div class="crs">${other.map(c=>`<span class="crc">${esc(critLabel(c))} <button class="ghost sm" data-rmc="${c}">✕</button></span>`).join('')}</div>`:'')
+      +`<details class="crall"><summary>Autres critères…</summary><select id="bpS"><option value="">＋ Rattacher un critère d'une autre catégorie…</option>${CRIT.map((F_,f)=>`<optgroup label="${esc(F_.t)} (${esc(F_.cc)})">${F_.c.map((C_,c)=>`<option value="${f}.${c}">${esc(C_[0])}</option>${C_[1].map((x,i)=>`<option value="${f}.${c}.${i}">   ↳ ${esc(x)}</option>`).join('')}`).join('')}</optgroup>`).join('')}</select></details>`;
     bg.querySelector('#bpS').onchange=e=>{ const v=e.target.value; if(v&&!st.cr.includes(v)) st.cr.push(v); drawC(); }; };
   const draw=()=>{ drawL(); drawD(); drawC(); };
   draw();
   bg.addEventListener('click',e=>{
     const b=e.target.closest('button,[data-p]'); if(e.target===bg) return bg.remove(); if(!b) return;
     if(b.dataset.x==='c') return bg.remove();
-    if(b.dataset.gi){ st.gi=+b.dataset.gi; const v=palOf(t,st.gi); if(st.p&&st.p<v) st.p=null; drawL(); drawD(); return; }
+    if(b.dataset.gi){ st.gi=+b.dataset.gi; const v=palOf(t,st.gi); if(st.p&&st.p<v) st.p=null; drawL(); drawD(); drawC(); return; }
     if(b.dataset.val){ const p=+b.dataset.val; t.pal=t.pal||{}; t.pal[st.gi]={p,d:o.date||today(),o:o.id}; t.u=Date.now(); if(st.p&&st.p<p) st.p=null; save(true,true); drawL(); drawD(); toast(`✓ Item ${st.gi} : palier ${p} validé`); return; }
     if(b.dataset.unval){ const p=+b.dataset.unval; t.pal=t.pal||{}; if(p>2) t.pal[st.gi]={p:p-1,d:o.date||today(),o:o.id}; else delete t.pal[st.gi]; t.u=Date.now(); save(true,true); drawL(); drawD(); return; }
     if(b.dataset.rmc){ st.cr=st.cr.filter(c=>c!==b.dataset.rmc); drawC(); return; }
+    if(b.dataset.tc){ const id=b.dataset.tc; st.cr=st.cr.includes(id)?st.cr.filter(c=>c!==id):[...st.cr,id]; drawC(); return; }
     if(b.dataset.p){ st.p=+b.dataset.p; drawD(); return; }
     if(b.id==='bpOK'){
       if(!st.gi){ bg.querySelector('#bpMsg').textContent='Choisis un item de la grille.'; return; }
@@ -901,7 +950,8 @@ function itemPalModal(n){
     <div class="pcards">${[1,2,3,4].map(p=>`<div class="pcard ${p<v?'gone':''}" style="--pc:${PAL[p].c}"><div class="row" style="flex-wrap:nowrap"><b class="grow">Palier ${p} · ${esc(it.dom.p[p-1])}</b>${v===p?'<span class="chip">✓ validé</span>':p<v?'<span class="chip">dépassé</span>':''}</div>
       <div class="pd">${esc(it.d[p-1])}</div>
       <div class="axb" style="justify-content:flex-start;max-width:none;margin:4px 0">${bs.filter(b=>b.p===p).map(b=>`<i style="background:${PAL[p].c}" title="L${esc(b.o.lesson||'?')} · ${esc(b.text)}"></i>`).join('')}</div>
-      <div class="row" style="justify-content:flex-end">${v===p?`<button class="sm ghost" data-unval="${p}">↺ annuler</button>`:p>v&&p>1?`<button class="sm" data-val="${p}">✓ Palier ${p} atteint</button>`:''}</div></div>`).join('')}</div>
+      <div class="row" style="justify-content:flex-end;flex-wrap:nowrap">${gaugeHTML(bs.filter(b=>b.p===p).length)}${v===p?`<button class="sm ghost" data-unval="${p}">↺ annuler</button>`:p>v&&p>1?`<button class="sm ${bs.filter(b=>b.p===p).length>=seuil()?'pri':''}" data-val="${p}">✓ Palier ${p} atteint</button>`:''}</div></div>`).join('')}</div>
+    <p class="muted" style="font-size:13px;margin:10px 0 0">La validation est toujours manuelle : la jauge indique combien de briques construisent chaque palier (repère réglable dans Paramètres).</p>
     <div class="row" style="margin-top:14px;justify-content:flex-end"><button data-x="c">Fermer</button></div></div>`; };
   draw(); document.body.appendChild(bg); bg.close=()=>bg.remove();
   bg.addEventListener('click',e=>{ const b=e.target.closest('button'); if(e.target===bg||b?.dataset.x==='c'){ bg.remove(); render(); return; }
@@ -925,13 +975,13 @@ function wallHTML(){
   return `
   <div class="top"><button data-act="wallBack" title="Retour">←</button>
     <div class="ctx grow">🏗️ ${esc(t.name)}<small>${all.length} brique${all.length>1?'s':''} · ${nval} item${nval>1?'s':''} avec palier validé · ${nv} visite${nv>1?'s':''}</small></div>
-    <div class="seg tabs"><button class="${wallTab==='mur'?'on':''}" data-act="wallTab" data-t="mur">🧱 Mur</button><button class="${wallTab==='suivi'?'on':''}" data-act="wallTab" data-t="suivi">📈 Suivi dans le temps</button></div>
+    <div class="seg tabs"><button class="${wallTab==='mur'?'on':''}" data-act="wallTab" data-t="mur">🧱 Mur</button><button class="${wallTab==='chemin'?'on':''}" data-act="wallTab" data-t="chemin">🛤️ Chemin</button><button class="${wallTab==='suivi'?'on':''}" data-act="wallTab" data-t="suivi">📈 Suivi</button></div>
     ${wallTab==='mur'?`<button data-act="wallAll">${wallAll?'👁 Items travaillés':'👁 Tous les items'}</button>`:''}
     <button data-act="refs" title="Grille des paliers et critères">📘</button>
     <button data-act="printWall">🖨 <span class="lbl">Imprimer</span></button>
   </div>
   <div class="wrap">
-  ${wallTab==='suivi'?suiviHTML(t):`
+  ${wallTab==='chemin'?cheminHTML(t):wallTab==='suivi'?suiviHTML(t):`
     ${sel?`<div class="card bsel" style="--pc:${PAL[sel.p||0].c}"><div class="grow" style="min-width:260px">${selIt?`<span class="chip">${selIt.n}</span> <b>${esc(selIt.l)}</b>`:`<span class="chip">${esc(sel.comp||'')}</span> <b>${esc(compLabel(sel.comp))}</b>`}
         <p style="font-size:17px;margin:8px 0">${esc(sel.text)||'<i class="muted">sans texte</i>'}</p>
         ${selIt&&sel.p?`<p class="muted" style="font-size:13px;margin:0 0 6px"><b>Palier ${sel.p}</b> · ${esc(selIt.d[sel.p-1])}</p>`:''}
@@ -946,6 +996,13 @@ function wallHTML(){
     ${!all.length&&!nval&&!wallAll?`<div class="card empty">${MASCOT(100)}<h3 style="margin:10px 0">Pas encore de brique</h3><p>Pendant une visite, touche le bouton jaune 🧱 dès que tu vois quelque chose d'intéressant. <button class="sm" data-act="wallAll">Voir tous les items</button></p></div>`:''}
   `}
   </div>`;
+}
+function cheminHTML(t){
+  const vs=obsOf(t.id); if(!vs.length) return `<div class="card empty">${MASCOT(100)}<h3>Le chemin commencera à la première visite</h3></div>`;
+  const last=vs[0];
+  return `<div class="card"><div class="row"><h3 class="grow">🛤️ Le chemin parcouru</h3><span class="muted" style="font-size:13px">une étape par leçon · briques gagnées au-dessus · 🚩 drapeau vert = palier validé</span></div>${pathSVG(t,null,last)}</div>
+    <div class="card" style="margin-top:20px"><h3>🪜 Où en est ${esc(firstName(t.name))} sur chaque item ?</h3><p class="muted" style="margin:2px 0 8px;font-size:13px">Chaque marche est un palier. La marche suivante se remplit avec les briques posées (repère : ${seuil()}).</p>${tracksHTML(t)||'<p class="muted">Aucune brique pour l\'instant.</p>'}</div>
+    <div class="card" style="margin-top:20px"><h3>🧱 Le mur</h3><p class="muted" style="margin:2px 0 8px;font-size:13px">Les briques de la dernière leçon sont entourées en violet ★.</p>${wallSVG(t,null,last)}</div>`;
 }
 /* Suivi dans le temps : une colonne par leçon */
 function suiviData(t){
@@ -969,6 +1026,73 @@ function suiviHTML(t){
   const ax=axisTableHTML(t.id);
   return bars+matrix+(ax?`<div class="card" style="margin-top:20px"><h3>🎯 Pas de progression sur les axes de travail</h3><p class="muted" style="margin:2px 0 0;font-size:13px">Nombre d'éléments mis en place à chaque leçon pour faire progresser chaque axe.</p>${ax}</div>`:'');
 }
+/* ---------- Progression visible par le stagiaire : chemin, mur, pistes ---------- */
+function progData(t, upto){
+  const visits=obsOf(t.id).slice().reverse().filter(v=>!upto||visitKey(v)<=visitKey(upto));
+  const {valAt}=suiviData(t); const vals={}; // validations par visite (index dans la liste complète → id)
+  const full=obsOf(t.id).slice().reverse();
+  Object.entries(valAt).forEach(([n,r])=>{ const v=full[r.vi]; if(v) (vals[v.id]=vals[v.id]||[]).push({n:+n,p:r.p}); });
+  return {visits,vals};
+}
+/* Le chemin : une étape par leçon, les briques gagnées au-dessus, les paliers validés en drapeau */
+function pathSVG(t, upto, hi, opts={}){
+  const {visits,vals}=progData(t,upto); if(!visits.length) return '';
+  const N=opts.perRow||5, W=1000, SX=160, X0=170, RH=210, TOP=120;
+  const pts=visits.map((v,i)=>{ const r=Math.floor(i/N), k=i%N, x=r%2? X0+(N-1-k)*SX : X0+k*SX; return {x, y:TOP+r*RH, v}; });
+  const last=pts[pts.length-1], li=pts.length, lr=Math.floor(li/N), lk=li%N;
+  const next={x: lr%2? X0+(N-1-lk)*SX : X0+lk*SX, y:TOP+lr*RH};
+  const seg=(a,b)=> a.y===b.y ? ` L${b.x},${b.y}` : (()=>{ const dx=a.x>W/2?120:-120; return ` C${a.x+dx},${a.y} ${b.x+dx},${b.y} ${b.x},${b.y}`; })();
+  let d=`M${pts[0].x-130},${pts[0].y} L${pts[0].x},${pts[0].y}`; for(let i=1;i<pts.length;i++) d+=seg(pts[i-1],pts[i]);
+  const dn=`M${last.x},${last.y}`+seg(last,next);
+  const H=next.y+110;
+  const brickRow=(bs,x,y)=>{ const show=bs.slice(0,12), w=20,h=11, per=6; return show.map((b,k)=>{ const r=Math.floor(k/per), c=k%per, rowN=Math.min(per,show.length-r*per);
+      const bx=x-rowN*w/2+c*w+(r%2?w/4:0), by=y-r*(h+1); return `<rect x="${bx}" y="${by}" width="${w-2}" height="${h}" rx="2" fill="${PAL[b.p||0].c}" stroke="#1f2544" stroke-width="1.5"/>`; }).join('')
+      +(bs.length>12?`<text x="${x+68}" y="${y+9}" font-size="13" font-weight="800" fill="#1f2544">+${bs.length-12}</text>`:''); };
+  const st=pts.map(({x,y,v})=>{ const bs=v.bricks||[], cur=hi&&v.id===hi.id, vv=vals[v.id]||[];
+    return `<g>${brickRow(bs,x,y-48)}
+      ${vv.length?`<g transform="translate(${x+24},${y-36})"><line x1="0" y1="0" x2="0" y2="-44" stroke="#1f2544" stroke-width="3"/><path d="M0,-44 L46,-36 L0,-27 Z" fill="#1fc28b" stroke="#1f2544" stroke-width="2"/><text x="8" y="-30" font-size="10" font-weight="800" fill="#1f2544">✓P${Math.max(...vv.map(z=>z.p))}</text></g>`:''}
+      <circle cx="${x}" cy="${y}" r="${cur?32:27}" fill="${cur?'#ffd43b':'#fff'}" stroke="#1f2544" stroke-width="4"/>
+      <text x="${x}" y="${y+7}" text-anchor="middle" font-size="${cur?21:18}" font-weight="800" fill="#1f2544" font-family="Fredoka,Nunito,sans-serif">L${esc(v.lesson||'?')}</text>
+      <text x="${x}" y="${y+50}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f2544">${shortDate(v.date)}</text>
+      <text x="${x}" y="${y+65}" text-anchor="middle" font-size="11.5" fill="#62668a">${esc((v.apsa||'').slice(0,18))} · ${bs.length} brique${bs.length>1?'s':''}</text>
+      ${vv.length?`<text x="${x}" y="${y+80}" text-anchor="middle" font-size="11" font-weight="800" fill="#118a5f">${vv.map(z=>'item '+z.n+' → palier '+z.p).join(' · ')}</text>`:''}</g>`; }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${opts.max||1100}px;display:block;margin:auto" xmlns="http://www.w3.org/2000/svg" font-family="Nunito,system-ui,sans-serif">
+    <path d="${d}" fill="none" stroke="#1f2544" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${d}" fill="none" stroke="#e9cf97" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${d}" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="14 12"/>
+    <path d="${dn}" fill="none" stroke="#cfc8b3" stroke-width="26" stroke-linecap="butt" stroke-dasharray="20 12"/>
+    <g transform="translate(${pts[0].x-150},${pts[0].y-62})"><line x1="0" y1="0" x2="0" y2="58" stroke="#1f2544" stroke-width="3"/><rect x="0" y="0" width="70" height="24" rx="5" fill="#5b4bdb" stroke="#1f2544" stroke-width="2"/><text x="35" y="17" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">Départ</text></g>
+    ${st}
+    <g><circle cx="${next.x}" cy="${next.y}" r="27" fill="#fff" stroke="#1f2544" stroke-width="3" stroke-dasharray="6 5"/><text x="${next.x}" y="${next.y+6}" text-anchor="middle" font-size="18">🚩</text>
+      <text x="${next.x}" y="${next.y+50}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#1f2544">Prochaine étape</text></g>
+  </svg>`;
+}
+/* Le mur : toutes les briques en appareillage décalé, celles de la leçon mises en avant */
+function wallSVG(t, upto, hi){
+  const bs=bricksOf(t.id,upto); if(!bs.length) return '';
+  const K=12, w=80, h=32, W=K*w+w/2+20, rows=Math.ceil(bs.length/K), H=rows*h+40;
+  const r=bs.map((b,i)=>{ const row=Math.floor(i/K), c=i%K, x=10+c*w+(row%2?w/2:0), y=H-30-(row+1)*h; const isNew=hi&&b.o.id===hi.id;
+    return `<g><rect x="${x}" y="${y}" width="${w-3}" height="${h-3}" rx="4" fill="${PAL[b.p||0].c}" stroke="${isNew?'#5b4bdb':'#1f2544'}" stroke-width="${isNew?4:2}"/>
+      <text x="${x+(w-3)/2}" y="${y+19}" text-anchor="middle" font-size="12" font-weight="800" fill="#1f2544">${b.gi?'item '+b.gi:esc(b.comp||'')}${isNew?' ★':''}</text></g>`; }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:1000px;display:block;margin:auto" xmlns="http://www.w3.org/2000/svg" font-family="Nunito,system-ui,sans-serif">
+    ${r}<rect x="0" y="${H-30}" width="${W}" height="8" fill="#1f2544"/><text x="${W/2}" y="${H-6}" text-anchor="middle" font-size="12" fill="#62668a">fondations · ${bs.length} brique${bs.length>1?'s':''} posée${bs.length>1?'s':''}</text></svg>`;
+}
+/* Pistes par item : 4 marches (paliers), la marche en cours se remplit avec les briques */
+function tracksHTML(t, upto){
+  const bs=bricksOf(t.id,upto).filter(b=>b.gi);
+  const items=GRILLE.flatMap(d=>d.items).filter(it=>bs.some(b=>b.gi===it.n)||palOf(t,it.n));
+  if(!items.length) return '';
+  return `<div class="tracks">${items.map(it=>{ const v=Math.max(1,palOf(t,it.n)), nx=Math.min(4,v+1), n=bs.filter(b=>b.gi===it.n&&b.p===nx).length, pc=Math.min(100,Math.round(n/seuil()*100));
+    return `<div class="trk"><div class="trl"><b>${it.n}</b> ${esc(it.l)}</div><div class="steps">${[1,2,3,4].map(p=>`<div class="stp ${p<=v?'done':''}" style="--pc:${PAL[p].c}">${p===nx&&v<4?`<i style="width:${pc}%"></i>`:''}<span>${p<=v?'✓ ':''}P${p}</span></div>`).join('')}</div>
+      <div class="trn">${v>=4?'🏆 palier 4 atteint':`${n} brique${n>1?'s':''} vers le palier ${nx}`}</div></div>`; }).join('')}</div>`;
+}
+function cheers(t,o){
+  const mine=(o.bricks||[]).length, tot=bricksOf(t.id,o).length, {vals}=progData(t,o), vv=vals[o.id]||[];
+  const msg=[`Cette leçon : <b>+${mine} brique${mine>1?'s':''}</b> pour ton mur, qui en compte désormais <b>${tot}</b>.`];
+  vv.forEach(z=>msg.push(`🎉 <b>Palier ${z.p} atteint</b> sur « ${esc(GI(z.n).l)} ».`));
+  return msg.join(' ');
+}
+
 function buildWallPrint(){
   const t=trainee(wallT), st=S.settings, all=bricksOf(t.id), by={}; all.forEach(b=>(by[brickKey(b)]=by[brickKey(b)]||[]).push(b));
   const {visits,valAt}=suiviData(t);
@@ -976,6 +1100,8 @@ function buildWallPrint(){
   const bk=b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>L${esc(b.o.lesson||'?')}</b> ${shortDate(b.o.date)} · ${b.p?'P'+b.p:'P?'} — ${esc(b.text||'')}${(b.cr||[]).length?` <i style="color:#475569">[${b.cr.map(c=>esc(critShort(c))).join(' ; ')}]</i>`:''}</span>`;
   $('#print').innerHTML=`<div class="p-head"><div><div style="font-size:9pt;color:#64748b">${esc(st.school)}</div><h1>Mur des compétences — ${esc(t.name)}</h1></div><div style="text-align:right;font-weight:800">N'EPS</div></div>
   <div class="p-leg">${all.length} briques · ${visits.length} visites · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')} <i style="background:${PAL[0].c}"></i>non précisé · Grille : Paliers de professionnalisation INSPE · édité le ${shortDate(today())}</div>
+  <div class="p-h2">Le chemin parcouru</div>${pathSVG(t,null,obsOf(t.id)[0],{max:760})}
+  ${tracksHTML(t)?`<div class="p-h2">Où en est-on sur chaque item ?</div>${tracksHTML(t)}`:''}
   <div class="p-h2">Suivi dans le temps</div>
   <table class="p-table p-axt"><tr><th>Item</th>${visits.map(v=>`<th class="c">L${esc(v.lesson||'?')}<br><span style="font-weight:400">${shortDate(v.date)}</span></th>`).join('')}<th class="c">Validé</th></tr>
   ${GRILLE.map(d=>`<tr><td colspan="${visits.length+2}" style="background:#f1f5f9;font-weight:700">${esc(d.t)}</td></tr>`+d.items.map(it=>`<tr><td>${it.n}. ${esc(it.l)}</td>${visits.map((v,k)=>{ const bs=(v.bricks||[]).filter(b=>b.gi===it.n); const va=valAt[it.n]&&valAt[it.n].vi===k; return `<td class="c"><span class="axb">${bs.map(b=>`<i style="background:${PAL[b.p||0].c}"></i>`).join('')}</span>${va?` ✓P${valAt[it.n].p}`:''}</td>`; }).join('')}<td class="c">${palOf(t,it.n)?'P'+palOf(t,it.n):'—'}</td></tr>`).join('')).join('')}</table>
@@ -991,7 +1117,7 @@ function refsHTML(){
   <div class="wrap">
   ${GRILLE.map(d=>`<div class="card" style="margin-bottom:18px;overflow:auto"><h3>${esc(d.t)}</h3><p class="muted" style="margin:2px 0 8px;font-size:13px">${esc(d.s)}</p>
     <table class="axt grid"><tr><th></th>${d.p.map((p,k)=>`<th style="background:${PAL[k+1].c}">Palier ${k+1}<small>${esc(p)}</small></th>`).join('')}</tr>
-    ${d.items.map(it=>`<tr><td><b>${it.n}. ${esc(it.l)}</b></td>${it.d.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</table></div>`).join('')}
+    ${d.items.map(it=>`<tr><td><b>${it.n}. ${esc(it.l)}</b><div class="crs" style="margin-top:6px">${(ITEM_CRIT[it.n]||[]).map(id=>`<span class="crc" style="font-weight:600">${esc(critLabel(id))}</span>`).join('')}</div></td>${it.d.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</table></div>`).join('')}
   <h2 style="margin:26px 0 10px">Les critères</h2>
   <div class="setgrid">${CRIT.map(F_=>`<div class="card"><h3>${esc(F_.t)} <span class="chip">${esc(F_.cc)}</span></h3><p class="muted" style="margin:2px 0 8px;font-size:13px">${esc(F_.f)}</p>
     ${F_.c.map(C_=>`<div style="margin:8px 0"><b>${esc(C_[0])}</b><div class="crs">${C_[1].map(x=>`<span class="crc">${esc(x)}</span>`).join('')}</div></div>`).join('')}</div>`).join('')}</div>
@@ -1222,6 +1348,11 @@ async function buildPrint(){
   ${o.final.synth.trim()?`<div class="p-box"><div class="p-txt">${esc(o.final.synth)}</div></div>`:''}
   ${o.final.forts.trim()?`<div class="p-box" style="border-color:#86efac;background:#f0fdf4"><b>✅ Points forts</b><div class="p-txt">${esc(o.final.forts)}</div></div>`:''}
   ${axes.map((a,i)=>`<div class="p-axe"><b>🎯 Axe de travail ${i+1}${a.prio?' (prioritaire)':''}</b>${a.comp?` <span style="color:#64748b;font-size:9pt">— ${esc(a.comp)} : ${esc(compLabel(a.comp))}</span>`:''}<div class="p-txt">${esc(a.text)}</div></div>`).join('')}
+  ${t.id&&bricksOf(t.id,o).length?`<div class="p-prog"><div class="p-head"><div><div style="font-size:9pt;color:#64748b">Bilan de visite — L${esc(o.lesson||'?')} ${esc(o.apsa)} · ${shortDate(o.date)}</div><h1>Ta progression, ${esc(firstName(t.name))}</h1></div><div style="text-align:right;font-weight:800">N'EPS</div></div>
+    <div class="p-cheer">${cheers(t,o)}</div>
+    <div class="p-h2">Ton chemin</div>${pathSVG(t,o,o,{max:760})}
+    <div class="p-h2">Ton mur</div><div class="p-leg">Les briques de cette leçon sont entourées en violet ★ · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')}</div>${wallSVG(t,o,o)}
+    ${tracksHTML(t,o)?`<div class="p-h2">Où en es-tu sur chaque item ?</div>${tracksHTML(t,o)}`:''}</div>`:''}
   <div class="p-foot"><span>${esc(st.tutor)} — tuteur</span><span>N'EPS · by Quentin Delisle</span></div>`;
 }
 
@@ -1230,6 +1361,7 @@ function mailLink(){
   const axes=o.final.axes.filter(a=>a.text.trim());
   const subj=`Bilan de visite — L${o.lesson||'?'} ${o.apsa} (${o.classe}) — ${shortDate(o.date)}`;
   const body=`Bonjour ${firstName(t.name)},\n\nTu trouveras en pièce jointe le bilan de ta leçon ${o.lesson||''} de ${o.apsa} avec les ${o.classe} du ${frDate(o.date)}.\n\n`+
+    (t.id&&(o.bricks||[]).length?`Cette leçon, tu as posé ${(o.bricks||[]).length} nouvelle${(o.bricks||[]).length>1?'s':''} brique${(o.bricks||[]).length>1?'s':''} : ton mur en compte désormais ${bricksOf(t.id,o).length}. Tu retrouveras ton chemin de progression à la fin du bilan.\n\n`:'')+
     (axes.length?`Axes de travail pour la prochaine fois :\n${axes.map((a,i)=>`${i+1}. ${a.text}${a.comp?' ('+a.comp+')':''}`).join('\n')}\n\n`:'')+
     `Bonne continuation,\n${st.tutor}`;
   return {to:t.email||'',subj,body,href:`mailto:${encodeURIComponent(t.email||'')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`};
@@ -1470,6 +1602,7 @@ function bindValue(el){
     case 'set.tutor': S.settings.tutor=v; break;
     case 'set.school': S.settings.school=v; break;
     case 'set.edtUrl': S.settings.edtUrl=v.trim(); break;
+    case 'set.seuil': S.settings.seuil=Math.max(1,+v||5); break;
     case 'set.ref': S.settings.ref=v; break;
     case 'f.title': f.title=v; refreshNav(); break;
     case 'f.text': f.text=v; break;
