@@ -1,8 +1,9 @@
 /* N'EPS · Visites stagiaires — service worker
    Pense à changer VERSION à chaque mise à jour de index.html */
-const VERSION = 'stagiaires-v3';
+const VERSION = 'stagiaires-v5';
 const ASSETS = ['./', './index.html', './manifest.webmanifest',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/logo-64.png'];
+  './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/logo-64.png',
+  './lib/qrcode.js', './lib/jsQR.js', './lib/zxing-reader.js', './lib/zxing_reader.wasm', './lib/neps-qr.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));

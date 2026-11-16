@@ -68,6 +68,9 @@ a{color:var(--accent);font-weight:800}
 .chrono .t{font-family:var(--fh);font-variant-numeric:tabular-nums;font-size:28px;font-weight:700;min-width:96px;text-align:center}
 .chrono button{min-height:36px;padding:3px 10px;box-shadow:none;border-width:2px}
 .chrono button:hover{box-shadow:none;transform:none}
+.mins{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
+.mins button{min-width:64px;font-family:var(--fh);font-size:17px}
+.mins input{width:90px}
 .measure.on{background:var(--bf)!important;color:#fff!important}
 
 /* ---------- Home ---------- */
@@ -196,6 +199,58 @@ a{color:var(--accent);font-weight:800}
 .setgrid{display:grid;grid-template-columns:1fr;gap:18px}
 .setgrid .card h3{font-size:20px;margin-bottom:4px}
 
+/* ---------- Briques ---------- */
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;font-weight:700;margin:4px 0 8px 6px;align-items:center}
+.legend i,.prev i{display:inline-block;width:18px;height:11px;border:1.5px solid var(--ink);border-radius:3px;vertical-align:middle;margin-right:5px}
+.prev{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:3px;align-items:center;font-size:12px;color:var(--mute)}
+.prev i{margin:0}
+.prev span{margin-left:6px}
+.brick{grid-column:1/-1;display:flex;gap:6px;align-items:center;background:var(--pc);border:2px solid var(--ink);border-radius:9px;padding:3px 4px;box-shadow:var(--shs)}
+.brick .pal{min-height:30px;padding:0 8px;font-size:12.5px;border-width:2px;box-shadow:none;background:#fff;font-family:var(--fh)}
+.brick .bt{flex:1;font-size:14px;line-height:1.35;min-height:1.3em}
+.brick button.sm{min-height:28px}
+.addb{grid-column:1/-1;display:flex;gap:5px;align-items:center}
+.comp .addb input{flex:1;min-width:0;padding:6px 9px;font-size:14px}
+.pb{min-height:36px;width:38px;padding:0;background:var(--pc);font-family:var(--fh);font-size:16px}
+.ev{display:flex;flex-wrap:wrap}
+.evb{min-height:0;padding:2px 8px;font-size:12px;border-width:1.5px;box-shadow:none;font-weight:600;white-space:normal;text-align:left;margin:2px 4px 0 0;background:#f6f7fb}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:30px 16px;align-items:end;margin-top:8px}
+.wcol{display:flex;flex-direction:column;justify-content:flex-end;min-width:0}
+.stack{display:flex;flex-direction:column-reverse;gap:3px}
+.wb{width:calc(100% - 12px);text-align:left;white-space:normal;background:var(--pc);border:2px solid var(--ink);border-radius:7px;padding:4px 7px;min-height:0;font-size:12px;font-weight:700;line-height:1.25;box-shadow:2px 2px 0 var(--ink);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.wb.off{margin-left:12px}
+.wb b{font-family:var(--fh)}
+.wb.on{outline:3px solid var(--accent);outline-offset:2px}
+.ground{border-top:6px solid var(--ink);margin-top:5px;padding-top:6px;text-align:center}
+.ground .code{display:inline-block;font-family:var(--fh);font-weight:700;background:var(--yellow);border:2px solid var(--ink);border-radius:10px;padding:0 10px}
+.ground small{font-size:11.5px;color:var(--mute);line-height:1.25;margin-top:3px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.flag{text-align:center;font-family:var(--fh);font-size:14px;margin-bottom:5px}
+.wcol.vide .ground{opacity:.45}
+.bsel{margin-bottom:20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;background:var(--pc)}
+.stat.p{background:var(--pc)}
+
+/* ---------- Transfert QR ---------- */
+.modal.wide{max-width:980px}
+.sendgrid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:start}
+.sendgrid .qr-box img{width:min(400px,56vh,80vw)}
+@media (max-width:820px),(orientation:portrait){ .sendgrid{grid-template-columns:1fr} }
+.qr-box{display:flex;flex-direction:column;align-items:center;gap:8px}
+.qr-box img{width:min(440px,58vh,84vw);height:auto;image-rendering:pixelated;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:var(--sh)}
+.qr-part{font-family:var(--fh);font-weight:700;font-size:20px}
+.qr-nums{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.qr-nums button{min-width:40px;min-height:34px;padding:2px 8px;font-size:13px}
+.qr-nums button.on{background:var(--accent);color:#fff}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+label.btn{display:inline-flex;align-items:center;cursor:pointer;border:var(--bw) solid var(--ink);background:#fff;border-radius:14px;padding:7px 14px;min-height:42px;font-weight:800;box-shadow:var(--shs);text-transform:none;font-family:"Nunito",sans-serif;font-size:15px;color:var(--ink);letter-spacing:0;margin:0}
+.btn.orange{background:var(--yellow)}
+.center{text-align:center}
+.scan-wrap{position:relative;max-width:560px;margin:0 auto;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:4/3;border:3px solid var(--ink);box-shadow:var(--sh)}
+.scan-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+.scan-frame{position:absolute;inset:8%;border:5px solid var(--yellow);border-radius:18px;box-shadow:0 0 0 999px rgba(0,0,0,.25)}
+.scan-prog{position:relative;height:30px;background:var(--soft);border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.scan-bar{position:absolute;left:0;top:0;bottom:0;background:var(--sit)}
+.scan-prog span{position:relative;display:block;text-align:center;font-weight:900;line-height:26px}
+
 /* ---------- Paysage / grand écran : on exploite la largeur ---------- */
 @media (min-width:1000px){
   .fgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:18px;align-items:start}
@@ -263,14 +318,25 @@ a{color:var(--accent);font-weight:800}
 .p-table td,.p-table th{border:1px solid #cbd5e1;padding:4px 6px;text-align:left;vertical-align:top}
 .p-lv{font-weight:700;white-space:nowrap}
 .p-axe{border:2px solid #e11d48;border-radius:8px;padding:6px 10px;margin:6px 0;break-inside:avoid}
+.p-b{display:inline-block;background:var(--pc);border:1px solid #333;border-radius:4px;padding:1px 6px;margin:2px 3px 2px 0;font-size:9pt;break-inside:avoid}
+.p-table .p-b{display:block}
+.p-mini div{margin:2px 0;font-size:9pt;break-inside:avoid}
+.p-mini i,.p-leg i{display:inline-block;width:13px;height:8px;border:1px solid #333;border-radius:2px;margin-right:2px;vertical-align:middle}
+.p-leg{font-size:8.5pt;color:#475569;margin:2px 0 6px}
+.p-wcol{break-inside:avoid;margin:8px 0;border-left:4px solid #1f2544;padding-left:8px}
 .p-foot{margin-top:18px;display:flex;justify-content:space-between;font-size:9pt;color:#64748b;border-top:1px solid #cbd5e1;padding-top:6px}
 </style>
 </head>
 <body>
+<script src="lib/qrcode.js"></script>
+<script src="lib/jsQR.js"></script>
+<script src="lib/zxing-reader.js"></script>
+<script src="lib/neps-qr.js"></script>
 <div id="app"></div>
 <div id="print"></div>
 <div class="sign">N'EPS · by <b>Quentin Delisle</b></div>
 <input type="file" id="importFile" accept=".json,application/json" class="hidden">
+<input type="file" id="pktFile" accept=".json,.neps,application/json" class="hidden">
 
 <script>
 /* =========================================================
@@ -296,6 +362,8 @@ const KINDS = {
 const LEVELS = ['Non observé','À construire','En cours','Acquis'];
 const LV_COL = ['#64748b','#dc2626','#ea580c','#16a34a'];
 const AX_STATUS = ['À observer','Non travaillé','En progrès','Atteint'];
+const PAL = [{l:'Palier non précisé',c:'#e3e5ee'},{l:'Palier 1',c:'#ffb3a7'},{l:'Palier 2',c:'#ffd43b'},{l:'Palier 3',c:'#7cd4f5'},{l:'Palier 4',c:'#5fd39a'}];
+const APP_ID = 'neps-stagiaires';
 
 const DEFAULT_REF = `## Compétences communes à tous les professeurs et personnels d'éducation
 CC1 | Faire partager les valeurs de la République
@@ -350,7 +418,7 @@ const frDate = d => d ? new Date(d+'T12:00').toLocaleDateString('fr-FR',{weekday
 const shortDate = d => d ? new Date(d+'T12:00').toLocaleDateString('fr-FR') : '';
 const today = () => new Date().toISOString().slice(0,10);
 const firstName = n => (n||'').trim().split(/\s+/)[0]||'';
-function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function toast(msg){ document.querySelectorAll('.toast').forEach(x=>x.remove()); const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
 
 const MASCOT = (w=96)=>`<svg width="${w}" height="${w}" viewBox="0 0 100 100" aria-hidden="true"><rect x="42" y="4" width="16" height="10" rx="3" fill="#ffd43b" stroke="#1f2544" stroke-width="3"/><line x1="78" y1="22" x2="86" y2="14" stroke="#1f2544" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="56" r="38" fill="#fff" stroke="#1f2544" stroke-width="4"/><circle cx="50" cy="56" r="30" fill="#e8f0ff"/><circle cx="38" cy="50" r="5" fill="#1f2544"/><circle cx="62" cy="50" r="5" fill="#1f2544"/><circle cx="40" cy="48" r="1.6" fill="#fff"/><circle cx="64" cy="48" r="1.6" fill="#fff"/><path d="M36 64 Q50 78 64 64" fill="none" stroke="#1f2544" stroke-width="4" stroke-linecap="round"/><circle cx="29" cy="62" r="5" fill="#ff9fb6"/><circle cx="71" cy="62" r="5" fill="#ff9fb6"/><line x1="50" y1="26" x2="50" y2="34" stroke="#1f2544" stroke-width="4" stroke-linecap="round"/></svg>`;
 const AV_COL=['#7c6cf2','#ffb020','#1fc28b','#2fb5f0','#ff4f7b','#f07a1a','#a855f7'];
@@ -367,9 +435,19 @@ function seed(){
 }
 function load(){ try{ const j=localStorage.getItem(LS); return j?JSON.parse(j):null; }catch(e){ return null; } }
 let S = load() || seed();
+function migrate(){
+  S.trainees.forEach(t=>{ if(!t.u) t.u=1; });
+  S.obs.forEach(o=>{
+    if(!o.bricks){ o.bricks=[]; Object.entries(o.comps||{}).forEach(([code,v])=>{ if(v.lvl>0||v.note) o.bricks.push({id:uid(),comp:code,text:v.note||LEVELS[v.lvl]||'',p:Math.min(4,v.lvl||0)}); }); }
+    if(!o.u) o.u=Date.parse(o.created)||1;
+    o.frames.forEach(f=>{ if(!f.strokes) f.strokes=[]; });
+  });
+}
+migrate();
 if(S.settings && !S.settings.edtUrl){ S.settings.edtUrl='https://quentindelisle.github.io/EDT/'; }
 let saveT=null;
-function save(now){
+function save(now,noTouch){
+  if(!noTouch && view==='obs'){ const o=O(); if(o) o.u=Date.now(); }
   clearTimeout(saveT);
   const go=()=>{ try{ localStorage.setItem(LS,JSON.stringify(S)); }catch(e){ toast('⚠️ Stockage plein : exporte puis supprime d\'anciennes visites.'); } };
   now?go():saveT=setTimeout(go,300);
@@ -388,6 +466,14 @@ const compLabel = code => { const c=refList().find(x=>x.code===code); return c?c
 const compOptions = (sel,empty='Compétence…') => `<option value="">${empty}</option>`+refList().map(c=>`<option value="${esc(c.code)}" ${c.code===sel?'selected':''}>${esc(c.code)} — ${esc(c.label.slice(0,60))}${c.label.length>60?'…':''}</option>`).join('');
 
 const trainee = id => S.trainees.find(t=>t.id===id);
+const visitKey = o => (o.date||'')+(o.created||'');
+function bricksOf(tid, upto){
+  const res=[];
+  S.obs.filter(o=>o.traineeId===tid && (!upto || visitKey(o)<=visitKey(upto))).sort((a,b)=>visitKey(a).localeCompare(visitKey(b)))
+    .forEach(o=>(o.bricks||[]).forEach(b=>res.push({...b,o})));
+  return res;
+}
+const hasDraw = f => !!(f.drawing || (f.strokes&&f.strokes.length));
 const obsOf = tid => S.obs.filter(o=>o.traineeId===tid).sort((a,b)=>(b.date+b.created).localeCompare(a.date+a.created));
 function currentAxes(tid, exceptId){
   const last = obsOf(tid).find(o=>o.id!==exceptId && (o.final?.axes||[]).some(a=>a.text.trim()));
@@ -396,7 +482,7 @@ function currentAxes(tid, exceptId){
 }
 
 /* ---------- UI state ---------- */
-let axFold=false, view='home', cur=null, curFrame=null, kind='obs', bubbleOpen=false, bubbleTheme='', bubbleQ='', measureStart=null;
+let axFold=false, wallT=null, wallFrom='home', wallAll=false, wallSel=null, view='home', cur=null, curFrame=null, kind='obs', bubbleOpen=false, bubbleTheme='', bubbleQ='', measureStart=null;
 const O = () => S.obs.find(o=>o.id===cur);
 const F = () => O()?.frames.find(f=>f.id===curFrame);
 
@@ -416,6 +502,7 @@ function render(){
   const a=$('#app');
   if(view==='home') a.innerHTML=homeHTML();
   else if(view==='settings') a.innerHTML=settingsHTML();
+  else if(view==='wall') a.innerHTML=wallHTML();
   else if(view==='obs'){ if(!O()){view='home';return render();} a.innerHTML=obsHTML(); afterObsRender(); }
   renderBubble();
 }
@@ -428,6 +515,7 @@ function homeHTML(){
     <div class="brand"><img src="icons/logo-64.png" alt="">N'EPS <small>· Visites stagiaires</small></div>
     <div class="grow"></div>
     ${S.settings.edtUrl?`<button data-act="edt">📅 EDT</button>`:''}
+    <button data-act="receive" title="Recevoir depuis un autre appareil">📥 <span class="lbl">Recevoir</span></button>
     <button data-act="newTrainee">＋ Stagiaire</button>
     <button data-act="settings">⚙︎ <span class="lbl">Paramètres</span></button>
   </div>
@@ -444,14 +532,16 @@ function homeHTML(){
   </div>`;
 }
 function tcardHTML(t){
-  const ca=currentAxes(t.id); const list=obsOf(t.id);
+  const ca=currentAxes(t.id); const list=obsOf(t.id); const nb=list.reduce((n,o)=>n+(o.bricks||[]).length,0);
   return `<div class="card tcard">
     <div class="row" style="flex-wrap:nowrap">${avatar(t.name)}<div class="grow" style="min-width:0"><h3>${esc(t.name)}</h3>
       <div class="muted" style="font-size:13px;overflow:hidden;text-overflow:ellipsis">${esc(t.email||'— pas d\'email')}${t.lessonDoc?` · <a href="${esc(t.lessonDoc)}" target="_blank" rel="noopener">📄 Leçons</a>`:''}${t.drive?` · <a href="${esc(t.drive)}" target="_blank" rel="noopener">📂 Drive</a>`:''}</div></div>
       <button class="sm" data-act="editTrainee" data-id="${t.id}">✎</button></div>
     <label>Axes en cours <span style="text-transform:none;font-weight:400">(${esc(ca.from)})</span></label>
     ${ca.axes.length?ca.axes.map((a,i)=>`<div class="axe"><b>Axe ${i+1}</b> ${a.prio?'<span class="chip" style="background:#ffe4e6;color:#be123c">prioritaire</span>':''} ${esc(a.text)} ${a.comp?`<span class="chip">${esc(a.comp)}</span>`:''}</div>`).join(''):'<div class="muted" style="font-size:14px">Aucun axe fixé.</div>'}
-    <div class="row" style="margin-top:12px"><button class="pri" data-act="newObs" data-id="${t.id}">▶ Nouvelle visite</button><span class="muted" style="font-size:13px">${list.length} visite${list.length>1?'s':''}</span></div>
+    <div class="row" style="margin-top:12px"><button class="pri" data-act="newObs" data-id="${t.id}">▶ Nouvelle visite</button>
+      <button data-act="wall" data-id="${t.id}" title="Mur des compétences">🧱 Mur <span class="chip">${nb}</span></button>
+      <button data-act="sendTrainee" data-id="${t.id}" title="Envoyer le stagiaire et ses visites vers un autre appareil">📤</button></div>
     ${list.length?`<div class="hist">${list.map(o=>`<div class="h"><span>${shortDate(o.date)} · <b>L${esc(o.lesson||'?')}</b> ${esc(o.apsa)} · ${esc(o.classe)}</span>
       <button class="sm" data-act="openObs" data-id="${o.id}">Ouvrir</button>
       <button class="sm ghost danger" data-act="delObs" data-id="${o.id}">🗑</button></div>`).join('')}</div>`:''}
@@ -509,6 +599,7 @@ function obsHTML(){
       <span class="t" id="chronoT">${fmt(elapsed(o))}</span>
       <button data-act="chrono" title="Démarrer / pause">${running?'⏸':'▶'}</button>
       <button data-act="chronoReset" title="Remettre à zéro">↺</button>
+      <button data-act="chronoAdd" title="Chrono lancé en retard : ajouter des minutes">⏪</button>
       <button id="measureBtn" class="measure ${measureStart!==null?'on':''}" data-act="measure" title="Mesurer une durée (consignes, temps mort…)">⏱ <span class="lbl">Mesurer</span></button>
     </div>
     <button data-act="lesson" title="Voir la leçon du stagiaire">📄 <span class="lbl">Leçon</span></button>
@@ -516,6 +607,7 @@ function obsHTML(){
     ${S.settings.edtUrl?`<button data-act="edt" title="Emploi du temps">📅</button>`:''}
     <button class="hot" data-act="pdf">🖨 <span class="lbl">Bilan </span>PDF</button>
     <button data-act="mail" title="Préparer le mail">✉️</button>
+    <button data-act="sendObs" title="Envoyer cette visite vers un autre appareil (QR)">📤</button>
   </div>
   ${bannerHTML(o)}
   <div class="layout">
@@ -539,15 +631,15 @@ function bannerHTML(o){
 }
 function navHTML(o){
   const sp=(id,label,ic,sub,cnt,col)=>`<button class="it ${curFrame===id?'on':''}" data-act="goto" data-id="${id}" style="--c:${col}"><span>${ic}</span><span class="n">${label}${sub?`<small>${sub}</small>`:''}</span>${cnt?`<span class="cnt">${cnt}</span>`:''}</button>`;
-  const ncomp=Object.values(o.comps||{}).filter(c=>c.lvl>0).length;
+  const ncomp=(o.bricks||[]).length;
   return o.frames.map(f=>{
-    const T=TYPES[f.type]; const n=f.items.length+(f.drawing?1:0);
+    const T=TYPES[f.type]; const n=f.items.length+(hasDraw(f)?1:0);
     const sub = f.start!=null ? `${f.clock||''} · ${fmtShort((f.end??elapsed(o))-f.start)}${f.end==null?' ●':''}` : T.l!==f.title?T.l:'';
     return `<button class="it ${curFrame===f.id?'on':''}" data-act="goto" data-id="${f.id}" style="--c:${T.hex}"><span class="n">${esc(f.title)}<small>${esc(sub)}</small></span>${n?`<span class="cnt">${n}</span>`:''}</button>`;
   }).join('') + `
   <div class="row" style="flex-wrap:nowrap"><select id="addType" style="flex:1;min-height:38px;padding:4px 8px">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k==='sit'?'selected':''}>${v.l}</option>`).join('')}</select><button class="sm yel" data-act="addFrame" title="Ajouter un cadre">＋</button></div>
   <hr>
-  ${sp('__comp','Compétences','📋',ncomp?ncomp+' évaluée(s)':'',0,'#ffd43b')}
+  ${sp('__comp','Briques','🧱',ncomp?ncomp+' posée'+(ncomp>1?'s':''):'compétences travaillées',0,'#ffd43b')}
   ${sp('__synth','Synthèse & axes','🎯','',(o.final.axes||[]).filter(a=>a.text.trim()).length,'#ff9fb6')}
   ${sp('__priv','Notes privées','🔒','non exportées','','#c9ccd9')}`;
 }
@@ -568,6 +660,7 @@ function mainHTML(o){
   <div class="fhead" style="--c:${T.hex}">
     <input class="title" data-k="f.title" value="${esc(f.title)}">
     <button class="sm ${f.start!=null&&f.end==null?'':'pri'}" data-act="startPhase">${f.start!=null&&f.end==null?'⏹ Terminer la phase':(f.start!=null?'↻ Redémarrer la phase':'▶ Débuter la phase')}</button>
+    <button class="sm yel" data-act="shiftPhase" title="J'ai oublié : la phase a commencé plus tôt">⏪ ${f.start!=null?'Décaler le début':'Commencée il y a…'}</button>
     <button class="sm ghost danger" data-act="delFrame" title="Supprimer ce cadre">🗑</button>
   </div>
   <div class="timing" id="timing">${timingHTML(f)}</div>
@@ -588,7 +681,7 @@ function mainHTML(o){
 
   </div><div class="col right">
   <div class="sec"><h4>🎨 Croquis</h4>
-    ${f.drawing||f.showDraw?drawToolsHTML(f)+`<div class="draw" id="draw"><canvas id="bgC" width="1000" height="560"></canvas><canvas id="inkC" width="1000" height="560"></canvas></div>`
+    ${hasDraw(f)||f.showDraw?drawToolsHTML(f)+`<div class="draw" id="draw"><canvas id="bgC" width="1000" height="560"></canvas><canvas id="inkC" width="1000" height="560"></canvas></div>`
       :`<button class="drawph" data-act="showDraw"><span>✏️</span>Ajouter un croquis<small class="muted" style="font-family:Nunito,sans-serif;font-size:13px">terrain, piscine, quadrillage…</small></button>`}
   </div></div></div>`;
 }
@@ -598,6 +691,7 @@ function itemHTML(it,i){
     <span class="ic" title="${K.l}">${K.ic}</span>
     <div class="tx" contenteditable="true" data-k="it.text:${i}">${esc(it.text)}</div>
     <select data-k="it.comp:${i}" title="Compétence liée">${compOptions(it.comp,'—').replace(/ — [^<]*/g,'')}</select>
+    ${it.comp?`<button class="ghost" data-act="itemBrick" data-i="${i}" title="Poser une brique dans ${esc(it.comp)}">🧱</button>`:''}
     <button class="ghost danger" data-act="delItem" data-i="${i}">✕</button>
   </div>`;
 }
@@ -617,21 +711,65 @@ function drawToolsHTML(f){
     </select>
   </div>`;
 }
+function palLegend(){ return `<div class="legend">${PAL.slice(1).map(p=>`<span><i style="background:${p.c}"></i>${p.l}</span>`).join('')}<span><i style="background:${PAL[0].c}"></i>non précisé</span></div>`; }
+function brickHTML(b,i){ return `<div class="brick" style="--pc:${PAL[b.p||0].c}"><button class="pal" data-act="cycPal" data-i="${i}" title="Changer le palier">${b.p?'P'+b.p:'P ?'}</button><div class="bt" contenteditable="true" data-k="br.text:${i}">${esc(b.text)}</div><button class="ghost danger sm" data-act="delBrick" data-i="${i}" title="Retirer la brique">✕</button></div>`; }
 function compHTML(o){
   const ev={}; o.frames.forEach(f=>f.items.forEach(it=>{ if(it.comp)(ev[it.comp]=ev[it.comp]||[]).push(it); }));
-  let g=''; let h=`<div class="fhead" style="--c:#ffd43b"><h2>📋 Compétences</h2></div>
-  <p class="muted" style="margin:6px 0 4px 6px;font-size:13px">Positionne le stagiaire sur les compétences observées. Les commentaires liés à une compétence apparaissent comme éléments de preuve. Seules les compétences renseignées figurent dans le PDF.</p><div class="compgrid">`;
+  const before={}; bricksOf(o.traineeId,o).filter(b=>b.o.id!==o.id).forEach(b=>(before[b.comp]=before[b.comp]||[]).push(b));
+  const mine={}; (o.bricks||[]).forEach((b,i)=>(mine[b.comp]=mine[b.comp]||[]).push([b,i]));
+  let g='', h=`<div class="fhead" style="--c:#ffd43b"><h2 class="grow">🧱 Briques de la leçon</h2><button data-act="wall" data-id="${o.traineeId}">🏗️ Voir le mur</button></div>
+  <p class="muted" style="margin:6px 0 2px 6px;font-size:13px">Pour chaque compétence travaillée, écris ce qui a été construit puis touche le palier <b>1 2 3 4</b> : la brique s'ajoute au mur du stagiaire (Entrée = palier non précisé). Touche « P » sur une brique pour changer son palier. Les commentaires liés à la compétence sont proposés en dessous.</p>
+  ${palLegend()}<div class="compgrid">`;
   refList().forEach(c=>{
     if(c.group!==g){ g=c.group; h+=`<div class="group">${esc(g)}</div>`; }
-    const v=o.comps[c.code]||{lvl:0,note:''}; const e=ev[c.code]||[];
-    h+=`<div class="comp ${v.lvl>0?'set':''}"><div class="code">${esc(c.code)}</div><div class="lab">${esc(c.label)}</div>
-      <div class="seg lv">${LEVELS.map((l,k)=>`<button data-l="${k}" class="${v.lvl===k?'on':''}" data-act="lvl" data-c="${esc(c.code)}">${k===0?'—':l}</button>`).join('')}</div>
-      ${e.length?`<div class="ev">${e.map(it=>KINDS[it.kind].ic+' '+esc(it.text)).join(' · ')}</div>`:''}
-      ${v.lvl>0||v.note?`<input data-k="cmp.note:${esc(c.code)}" value="${esc(v.note)}" placeholder="Commentaire sur ${esc(c.code)}…">`:''}
+    const m=mine[c.code]||[], bf=before[c.code]||[], e=ev[c.code]||[];
+    h+=`<div class="comp ${m.length?'set':''}"><div class="code">${esc(c.code)}</div><div class="lab">${esc(c.label)}</div>
+      ${bf.length?`<div class="prev">${bf.map(b=>`<i style="background:${PAL[b.p||0].c}" title="L${esc(b.o.lesson||'?')} · ${esc(b.text)}"></i>`).join('')}<span>${bf.length} brique${bf.length>1?'s':''} déjà posée${bf.length>1?'s':''}</span></div>`:''}
+      ${m.map(([b,i])=>brickHTML(b,i)).join('')}
+      <div class="addb"><input data-bin="${esc(c.code)}" placeholder="Ce qui a été travaillé…" enterkeyhint="done">
+        ${[1,2,3,4].map(p=>`<button class="pb" style="--pc:${PAL[p].c}" data-act="addBrick" data-c="${esc(c.code)}" data-p="${p}" title="Poser une brique — ${PAL[p].l}">${p}</button>`).join('')}</div>
+      ${e.length?`<div class="ev">${e.map(it=>`<button class="evb" data-act="evBrick" data-c="${esc(c.code)}" data-t="${esc(it.text)}" title="Reprendre ce commentaire comme brique">${KINDS[it.kind].ic} ${esc(it.text)}</button>`).join('')}</div>`:''}
     </div>`;
   });
   return h+'</div>';
 }
+
+/* ---------- MUR DES COMPÉTENCES ---------- */
+function wallHTML(){
+  const t=trainee(wallT); if(!t){ view='home'; return homeHTML(); }
+  const all=bricksOf(t.id), by={}; all.forEach(b=>(by[b.comp]=by[b.comp]||[]).push(b));
+  const ref=refList(), known=new Set(ref.map(c=>c.code));
+  const cols=ref.filter(c=>wallAll||by[c.code]).map(c=>[c.code,c.label]).concat(Object.keys(by).filter(k=>!known.has(k)).map(k=>[k,'']));
+  const cnt=[0,1,2,3,4].map(p=>all.filter(b=>(b.p||0)===p).length);
+  const sel=all.find(b=>b.id===wallSel);
+  const col=([code,label])=>{ const bs=by[code]||[]; const mx=Math.max(0,...bs.map(b=>b.p||0));
+    return `<div class="wcol ${bs.length?'':'vide'}">${mx?`<div class="flag">🏁 palier ${mx}</div>`:''}<div class="stack">${bs.map((b,k)=>`<button class="wb ${k%2?'off':''} ${wallSel===b.id?'on':''}" style="--pc:${PAL[b.p||0].c}" data-act="selBrick" data-id="${b.id}"><b>L${esc(b.o.lesson||'?')}</b> ${esc(b.text)}</button>`).join('')}</div>
+      <div class="ground"><span class="code">${esc(code)}</span><small>${esc(label)}</small></div></div>`; };
+  return `
+  <div class="top"><button data-act="wallBack" title="Retour">←</button>
+    <div class="ctx grow">🏗️ Mur des compétences · ${esc(t.name)}<small>${all.length} brique${all.length>1?'s':''} · ${Object.keys(by).length} compétence${Object.keys(by).length>1?'s':''} travaillée${Object.keys(by).length>1?'s':''} · ${obsOf(t.id).length} visite${obsOf(t.id).length>1?'s':''}</small></div>
+    <button data-act="wallAll">${wallAll?'👁 Compétences travaillées':'👁 Toutes les compétences'}</button>
+    <button data-act="printWall">🖨 <span class="lbl">Imprimer</span></button>
+  </div>
+  <div class="wrap">
+    ${sel?`<div class="card bsel" style="--pc:${PAL[sel.p||0].c}"><div class="grow" style="min-width:260px"><span class="chip">${esc(sel.comp)}</span> <b>${esc(compLabel(sel.comp))}</b>
+        <p style="font-size:17px;margin:8px 0">${esc(sel.text)||'<i class="muted">sans texte</i>'}</p>
+        <div class="muted" style="font-size:13px">Leçon ${esc(sel.o.lesson||'?')} · ${esc(sel.o.apsa)} · ${esc(sel.o.classe)} · ${shortDate(sel.o.date)}</div></div>
+      <div><div class="seg">${[1,2,3,4,0].map(p=>`<button class="${(sel.p||0)===p?'on':''}" data-act="setPal" data-id="${sel.id}" data-p="${p}">${p?'Palier '+p:'?'}</button>`).join('')}</div>
+        <div class="row" style="margin-top:10px;justify-content:flex-end"><button class="sm" data-act="openObs" data-id="${sel.o.id}">Ouvrir la visite</button><button class="sm ghost" data-act="selBrick" data-id="">✕</button></div></div></div>`:''}
+    <div class="row" style="margin-bottom:6px">${palLegend()}<div class="grow"></div>${[1,2,3,4].map(p=>`<div class="stat p" style="--pc:${PAL[p].c}"><b>${cnt[p]}</b><span>palier ${p}</span></div>`).join('')}</div>
+    ${cols.length?`<div class="wall">${cols.map(col).join('')}</div>`:`<div class="card empty">${MASCOT(100)}<h3 style="margin:10px 0">Pas encore de brique</h3><p>Dans une visite, ouvre <b>🧱 Briques</b> et pose une brique pour chaque compétence travaillée.</p></div>`}
+  </div>`;
+}
+function buildWallPrint(){
+  const t=trainee(wallT), st=S.settings, all=bricksOf(t.id), by={}; all.forEach(b=>(by[b.comp]=by[b.comp]||[]).push(b));
+  const ref=refList(), codes=ref.map(c=>c.code).filter(c=>by[c]).concat(Object.keys(by).filter(k=>!ref.find(c=>c.code===k)));
+  $('#print').innerHTML=`<div class="p-head"><div><div style="font-size:9pt;color:#64748b">${esc(st.school)}</div><h1>Mur des compétences — ${esc(t.name)}</h1></div><div style="text-align:right;font-weight:800">N'EPS</div></div>
+  <div class="p-leg">${all.length} briques · ${codes.length} compétences · ${obsOf(t.id).length} visites · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')} <i style="background:${PAL[0].c}"></i>non précisé · édité le ${shortDate(today())}</div>
+  ${codes.map(code=>`<div class="p-wcol"><b>${esc(code)}</b> — ${esc(compLabel(code))}<div>${by[code].map(b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>L${esc(b.o.lesson||'?')}</b> ${shortDate(b.o.date)} · ${b.p?'P'+b.p:'P?'} — ${esc(b.text)}</span>`).join('')}</div></div>`).join('')||'<p>Aucune brique.</p>'}
+  <div class="p-foot"><span>${esc(st.tutor)} — tuteur</span><span>N'EPS · by Quentin Delisle</span></div>`;
+}
+
 function synthHTML(o){
   const fi=o.final;
   return `<div class="fhead" style="--c:#ff9fb6"><h2>🎯 Synthèse & axes de travail</h2></div>
@@ -660,29 +798,50 @@ function drawBg(ctx,type){
   if(type==='gym'){ ctx.fillStyle='#fef3c7'; ctx.fillRect(0,0,W,H); ctx.strokeStyle='#92400e'; ctx.lineWidth=3; ctx.strokeRect(40,40,W-80,H-80); ctx.beginPath(); ctx.moveTo(W/2,40); ctx.lineTo(W/2,H-40); ctx.stroke(); ctx.beginPath(); ctx.arc(W/2,H/2,70,0,7); ctx.stroke(); }
   if(type==='pool'){ ctx.fillStyle='#bae6fd'; ctx.fillRect(0,40,W,H-80); ctx.fillStyle='#e2e8f0'; ctx.fillRect(0,0,W,40); ctx.fillRect(0,H-40,W,40); const lh=(H-80)/6; for(let i=1;i<6;i++){ const y=40+i*lh; ctx.setLineDash([14,10]); ctx.strokeStyle='#dc2626'; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); } ctx.setLineDash([]); ctx.fillStyle='#0369a1'; ctx.font='bold 20px system-ui'; for(let i=0;i<6;i++) ctx.fillText(String(i+1),10,40+i*lh+lh/2+7); }
 }
+const LEG={};
+function legacyImg(f){ if(!f.drawing) return null; let im=LEG[f.id];
+  if(!im||im._src!==f.drawing){ im=new Image(); im._src=f.drawing; im.onload=()=>{ if(F()===f){ const c=$('#inkC'); c&&paintAll(c.getContext('2d'),f); } }; im.src=f.drawing; LEG[f.id]=im; }
+  return im.complete&&im.naturalWidth?im:null; }
+function strokeStyle(ctx,s){ ctx.globalCompositeOperation=s.t==='e'?'destination-out':'source-over'; ctx.strokeStyle=ctx.fillStyle=s.c; ctx.lineWidth=s.t==='e'?s.w*5:s.w; ctx.lineCap='round'; ctx.lineJoin='round'; }
+function paintStroke(ctx,s){
+  strokeStyle(ctx,s); const p=s.p;
+  if(s.t==='a') arrow(ctx,{x:p[0],y:p[1]},{x:p[2],y:p[3]});
+  else if(p.length<=2){ ctx.beginPath(); ctx.arc(p[0],p[1],ctx.lineWidth/2,0,7); ctx.fill(); }
+  else { ctx.beginPath(); ctx.moveTo(p[0],p[1]); for(let i=2;i<p.length;i+=2) ctx.lineTo(p[i],p[i+1]); ctx.stroke(); }
+  ctx.globalCompositeOperation='source-over';
+}
+function paintAll(ctx,f,extra){ ctx.clearRect(0,0,1000,560); const im=legacyImg(f); if(im) ctx.drawImage(im,0,0); (f.strokes||[]).forEach(s=>paintStroke(ctx,s)); if(extra) paintStroke(ctx,extra); }
 function setupCanvas(){
   const f=F(); const bg=$('#bgC'), ink=$('#inkC'); if(!bg||!ink||!f) return;
   drawBg(bg.getContext('2d'),f.bg||'blank');
-  const ctx=ink.getContext('2d'); ctx.lineCap='round'; ctx.lineJoin='round';
-  undoStack=[];
-  if(f.drawing){ const im=new Image(); im.onload=()=>ctx.drawImage(im,0,0); im.src=f.drawing; }
-  let drawing=false, last=null, startP=null, snap=null;
-  const pos=e=>{ const r=ink.getBoundingClientRect(); return {x:(e.clientX-r.left)*1000/r.width, y:(e.clientY-r.top)*560/r.height}; };
-  const style=()=>{ ctx.globalCompositeOperation=pen.tool==='eraser'?'destination-out':'source-over'; ctx.strokeStyle=pen.c; ctx.fillStyle=pen.c; ctx.lineWidth=pen.tool==='eraser'?pen.w*5:pen.w; };
-  ink.onpointerdown=e=>{ ink.setPointerCapture(e.pointerId); drawing=true; undoStack.push(ctx.getImageData(0,0,1000,560)); if(undoStack.length>25)undoStack.shift();
-    last=startP=pos(e); style(); if(pen.tool==='arrow') snap=ctx.getImageData(0,0,1000,560); else { ctx.beginPath(); ctx.arc(last.x,last.y,ctx.lineWidth/2,0,7); ctx.fill(); } };
-  ink.onpointermove=e=>{ if(!drawing) return; const p=pos(e);
-    if(pen.tool==='arrow'){ ctx.putImageData(snap,0,0); arrow(ctx,startP,p); }
-    else { ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last=p; } };
-  const end=()=>{ if(!drawing) return; drawing=false; ctx.globalCompositeOperation='source-over'; storeDraw(); };
+  const ctx=ink.getContext('2d'); f.strokes=f.strokes||[]; paintAll(ctx,f);
+  let cur=null;
+  const pos=e=>{ const r=ink.getBoundingClientRect(); return [Math.round((e.clientX-r.left)*1000/r.width), Math.round((e.clientY-r.top)*560/r.height)]; };
+  ink.onpointerdown=e=>{ ink.setPointerCapture(e.pointerId); const p=pos(e);
+    cur={t:pen.tool==='arrow'?'a':pen.tool==='eraser'?'e':'p', c:pen.c, w:pen.w, p:pen.tool==='arrow'?[p[0],p[1],p[0],p[1]]:p};
+    if(cur.t!=='a') paintStroke(ctx,cur); };
+  ink.onpointermove=e=>{ if(!cur) return; const p=pos(e);
+    if(cur.t==='a'){ cur.p[2]=p[0]; cur.p[3]=p[1]; paintAll(ctx,f,cur); return; }
+    const n=cur.p.length, lx=cur.p[n-2], ly=cur.p[n-1]; if(Math.abs(p[0]-lx)+Math.abs(p[1]-ly)<3) return;
+    strokeStyle(ctx,cur); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(p[0],p[1]); ctx.stroke(); ctx.globalCompositeOperation='source-over';
+    cur.p.push(p[0],p[1]); };
+  const end=()=>{ if(!cur) return; const c=cur; cur=null;
+    if(c.t==='a'&&Math.hypot(c.p[2]-c.p[0],c.p[3]-c.p[1])<8){ paintAll(ctx,f); return; }
+    f.strokes.push(c); save(); refreshNav(); };
   ink.onpointerup=end; ink.onpointercancel=end; ink.onpointerleave=e=>{ if(e.pointerType==='mouse') end(); };
 }
 function arrow(ctx,a,b){ ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); const ang=Math.atan2(b.y-a.y,b.x-a.x), L=10+ctx.lineWidth*3; ctx.beginPath(); ctx.moveTo(b.x,b.y); ctx.lineTo(b.x-L*Math.cos(ang-0.45),b.y-L*Math.sin(ang-0.45)); ctx.lineTo(b.x-L*Math.cos(ang+0.45),b.y-L*Math.sin(ang+0.45)); ctx.closePath(); ctx.fill(); }
-function storeDraw(){ const f=F(), ink=$('#inkC'); if(!f||!ink) return; f.drawing=ink.toDataURL('image/png'); save(); refreshNav(); }
-function composite(f){ return new Promise(res=>{ const c=document.createElement('canvas'); c.width=1000; c.height=560; const x=c.getContext('2d'); drawBg(x,f.bg||'blank'); if(!f.drawing) return res(c.toDataURL('image/jpeg',.85)); const im=new Image(); im.onload=()=>{ x.drawImage(im,0,0); res(c.toDataURL('image/jpeg',.85)); }; im.onerror=()=>res(null); im.src=f.drawing; }); }
+async function composite(f){
+  const c=document.createElement('canvas'); c.width=1000; c.height=560; const x=c.getContext('2d'); drawBg(x,f.bg||'blank');
+  const k=document.createElement('canvas'); k.width=1000; k.height=560; const kx=k.getContext('2d');
+  if(f.drawing) await new Promise(r=>{ const im=new Image(); im.onload=()=>{ kx.drawImage(im,0,0); r(); }; im.onerror=r; im.src=f.drawing; });
+  (f.strokes||[]).forEach(s=>paintStroke(kx,s)); x.drawImage(k,0,0);
+  return c.toDataURL('image/jpeg',.85);
+}
 
 function afterObsRender(){
   setupCanvas();
+  document.querySelectorAll('[data-bin]').forEach(i=>i.onkeydown=e=>{ if(e.key==='Enter'){ e.preventDefault(); addBrick(i.dataset.bin,0); } });
   const inp=$('#itemIn'); if(inp) inp.onkeydown=e=>{ if(e.key==='Enter'){ e.preventDefault(); addItem(); } };
 }
 function refreshNav(){ const n=$('#nav'); const o=O(); if(n&&o) n.innerHTML=navHTML(o); }
@@ -750,7 +909,7 @@ function traineeModal(t){
   bg=>{
     const name=bg.querySelector('#mName').value.trim(); if(!name){ toast('Nom requis'); return false; }
     Object.assign(t,{name,email:bg.querySelector('#mMail').value.trim(),drive:bg.querySelector('#mDrive').value.trim(),lessonDoc:bg.querySelector('#mDoc').value.trim(),
-      axes:[0,1].map(i=>({text:bg.querySelector('#mAx'+i).value.trim(),comp:bg.querySelector('#mAxC'+i).value}))});
+      axes:[0,1].map(i=>({text:bg.querySelector('#mAx'+i).value.trim(),comp:bg.querySelector('#mAxC'+i).value})),u:Date.now()});
     if(isNew) S.trainees.push(t); save(true); render();
   });
   const d=$('#mDel'); if(d) d.onclick=()=>{ if(!confirm('Supprimer '+t.name+' et toutes ses visites ?')) return; S.trainees=S.trainees.filter(x=>x.id!==t.id); S.obs=S.obs.filter(o=>o.traineeId!==t.id); save(true); document.querySelector('.modalbg').remove(); render(); };
@@ -771,7 +930,7 @@ function obsModal(o, tid){
     if(isNew){
       const n={id:uid(),created:new Date().toISOString(),...data,chrono:{acc:0,startedAt:null},
         frames:[['pem'],['echauf'],['sit','Situation 1'],['bi'],['bf']].map(([t,title])=>newFrame(t,title)),
-        comps:{}, final:{synth:'',forts:'',axes:[{text:'',comp:'',prio:true},{text:'',comp:'',prio:false}]}, private:''};
+        comps:{}, bricks:[], u:Date.now(), final:{synth:'',forts:'',axes:[{text:'',comp:'',prio:true},{text:'',comp:'',prio:false}]}, private:''};
       const ca=currentAxes(n.traineeId); n.prevAxes=ca.axes.map(a=>({text:a.text,comp:a.comp,status:0})); n.prevFrom=fromLabel(ca);
       S.obs.push(n); cur=n.id; curFrame=n.frames[0].id; view='obs';
     } else Object.assign(o,data);
@@ -779,7 +938,7 @@ function obsModal(o, tid){
   });
 }
 function fromLabel(ca){ return !ca.axes.length?'':(ca.from==='fixés manuellement'?'axes de départ (fiche stagiaire)':'fixés lors de : '+ca.from); }
-function newFrame(type,title){ return {id:uid(),type,title:title||TYPES[type].l,text:'',items:[],drawing:null,bg:type==='sit'?'gym':'blank',start:null,end:null,clock:''}; }
+function newFrame(type,title){ return {id:uid(),type,title:title||TYPES[type].l,text:'',items:[],drawing:null,strokes:[],bg:type==='sit'?'gym':'blank',start:null,end:null,clock:''}; }
 
 /* =========================================================
    DRAWER (Drive / EDT)
@@ -801,10 +960,11 @@ function openDrawer(title,url){
    ========================================================= */
 async function buildPrint(){
   const o=O(), t=trainee(o.traineeId)||{}, st=S.settings, ref=refList();
-  const imgs={}; for(const f of o.frames) if(f.drawing) imgs[f.id]=await composite(f);
+  const imgs={}; for(const f of o.frames) if(hasDraw(f)) imgs[f.id]=await composite(f);
   const timed=o.frames.filter(f=>f.start!=null); const total=timed.reduce((s,f)=>s+((f.end??elapsed(o))-f.start),0);
   const ev={}; o.frames.forEach(f=>f.items.forEach(it=>{ if(it.comp)(ev[it.comp]=ev[it.comp]||[]).push(it); }));
-  const compRows=ref.filter(c=>(o.comps[c.code]?.lvl>0)||o.comps[c.code]?.note||ev[c.code]);
+  const mineB=o.bricks||[]; const bRows=ref.filter(c=>mineB.some(b=>b.comp===c.code));
+  const upto=bricksOf(o.traineeId,o), upBy={}; upto.forEach(b=>(upBy[b.comp]=upBy[b.comp]||[]).push(b));
   const itemP=it=>`<div class="p-it ${it.kind==='conseil'?'conseil':''}" style="--k:${KINDS[it.kind].c}">${KINDS[it.kind].ic} <b>${KINDS[it.kind].l}</b>${it.comp?` <span style="color:#64748b">[${esc(it.comp)}]</span>`:''} — ${esc(it.text)}</div>`;
   const axes=o.final.axes.filter(a=>a.text.trim());
   $('#print').innerHTML=`
@@ -816,13 +976,15 @@ async function buildPrint(){
   ${total?`<div class="p-h2">Gestion du temps</div><div class="p-tl">${timed.map(f=>{const d=(f.end??elapsed(o))-f.start;return `<div style="flex:${d};background:${TYPES[f.type].hex}">${d/total>.09?esc(f.title)+' '+fmtShort(d):''}</div>`}).join('')}</div>
     <div style="font-size:8.5pt;color:#475569">${timed.map(f=>`${esc(f.title)} ${fmtShort((f.end??elapsed(o))-f.start)}`).join(' · ')}</div>`:''}
   <div class="p-h2">Déroulé de la leçon</div>
-  ${o.frames.filter(f=>f.text.trim()||f.items.length||f.drawing).map(f=>`<div class="p-frame" style="--c:${TYPES[f.type].hex}">
+  ${o.frames.filter(f=>f.text.trim()||f.items.length||hasDraw(f)).map(f=>`<div class="p-frame" style="--c:${TYPES[f.type].hex}">
     <h3><span>${esc(f.title)}</span><small>${f.clock?f.clock+' · ':''}${f.start!=null?fmtShort((f.end??elapsed(o))-f.start):''}</small></h3>
     ${f.text.trim()?`<div class="p-txt">${esc(f.text)}</div>`:''}
     ${f.items.filter(i=>i.kind==='secu').map(itemP).join('')}${f.items.filter(i=>i.kind!=='secu'&&i.kind!=='conseil').map(itemP).join('')}${f.items.filter(i=>i.kind==='conseil').map(itemP).join('')}
     ${imgs[f.id]?`<img class="p-img" src="${imgs[f.id]}">`:''}</div>`).join('')||'<p style="color:#64748b">—</p>'}
-  ${compRows.length?`<div class="p-h2">Compétences professionnelles</div><table class="p-table"><tr><th style="width:42px">Code</th><th>Compétence</th><th style="width:80px">Niveau</th><th style="width:38%">Observations</th></tr>
-    ${compRows.map(c=>{const v=o.comps[c.code]||{lvl:0,note:''};return `<tr><td><b>${esc(c.code)}</b></td><td>${esc(c.label)}</td><td class="p-lv" style="color:${LV_COL[v.lvl]}">${LEVELS[v.lvl]}</td><td>${esc(v.note)}${(ev[c.code]||[]).map(it=>`<div style="font-size:8.5pt;color:#475569">${KINDS[it.kind].ic} ${esc(it.text)}</div>`).join('')}</td></tr>`}).join('')}</table>`:''}
+  ${bRows.length?`<div class="p-h2">Compétences : briques construites pendant la leçon</div><table class="p-table"><tr><th style="width:42px">Code</th><th style="width:36%">Compétence</th><th>Ce qui a été travaillé</th></tr>
+    ${bRows.map(c=>`<tr><td><b>${esc(c.code)}</b></td><td>${esc(c.label)}</td><td>${mineB.filter(b=>b.comp===c.code).map(b=>`<span class="p-b" style="--pc:${PAL[b.p||0].c}"><b>${b.p?'Palier '+b.p:'Palier ?'}</b> — ${esc(b.text)}</span>`).join('')}</td></tr>`).join('')}</table>`:''}
+  ${upto.length?`<div class="p-h2">Le mur des compétences à ce jour</div><div class="p-leg">${upto.length} briques posées depuis le début du suivi · ${PAL.slice(1).map(p=>`<i style="background:${p.c}"></i>${p.l}`).join(' ')}</div>
+    <div class="p-mini">${ref.filter(c=>upBy[c.code]).map(c=>`<div><b style="display:inline-block;width:44px">${esc(c.code)}</b>${upBy[c.code].map(b=>`<i style="background:${PAL[b.p||0].c}"></i>`).join('')} <span style="color:#64748b">${esc(c.label.slice(0,70))}${c.label.length>70?'…':''}</span></div>`).join('')}</div>`:''}
   <div class="p-h2">Bilan</div>
   ${o.final.synth.trim()?`<div class="p-box"><div class="p-txt">${esc(o.final.synth)}</div></div>`:''}
   ${o.final.forts.trim()?`<div class="p-box" style="border-color:#86efac;background:#f0fdf4"><b>✅ Points forts</b><div class="p-txt">${esc(o.final.forts)}</div></div>`:''}
@@ -839,6 +1001,107 @@ function mailLink(){
     `Bonne continuation,\n${st.tutor}`;
   return {to:t.email||'',subj,body,href:`mailto:${encodeURIComponent(t.email||'')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`};
 }
+
+/* =========================================================
+   RATTRAPAGE DU TEMPS (chrono oublié / phase commencée plus tôt)
+   ========================================================= */
+const MIN=60000;
+const clockAt = msAgo => new Date(Date.now()-msAgo).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+/* décale tout le chronométrage de d ms : le chrono avance, les phases gardent leurs heures réelles */
+function addChrono(o,d){
+  if(d<0) d=-Math.min(-d, Math.min(elapsed(o), ...o.frames.filter(x=>x.start!=null).map(x=>x.start)));
+  o.chrono.acc+=d; o.frames.forEach(x=>{ if(x.start!=null) x.start+=d; if(x.end!=null) x.end+=d; });
+  return d;
+}
+function setPhaseStart(o,f,ns){
+  if(!o.chrono.startedAt) o.chrono.startedAt=Date.now();
+  if(ns<0) ns+=addChrono(o,-ns);            // pas assez de chrono : on l'avance d'autant
+  const now=elapsed(o); ns=Math.max(0,Math.min(ns,now));
+  if(f.start==null) f.end=null;
+  const wasNew=f.start==null||f.end!=null;
+  o.frames.forEach(x=>{ if(x===f||x.start==null) return;
+    if(x.start<ns && (x.end==null || x.end>ns)) x.end=ns;       // la phase précédente s'arrête au nouveau début
+    else if(wasNew && x.end==null) x.end=now; });                // une seule phase en cours à la fois
+  f.start=ns; if(f.end!=null && f.end<ns) f.end=ns;
+  f.clock=clockAt(now-ns);
+}
+function minsPicker(list,act,extra=''){ return `<div class="mins">${list.map(m=>`<button data-m="${m}" data-x="${act}">${m>0&&act!=='ago'?'+':''}${m===0?'maintenant':m+' min'}</button>`).join('')}${extra}</div>`; }
+function timeModal(html,onPick){
+  const bg=document.createElement('div'); bg.className='modalbg';
+  bg.innerHTML=`<div class="modal">${html}<div class="row" style="margin-top:14px;justify-content:flex-end"><button data-x="c">Fermer</button></div></div>`;
+  document.body.appendChild(bg);
+  bg.addEventListener('click',e=>{ const b=e.target.closest('button'); if(e.target===bg||b?.dataset.x==='c') return bg.remove();
+    if(b?.dataset.m!=null){ onPick(b.dataset.x,+b.dataset.m); bg.remove(); }
+    if(b?.dataset.x==='custom'){ const v=parseFloat(bg.querySelector('#cMin').value.replace(',','.')); if(!isFinite(v)||v<0) return toast('Nombre de minutes ?'); onPick(b.dataset.k,v); bg.remove(); } });
+  return bg;
+}
+
+/* =========================================================
+   TRANSFERT (QR du kit N'EPS ou fichier)
+   ========================================================= */
+function sheet(html){
+  const bg=document.createElement('div'); bg.className='modalbg';
+  bg.innerHTML=`<div class="modal wide">${html}<div class="row" style="margin-top:14px;justify-content:flex-end"><button data-x="c">Fermer</button></div></div>`;
+  document.body.appendChild(bg);
+  bg.close=()=>{ try{ stopScan(); }catch(e){} clearInterval(qrTimer); bg.remove(); };
+  bg.addEventListener('click',e=>{ if(e.target===bg||e.target.dataset.x==='c') bg.close(); });
+  return bg;
+}
+function packetFor(obsList, trs){
+  let dropped=0;
+  const o=JSON.parse(JSON.stringify(obsList)); o.forEach(x=>x.frames.forEach(f=>{ delete f.showDraw; if(f.drawing){ dropped++; delete f.drawing; } }));
+  const p={a:APP_ID,v:1,d:Date.now(),t:JSON.parse(JSON.stringify(trs.filter(Boolean))),o};
+  if(S.settings.ref!==DEFAULT_REF) p.ref=S.settings.ref;
+  return [p,dropped];
+}
+async function sendPacket(obsList, trs, title, fname){
+  const [p,dropped]=packetFor(obsList,trs);
+  const parts=chunkQR(await encodePacket(p),'V');
+  const bg=sheet(`<div class="sendgrid"><div class="qrzone"></div><div>
+    <h2>📤 ${esc(title)}</h2>
+    <p style="font-size:16px">Sur l'autre appareil : <b>📥 Recevoir</b> (en haut de l'accueil), puis vise cet écran avec la caméra.</p>
+    <p class="muted">${parts.length>1?`<b>${parts.length} QR</b> défilent en boucle (≈ ${parts.length} s par tour) : laisse tourner jusqu'à 100 %. Il peut en manquer un : il repassera.`:'Un seul QR.'}</p>
+    ${dropped?`<p>⚠️ ${dropped} ancien${dropped>1?'s':''} croquis (format image) ne voyage${dropped>1?'nt':''} pas par QR : utilise l'envoi en fichier.</p>`:''}
+    <p class="muted" style="margin-top:18px">Pas de caméra sur le PC ?</p>
+    <button data-x="file">📁 Envoyer en fichier</button>
+    <p class="muted" style="font-size:13px">Quick Share, mail, Drive… puis sur l'autre appareil : 📥 Recevoir → 📁 Ouvrir un fichier reçu.</p>
+    </div></div>`);
+  showQRSeries(parts,bg.querySelector('.qrzone'),'');
+  bg.querySelector('[data-x=file]').onclick=()=>{ const [full]=packetFor(obsList,trs); full.o=JSON.parse(JSON.stringify(obsList)); downloadJSON(full,fname); };
+}
+function applyPacket(p){
+  if(!p||p.a!==APP_ID){ toast('⚠️ Ce QR / fichier ne vient pas de l\'appli Visites stagiaires'); return false; }
+  const idMap={}; let nt=0,no=0,nr=0,ns=0;
+  (p.t||[]).forEach(t=>{ if(!t) return; let ex=trainee(t.id);
+    if(!ex){ const same=S.trainees.find(x=>x.name.trim().toLowerCase()===(t.name||'').trim().toLowerCase()); if(same){ idMap[t.id]=same.id; ex=same; } }
+    if(!ex){ S.trainees.push(t); nt++; } else if((t.u||0)>(ex.u||0)){ const keep=ex.id; Object.assign(ex,t,{id:keep}); } });
+  (p.o||[]).forEach(o=>{ if(idMap[o.traineeId]) o.traineeId=idMap[o.traineeId];
+    o.frames.forEach(f=>{ if(!f.strokes) f.strokes=[]; }); if(!o.bricks) o.bricks=[];
+    const i=S.obs.findIndex(x=>x.id===o.id);
+    if(i<0){ S.obs.push(o); no++; return; }
+    const ex=S.obs[i];
+    if((o.u||0)===(ex.u||0)){ ns++; return; }
+    if((ex.u||0)>(o.u||0) && !confirm(`La visite « L${ex.lesson||'?'} ${ex.apsa||''} du ${shortDate(ex.date)} » a été modifiée plus récemment sur cet appareil.
+
+La remplacer quand même par la version reçue ?`)){ ns++; return; }
+    o.frames.forEach(f=>{ const ef=ex.frames.find(x=>x.id===f.id); if(ef&&ef.drawing&&!f.drawing) f.drawing=ef.drawing; });
+    S.obs[i]=o; nr++; });
+  if(p.ref && p.ref!==S.settings.ref && confirm('Le référentiel de compétences de l\'autre appareil est différent. Le reprendre sur celui-ci ?')) S.settings.ref=p.ref;
+  save(true,true);
+  const msg=[no&&`${no} visite${no>1?'s':''} ajoutée${no>1?'s':''}`,nr&&`${nr} mise${nr>1?'s':''} à jour`,ns&&`${ns} déjà à jour ou gardée${ns>1?'s':''}`,nt&&`${nt} stagiaire${nt>1?'s':''} ajouté${nt>1?'s':''}`].filter(Boolean).join(' · ')||'Rien de nouveau';
+  toast('📥 '+msg);
+  const one=(p.o||[]).length===1 && (no||nr) ? p.o[0].id : null;
+  if(one){ cur=one; curFrame=O().frames[0]?.id||'__synth'; view='obs'; } else if(view==='obs'&&!O()) view='home';
+  render(); return true;
+}
+function addBrick(code,p){
+  const inp=document.querySelector(`[data-bin="${CSS.escape(code)}"]`); const text=(inp?.value||'').trim();
+  if(!text){ toast('Écris d\'abord ce qui a été travaillé'); inp&&inp.focus(); return; }
+  O().bricks.push({id:uid(),comp:code,text,p}); save();
+  keepScroll(refreshMain); toast(`🧱 Brique posée · ${code}${p?' · palier '+p:''}`);
+  const n=document.querySelector(`[data-bin="${CSS.escape(code)}"]`); n&&n.focus({preventScroll:true});
+}
+function keepScroll(fn){ const y=window.scrollY, m=$('#main'), my=m?m.scrollTop:0; fn(); window.scrollTo(0,y); const m2=$('#main'); if(m2) m2.scrollTop=my; }
 
 /* =========================================================
    EVENTS
@@ -863,6 +1126,25 @@ const ACT={
     else toast('Durée mesurée : '+fmtShort(d));
     render();
   },
+  shiftPhase(){
+    const o=O(), f=F(); const started=f.start!=null;
+    const st=started?`Commencée à <b>${esc(f.clock||'?')}</b> (chrono ${fmtShort(f.start)}) · durée <b>${fmtShort((f.end??elapsed(o))-f.start)}</b>${f.end==null?' · en cours':''}`:'Pas encore commencée.';
+    timeModal(`<h2>⏪ Début de « ${esc(f.title)} »</h2><p class="muted" style="margin:0">${st}</p>
+      <label>Elle a commencé il y a…</label>${minsPicker([0,1,2,3,5,8,10,15],'ago',`<input id="cMin" type="number" min="0" step="1" placeholder="min" inputmode="decimal"><button data-x="custom" data-k="ago">OK</button>`)}
+      ${started?`<label>ou ajuster le début</label><div class="mins"><button data-x="adj" data-m="-5">5 min plus tôt</button><button data-x="adj" data-m="-1">1 min plus tôt</button><button data-x="adj" data-m="1">1 min plus tard</button><button data-x="adj" data-m="5">5 min plus tard</button></div>`:''}
+      <p class="muted" style="font-size:13px">La phase précédente s'arrête au nouveau début. Si le chrono n'avait pas été lancé assez tôt, il est avancé d'autant.</p>`,
+    (k,m)=>{ const now=elapsed(o);
+      if(k==='ago') setPhaseStart(o,f,now-m*MIN); else setPhaseStart(o,f,f.start+m*MIN);
+      save(true); render(); toast(`⏪ ${f.title} : début à ${f.clock} · ${fmtShort((f.end??elapsed(o))-f.start)}`); });
+  },
+  chronoAdd(){
+    const o=O();
+    timeModal(`<h2>⏪ Chrono lancé en retard ?</h2><p class="muted" style="margin:0">Chrono actuel : <b>${fmt(elapsed(o))}</b>${o.chrono.startedAt?'':' (à l\'arrêt : il sera démarré)'}</p>
+      <label>Ajouter le temps oublié</label>${minsPicker([1,2,3,5,10,15],'add',`<input id="cMin" type="number" min="0" step="1" placeholder="min" inputmode="decimal"><button data-x="custom" data-k="add">OK</button>`)}
+      <div class="mins"><button data-x="add" data-m="-1">−1 min</button></div>
+      <p class="muted" style="font-size:13px">Les phases déjà chronométrées gardent leur heure et leur durée. Pour qu'une phase commence plus tôt, utilise ⏪ dans son cadre.</p>`,
+    (k,m)=>{ if(!o.chrono.startedAt) o.chrono.startedAt=Date.now(); const d=addChrono(o,m*MIN); save(true); render(); toast(`⏱ Chrono ${d>=0?'+':'−'}${fmtShort(Math.abs(d))} → ${fmt(elapsed(o))}`); });
+  },
   startPhase(){
     const o=O(), f=F(); if(!o.chrono.startedAt){ const c=o.chrono; c.startedAt=Date.now(); }
     const now=elapsed(o);
@@ -874,7 +1156,7 @@ const ACT={
     let idx=-1; o.frames.forEach((f,i)=>{ if(TYPES[f.type].r<=r) idx=i; });
     const n=newFrame(type, type==='sit'?'Situation '+(o.frames.filter(f=>f.type==='sit').length+1):null);
     o.frames.splice(idx+1,0,n); curFrame=n.id; save(); refreshMain(); },
-  delFrame(){ const o=O(), f=F(); if((f.text||f.items.length||f.drawing)&&!confirm('Supprimer « '+f.title+' » et son contenu ?')) return; const i=o.frames.indexOf(f); o.frames.splice(i,1); curFrame=(o.frames[i]||o.frames[i-1])?.id||'__synth'; save(); refreshMain(); },
+  delFrame(){ const o=O(), f=F(); if((f.text||f.items.length||hasDraw(f))&&!confirm('Supprimer « '+f.title+' » et son contenu ?')) return; const i=o.frames.indexOf(f); o.frames.splice(i,1); curFrame=(o.frames[i]||o.frames[i-1])?.id||'__synth'; save(); refreshMain(); },
   kind(b){ kind=b.dataset.k; const v=$('#itemIn')?.value; refreshMain(); const i=$('#itemIn'); if(i){ i.value=v||''; i.focus(); } },
   addItem(){ addItem(); },
   delItem(b){ F().items.splice(+b.dataset.i,1); save(); refreshMain(); },
@@ -882,10 +1164,31 @@ const ACT={
   penC(b){ pen.c=b.dataset.c; pen.tool='pen'; refreshMain(); },
   penW(b){ pen.w=+b.dataset.w; if(pen.tool==='eraser') pen.tool='pen'; refreshMain(); },
   penT(b){ pen.tool = pen.tool===b.dataset.t?'pen':b.dataset.t; refreshMain(); },
-  undo(){ const c=$('#inkC'); if(!c||!undoStack.length) return; c.getContext('2d').putImageData(undoStack.pop(),0,0); storeDraw(); },
-  clearDraw(){ const f=F(); if(!confirm('Effacer le croquis ?')) return; f.drawing=null; f.showDraw=true; save(); refreshMain(); },
+  undo(){ const f=F(), c=$('#inkC'); if(!c||!f.strokes.length) return; f.strokes.pop(); paintAll(c.getContext('2d'),f); save(); refreshNav(); },
+  clearDraw(){ const f=F(); if(!confirm('Effacer le croquis ?')) return; f.drawing=null; f.strokes=[]; f.showDraw=true; save(); refreshMain(); },
   lvl(b){ const o=O(), c=b.dataset.c; o.comps[c]=o.comps[c]||{lvl:0,note:''}; o.comps[c].lvl=+b.dataset.l; save(); const y=window.scrollY, m=$('#main'), my=m?m.scrollTop:0; refreshMain(); window.scrollTo(0,y); if(m) m.scrollTop=my; },
   axFold(){ axFold=!axFold; render(); },
+  addBrick(b){ addBrick(b.dataset.c,+b.dataset.p); },
+  evBrick(b){ const i=document.querySelector(`[data-bin="${CSS.escape(b.dataset.c)}"]`); if(i){ i.value=b.dataset.t; i.focus(); toast('Choisis le palier 1 2 3 4 (ou Entrée)'); } },
+  cycPal(b){ const br=O().bricks[+b.dataset.i]; br.p=((br.p||0)+1)%5; save(); keepScroll(refreshMain); },
+  delBrick(b){ O().bricks.splice(+b.dataset.i,1); save(); keepScroll(refreshMain); },
+  itemBrick(b){ const it=F().items[+b.dataset.i]; O().bricks.push({id:uid(),comp:it.comp,text:it.text,p:0}); save(); refreshNav(); toast(`🧱 Brique posée dans ${it.comp} · précise le palier dans 🧱 Briques`); },
+  wall(b){ wallT=b.dataset.id; wallFrom=view; wallSel=null; view='wall'; render(); window.scrollTo(0,0); },
+  wallBack(){ view = wallFrom==='obs'&&O() ? 'obs' : 'home'; render(); },
+  wallAll(){ wallAll=!wallAll; render(); },
+  selBrick(b){ wallSel=b.dataset.id||null; render(); if(wallSel) window.scrollTo({top:0,behavior:'smooth'}); },
+  setPal(b){ for(const o of S.obs){ const br=(o.bricks||[]).find(x=>x.id===b.dataset.id); if(br){ br.p=+b.dataset.p; o.u=Date.now(); break; } } save(false,true); render(); },
+  printWall(){ buildWallPrint(); setTimeout(()=>window.print(),150); },
+  sendObs(){ const o=O(), t=trainee(o.traineeId); sendPacket([o],[t],`Visite · ${t?.name||''} · L${o.lesson||'?'} ${o.apsa||''}`,`visite-${firstName(t?.name)||'stagiaire'}-L${o.lesson||''}-${o.date}.json`); },
+  sendTrainee(b){ const t=trainee(b.dataset.id), l=obsOf(t.id); sendPacket(l,[t],`${t.name} · ${l.length} visite${l.length>1?'s':''}`,`stagiaire-${firstName(t.name)}-${today()}.json`); },
+  receive(){
+    const bg=sheet(`<div class="sendgrid"><div class="scanzone" style="width:min(520px,80vw)"></div><div>
+      <h2>📥 Recevoir</h2><p style="font-size:16px">Sur l'autre appareil, touche <b>📤</b> (dans une visite, ou sur la fiche d'un stagiaire pour tout envoyer), puis place la série de QR devant la caméra.</p>
+      <p class="muted">Si la visite existe déjà ici, la version la plus récente est gardée (on te demande avant d'écraser).</p>
+      <p class="muted" style="margin-top:18px">Tu as reçu un fichier ?</p><button data-x="open">📁 Ouvrir un fichier reçu</button></div></div>`);
+    startScan(bg.querySelector('.scanzone'),'V',async p=>{ const ok=applyPacket(p); if(ok) bg.close(); return ok?'stop':'continue'; });
+    bg.querySelector('[data-x=open]').onclick=()=>$('#pktFile').click();
+  },
   axStatus(b){ O().prevAxes[+b.dataset.i].status=+b.dataset.s; save(); render(); },
   refreshAxes(){ const o=O(); const ca=currentAxes(o.traineeId,o.id); o.prevAxes=ca.axes.map(a=>({text:a.text,comp:a.comp,status:0})); o.prevFrom=fromLabel(ca); save(); render(); toast(ca.axes.length?'Axes récupérés':'Aucun axe trouvé'); },
   addAxe(){ O().final.axes.push({text:'',comp:'',prio:false}); save(); refreshMain(); },
@@ -939,19 +1242,25 @@ function bindValue(el){
     case 'ax.text': o.final.axes[+arg].text=v; break;
     case 'ax.comp': o.final.axes[+arg].comp=v; break;
     case 'ax.prio': o.final.axes[+arg].prio=v; break;
+    case 'br.text': o.bricks[+arg].text=v; break;
     case 'cmp.note': o.comps[arg]=o.comps[arg]||{lvl:0,note:''}; o.comps[arg].note=v; break;
   }
   save();
 }
 document.addEventListener('input',e=>bindValue(e.target));
 document.addEventListener('change',e=>{ if(e.target.matches('select,input[type=checkbox]')) bindValue(e.target); });
-$('#importFile').addEventListener('change',e=>{
+$('#pktFile').addEventListener('change',e=>{
   const file=e.target.files[0]; if(!file) return; const r=new FileReader();
-  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!d.trainees||!d.obs) throw 0; if(!confirm('Remplacer les données actuelles par ce fichier ?')) return; S=d; save(true); view='home'; render(); toast('Import réussi'); }catch(_){ toast('Fichier invalide'); } };
+  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(d.a!==APP_ID) throw 0; const sh=document.querySelector('.modalbg'); sh&&sh.close&&sh.close(); applyPacket(d); }catch(_){ toast('Fichier non reconnu'); } };
   r.readAsText(file); e.target.value='';
 });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(bubbleOpen){bubbleOpen=false;renderBubble();} const d=$('#drawer'); d&&d.classList.remove('open'); } });
-window.addEventListener('beforeprint',()=>{ if(view==='obs'&&!$('#print').innerHTML) buildPrint(); });
+$('#importFile').addEventListener('change',e=>{
+  const file=e.target.files[0]; if(!file) return; const r=new FileReader();
+  r.onload=()=>{ try{ const d=JSON.parse(r.result); if(d.a===APP_ID){ applyPacket(d); return; } if(!d.trainees||!d.obs) throw 0; if(!confirm('Remplacer les données actuelles par ce fichier ?')) return; S=d; migrate(); save(true); view='home'; render(); toast('Import réussi'); }catch(_){ toast('Fichier invalide'); } };
+  r.readAsText(file); e.target.value='';
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const sh=document.querySelector('.modalbg'); if(sh&&sh.close) sh.close(); if(bubbleOpen){bubbleOpen=false;renderBubble();} const d=$('#drawer'); d&&d.classList.remove('open'); } });
+window.addEventListener('beforeprint',()=>{ if($('#print').innerHTML) return; if(view==='obs') buildPrint(); else if(view==='wall') buildWallPrint(); });
 window.addEventListener('afterprint',()=>{ $('#print').innerHTML=''; });
 window.addEventListener('pagehide',()=>save(true));
 
