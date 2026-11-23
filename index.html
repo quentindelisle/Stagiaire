@@ -270,6 +270,11 @@ a{color:var(--accent);font-weight:800}
 @media (max-width:900px),(orientation:portrait){ .bp{grid-template-columns:1fr;height:auto;max-height:88vh;overflow:auto} .bpl{max-height:32vh;border-right:0;border-bottom:3px solid var(--ink);border-radius:21px 21px 0 0} .pcards{grid-template-columns:1fr} }
 
 /* ---------- Chrono consignes / tâche ---------- */
+.lapbar{margin:2px 0 0 8px}
+.lapsp{background:#fff;border:2.5px solid var(--ink);border-radius:14px;box-shadow:var(--shs);padding:8px 10px;margin:6px 0 4px}
+.lapr{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:5px 6px 5px 10px;border-left:6px solid var(--lk);border-bottom:2px dashed var(--soft)}
+.lapr .lk{font-weight:800;min-width:110px}
+.lapr b.grow{font-family:var(--fh);font-size:17px}
 .ct{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .ctb{min-height:50px;font-size:16px;padding:6px 14px;background:#fff}
 .ctb b{font-family:var(--fh);font-variant-numeric:tabular-nums;font-size:20px;margin-left:6px}
@@ -644,6 +649,17 @@ function openLap(o,f,k){
   if(!L.length) f.clock=clockNow();
   L.push({k,s:now}); syncFrame(f); return true;
 }
+let lapsOpen=false;
+function lapsPanelHTML(f){
+  const o=O(), now=elapsed(o), L=lapsOf(f);
+  return `<div class="lapsp">${L.map((l,i)=>{ const d=Math.max(0,(l.e??now)-l.s);
+    return `<div class="lapr" style="--lk:${LAPK[l.k].col}"><b>${i+1}</b><span class="lk">${LAPK[l.k].ic} ${LAPK[l.k].l}</span>
+      <span class="muted">${clockAt(now-l.s)} → ${l.e==null?'<b style="color:#1fa463">en cours</b>':clockAt(now-l.e)}</span><b class="grow">${fmtShort(d)}</b>
+      ${hasCT(f)?`<button class="sm" data-act="lapSwap" data-i="${i}" title="C'était l'autre type (consignes ⇄ tâche)">⇄ ${l.k==='c'?'Tâche':'Consignes'}</button>`:''}
+      <button class="sm danger" data-act="lapDel" data-i="${i}" title="Supprimer ce temps mal pris">✕ Supprimer</button></div>`; }).join('')}
+    <div class="row" style="justify-content:flex-end;margin-top:6px"><span class="muted grow" style="font-size:12.5px">Supprimer un temps retire sa durée du total (le chrono général ne bouge pas).</span><button class="sm danger" data-act="lapsClear">🗑 Effacer tous les temps de « ${esc(f.title)} »</button></div></div>`;
+}
+function afterLapEdit(o,f){ syncFrame(f); const L=lapsOf(f); f.clock = L.length ? clockAt(elapsed(o)-L[0].s) : ''; save(true); keepScroll(refreshMain); refreshNav(); }
 function stopFrame(o,f){ const op=openLapOf(f); if(op){ op.e=elapsed(o); syncFrame(f); } }
 const autoPhase = () => S.settings.autoPhase!==false;
 /* ouvrir une phase jamais chronométrée pendant que le chrono tourne : elle démarre, la précédente s'arrête */
@@ -843,6 +859,7 @@ function mainHTML(o){
     <button class="sm ghost danger" data-act="delFrame" title="Supprimer ce cadre">🗑</button>
   </div>
   <div class="timing" id="timing">${timingHTML(f)}</div>
+  ${lapsOf(f).length?`<div class="lapbar"><button class="sm ghost" data-act="lapsToggle">${lapsOpen?'▴ Masquer le détail des temps':'🕘 Détail des temps · corriger'}</button></div>${lapsOpen?lapsPanelHTML(f):''}`:''}
   <div class="fgrid"><div class="col">
   <div class="sec"><h4>✍️ Écrire</h4>
     <textarea data-k="f.text" placeholder="Ce que tu observes dans ce temps de la leçon…">${esc(f.text)}</textarea>
@@ -1588,6 +1605,11 @@ const ACT={
     if(openLapOf(f)) stopFrame(o,f); else openLap(o,f,defaultKind(f));
     save(true); render();
   },
+  lapsToggle(){ lapsOpen=!lapsOpen; keepScroll(refreshMain); },
+  lapDel(b){ const o=O(), f=F(), l=lapsOf(f)[+b.dataset.i]; if(!l) return;
+    lapsOf(f).splice(+b.dataset.i,1); afterLapEdit(o,f); toast(`✕ Temps supprimé (${LAPK[l.k].l.toLowerCase()} ${fmtShort(Math.max(0,(l.e??elapsed(o))-l.s))})`); },
+  lapSwap(b){ const o=O(), f=F(), l=lapsOf(f)[+b.dataset.i]; if(!l) return; l.k=l.k==='c'?'t':'c'; afterLapEdit(o,f); },
+  lapsClear(){ const o=O(), f=F(); if(!confirm(`Effacer tous les temps de « ${f.title} » ?`)) return; f.laps=[]; afterLapEdit(o,f); lapsOpen=false; keepScroll(refreshMain); toast('Temps effacés'); },
   lap(b){ const o=O(), f=F(); const k=b.dataset.k; const op=openLapOf(f);
     if(op&&op.k===k) return toast(`${LAPK[k].ic} ${LAPK[k].l} déjà en cours`);
     openLap(o,f,k); save(true); render(); },
