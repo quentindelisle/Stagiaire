@@ -123,7 +123,7 @@ a{color:var(--accent);font-weight:800}
 .main{min-width:0;padding:2px 8px 90px 2px}
 .fhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--c);border:var(--bw) solid var(--ink);border-radius:var(--r);box-shadow:var(--sh);padding:8px 12px;margin-bottom:8px}
 .fhead h2{font-size:24px}
-.fhead input.title{font-family:var(--fh);font-size:24px;font-weight:700;border-color:transparent;background:transparent;box-shadow:none;padding:2px 6px;width:auto;flex:1;min-width:200px}
+.fhead input.title{font-family:var(--fh);font-size:24px;font-weight:700;border-color:transparent;background:transparent;box-shadow:none;padding:2px 6px;width:auto;flex:1;min-width:150px}
 .fhead input.title:hover{border-color:var(--ink);background:rgba(255,255,255,.5)}
 .timing{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;margin:0 0 0 14px}
 .sec{background:#fff;border:var(--bw) solid var(--ink);border-radius:var(--r);padding:14px;margin-bottom:16px;box-shadow:var(--sh);position:relative}
@@ -377,6 +377,8 @@ label.btn{display:inline-flex;align-items:center;cursor:pointer;border:var(--bw)
 /* ---------- Paysage / grand écran : on exploite la largeur ---------- */
 @media (min-width:1000px){
   .fgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:18px;align-items:start}
+  .fgrid.solo{grid-template-columns:1fr}
+  .fgrid.solo>.col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 18px;align-items:start}
   .fgrid>.col{min-width:0}
   .compgrid{grid-template-columns:1fr 1fr}
   .sgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
@@ -872,11 +874,12 @@ function mainHTML(o){
       if(hasCT(f)) return `<div class="ct">${['c','t'].map(k=>`<button class="ctb ${k} ${op?.k===k?'on':''}" data-act="lap" data-k="${k}" title="${k==='c'?'Le stagiaire donne les consignes':'Les élèves sont en activité'}">${LAPK[k].ic} ${LAPK[k].l} <b class="lapv" data-lk="${k}">${fmtShort(tt[k])}</b></button>`).join('')}${op?`<button class="sm" data-act="startPhase" title="Arrêter le chrono de cette situation">⏹</button>`:''}</div>`;
       return `<button class="sm ${op?'':'pri'}" data-act="startPhase">${op?'⏹ Terminer la phase':(lapsOf(f).length?'▶ Reprendre la phase':'▶ Débuter la phase')}</button>${lapsOf(f).length?` <b class="lapv" data-lk="all" style="font-family:var(--fh);font-size:18px">${fmtShort(tt.all)}</b>`:''}`; })()}
     <button class="sm yel" data-act="shiftPhase" title="J'ai oublié : la phase a commencé plus tôt">⏪ ${f.start!=null?'Décaler le début':'Commencée il y a…'}</button>
+    ${hasDraw(f)||f.showDraw?'':`<button class="sm" data-act="showDraw" title="Insérer un croquis dans ce cadre (facultatif)">🎨 + Croquis</button>`}
     <button class="sm ghost danger" data-act="delFrame" title="Supprimer ce cadre">🗑</button>
   </div>
   <div class="timing" id="timing">${timingHTML(f)}</div>
   ${lapsOf(f).length?`<div class="lapbar"><button class="sm ghost" data-act="lapsToggle">${lapsOpen?'▴ Masquer le détail des temps':'🕘 Détail des temps · corriger'}</button></div>${lapsOpen?lapsPanelHTML(f):''}`:''}
-  <div class="fgrid"><div class="col">
+  <div class="fgrid ${hasDraw(f)||f.showDraw?'':'solo'}"><div class="col">
   <div class="sec"><h4>✍️ Écrire</h4>
     <textarea data-k="f.text" placeholder="Ce que tu observes dans ce temps de la leçon…">${esc(f.text)}</textarea>
   </div>
@@ -891,11 +894,10 @@ function mainHTML(o){
     <div class="items">${f.items.map((it,i)=>itemHTML(it,i)).join('')}</div>
   </div>
 
-  </div><div class="col right">
+  </div>${hasDraw(f)||f.showDraw?`<div class="col right">
   <div class="sec ${drawFull?'drawfull':''}" id="drawSec"><h4>🎨 Croquis</h4>
-    ${hasDraw(f)||f.showDraw?drawToolsHTML(f)+`<div class="draw" id="draw"><canvas id="bgC" width="1000" height="560"></canvas><canvas id="objC" width="1000" height="560"></canvas><canvas id="inkC" width="1000" height="560"></canvas></div>`
-      :`<button class="drawph" data-act="showDraw"><span>✏️</span>Ajouter un croquis<small class="muted" style="font-family:Nunito,sans-serif;font-size:13px">terrain, piscine, quadrillage…</small></button>`}
-  </div></div></div>`;
+    ${drawToolsHTML(f)}<div class="draw" id="draw"><canvas id="bgC" width="1000" height="560"></canvas><canvas id="objC" width="1000" height="560"></canvas><canvas id="inkC" width="1000" height="560"></canvas></div>
+  </div></div>`:''}</div>`;
 }
 function itemHTML(it,i){
   const K=KINDS[it.kind]||KINDS.obs;
@@ -918,6 +920,7 @@ function drawToolsHTML(f){
     <span class="grow"></span>
     <button class="sm" data-act="undo" title="Annuler le dernier ajout">↶</button>
     <button class="sm danger" data-act="clearDraw">Tout effacer</button>
+    <button class="sm" data-act="hideDraw" title="Retirer le croquis de ce cadre">✕ Retirer le croquis</button>
   </div>
   <div class="tools">
     ${COLORS.map(c=>`<button class="sw ${pen.tool==='pen'&&pen.c===c?'on':''}" style="background:${c}" data-act="penC" data-c="${c}"></button>`).join('')}
@@ -1844,7 +1847,8 @@ const ACT={
   kind(b){ kind=b.dataset.k; const v=$('#itemIn')?.value; refreshMain(); const i=$('#itemIn'); if(i){ i.value=v||''; i.focus(); } },
   addItem(){ addItem(); },
   delItem(b){ F().items.splice(+b.dataset.i,1); save(); refreshMain(); },
-  showDraw(){ F().showDraw=true; refreshMain(); },
+  showDraw(){ F().showDraw=true; keepScroll(refreshMain); },
+  hideDraw(){ const f=F(); if(hasDraw(f)&&!confirm('Retirer le croquis de ce cadre ? Le dessin sera effacé.')) return; f.drawing=null; f.strokes=[]; f.objs=[]; f.showDraw=false; drawFull=false; document.body.classList.remove('dfull'); save(); keepScroll(refreshMain); refreshNav(); },
   penC(b){ pen.c=b.dataset.c; pen.tool='pen'; keepScroll(refreshMain); },
   penW(b){ pen.w=+b.dataset.w; if(pen.tool!=='arrow') pen.tool='pen'; keepScroll(refreshMain); },
   penT(b){ pen.tool = pen.tool===b.dataset.t?'pen':b.dataset.t; keepScroll(refreshMain); },
