@@ -269,6 +269,20 @@ a{color:var(--accent);font-weight:800}
 .axt.grid th{vertical-align:top;border-radius:8px}
 @media (max-width:900px),(orientation:portrait){ .bp{grid-template-columns:1fr;height:auto;max-height:88vh;overflow:auto} .bpl{max-height:32vh;border-right:0;border-bottom:3px solid var(--ink);border-radius:21px 21px 0 0} .pcards{grid-template-columns:1fr} }
 
+/* ---------- Chrono consignes / tâche ---------- */
+.ct{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ctb{min-height:50px;font-size:16px;padding:6px 14px;background:#fff}
+.ctb b{font-family:var(--fh);font-variant-numeric:tabular-nums;font-size:20px;margin-left:6px}
+.ctb.c.on{background:#2f6df0;color:#fff;animation:pulseC 1.6s infinite}
+.ctb.t.on{background:#1fc28b;color:var(--ink);animation:pulseT 1.6s infinite}
+@keyframes pulseC{50%{box-shadow:2px 2px 0 var(--ink),0 0 0 6px rgba(47,109,240,.3)}}
+@keyframes pulseT{50%{box-shadow:2px 2px 0 var(--ink),0 0 0 6px rgba(31,194,139,.35)}}
+.ctbar{display:flex;height:10px;border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin-top:5px;max-width:520px}
+.ctbar i{display:block;height:100%}
+.nav .it.running{box-shadow:var(--shs),0 0 0 3px rgba(31,194,139,.45)}
+.runk{color:var(--rk);font-weight:900}
+.nav .it.on .runk{color:var(--ink)}
+
 /* ---------- Jauge & critères rapprochés ---------- */
 .gauge{position:relative;flex:1;max-width:190px;height:24px;background:#fff;border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin-right:auto}
 .gauge div{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(45deg,#1fc28b 0 8px,#3fd7a3 8px 16px)}
@@ -401,6 +415,11 @@ label.btn{display:inline-flex;align-items:center;cursor:pointer;border:var(--bw)
 .p-it{margin:3px 0;padding:3px 8px;border-left:3px solid var(--k);background:#f8fafc;break-inside:avoid}
 .p-it.conseil{background:#eff6ff;border:1px solid #bfdbfe;border-left:3px solid #2563eb;border-radius:10px 10px 10px 2px}
 .p-img{max-width:100%;max-height:85mm;border:1px solid #e2e8f0;border-radius:6px;margin-top:4px}
+.p-tl .cons{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px)!important}
+.p-leg i.cons{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 2px,transparent 2px 4px)}
+.p-tl .fs{border-left:2.5px solid #fff}
+.p-kpi{display:flex;gap:16px;flex-wrap:wrap;font-size:10pt;margin:2px 0 4px}
+.p-time td,.p-time th{font-size:9pt;padding:2px 6px}
 .p-tl{display:flex;height:16px;border-radius:4px;overflow:hidden;margin:4px 0 2px}
 .p-tl div{color:#fff;font-size:7.5pt;display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap}
 .p-table{width:100%;border-collapse:collapse;font-size:9.5pt}
@@ -538,7 +557,7 @@ function migrate(){
   S.obs.forEach(o=>{
     if(!o.bricks){ o.bricks=[]; Object.entries(o.comps||{}).forEach(([code,v])=>{ if(v.lvl>0||v.note) o.bricks.push({id:uid(),comp:code,text:v.note||LEVELS[v.lvl]||'',p:Math.min(4,v.lvl||0)}); }); }
     if(!o.u) o.u=Date.parse(o.created)||1;
-    o.frames.forEach(f=>{ if(!f.strokes) f.strokes=[]; });
+    o.frames.forEach(f=>{ if(!f.strokes) f.strokes=[]; lapsOf(f); });
   });
 }
 migrate();
@@ -602,8 +621,40 @@ const F = () => O()?.frames.find(f=>f.id===curFrame);
 
 /* ---------- Chrono ---------- */
 function elapsed(o){ o=o||O(); if(!o) return 0; const c=o.chrono; return c.acc + (c.startedAt? Date.now()-c.startedAt : 0); }
+/* ---------- Chrono des phases : séquences « consignes » / « tâche » ----------
+   f.laps = [{k:'c'|'t'|'n', s, e}] en ms de chrono ; f.start / f.end sont déduits (compatibilité). */
+const CT_TYPES = ['sit','echauf'];
+const hasCT = f => CT_TYPES.includes(f.type);
+const defaultKind = f => hasCT(f) ? 'c' : 'n';
+const LAPK = {c:{l:'Consignes',ic:'🗣️',col:'#2f6df0'}, t:{l:'Tâche',ic:'🏃',col:'#1fc28b'}, n:{l:'Phase',ic:'⏱',col:'#62668a'}};
+function lapsOf(f){ if(!f.laps) f.laps = f.start!=null ? [{k:'n',s:f.start,e:f.end??null}] : []; return f.laps; }
+function openLapOf(f){ return lapsOf(f).find(l=>l.e==null); }
+function syncFrame(f){ const L=lapsOf(f); if(!L.length){ f.start=null; f.end=null; return; } L.sort((a,b)=>a.s-b.s); f.start=L[0].s; f.end=L.some(l=>l.e==null)?null:Math.max(...L.map(l=>l.e)); }
+function frameTotals(f,o){ const r={c:0,t:0,n:0}; lapsOf(f).forEach(l=>{ r[l.k]=(r[l.k]||0)+Math.max(0,(l.e??elapsed(o))-l.s); }); r.all=r.c+r.t+r.n; return r; }
+/* arrête la phase à l'instant « at » (supprime ce qui commencerait après) */
+function closeFrame(f,at){ f.laps=lapsOf(f).filter(l=>l.s<at).map(l=>({...l,e:l.e==null||l.e>at?at:l.e})); syncFrame(f); }
+const clockNow = () => new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+/* ouvre une séquence (consignes / tâche) sur une phase : les autres phases s'arrêtent */
+function openLap(o,f,k){
+  if(!o.chrono.startedAt) o.chrono.startedAt=Date.now();
+  const now=elapsed(o);
+  o.frames.forEach(x=>{ if(x!==f && openLapOf(x)) closeFrame(x,now); });
+  const L=lapsOf(f), op=openLapOf(f);
+  if(op){ if(op.k===k) return false; op.e=now; if(op.e-op.s<1500) L.splice(L.indexOf(op),1); }
+  if(!L.length) f.clock=clockNow();
+  L.push({k,s:now}); syncFrame(f); return true;
+}
+function stopFrame(o,f){ const op=openLapOf(f); if(op){ op.e=elapsed(o); syncFrame(f); } }
+const autoPhase = () => S.settings.autoPhase!==false;
+/* ouvrir une phase jamais chronométrée pendant que le chrono tourne : elle démarre, la précédente s'arrête */
+function autoStart(){ const o=O(), f=F(); if(!o||!f||!autoPhase()||!o.chrono.startedAt||lapsOf(f).length) return;
+  const prev=o.frames.find(x=>openLapOf(x)); openLap(o,f,defaultKind(f)); save(true);
+  toast(`${LAPK[defaultKind(f)].ic} ${f.title} démarre${prev?` · ${prev.title} arrêtée (${fmtShort(frameTotals(prev,o).all)})`:''}`); }
+
 setInterval(()=>{
   const o=O(); if(!o||view!=='obs') return;
+  const f_=F(); if(f_&&f_.laps){ const tt=frameTotals(f_,o); document.querySelectorAll('.lapv').forEach(e=>e.textContent=fmtShort(tt[e.dataset.lk]||0)); }
+  o.frames.forEach(x=>{ if(openLapOf(x)){ const e=document.querySelector(`.dur[data-fid="${x.id}"]`); if(e) e.textContent=fmtShort(frameTotals(x,o).all); } });
   const t=$('#chronoT'); if(t) t.textContent=fmt(elapsed(o));
   const m=$('#measureBtn'); if(m&&measureStart!==null) m.textContent='⏹ '+fmtShort(elapsed(o)-measureStart);
   const tm=$('#timing'); if(tm) tm.innerHTML=timingHTML(F());
@@ -678,6 +729,7 @@ function settingsHTML(){
       <label>Adresse de l'appli EDT</label>
       <input data-k="set.edtUrl" value="${esc(st.edtUrl)}" placeholder="https://…/edt/">
       <p class="muted" style="font-size:13px">Le bouton 📅 EDT apparaît dès qu'une adresse est saisie.</p>
+      <label style="display:flex;gap:8px;align-items:center;text-transform:none;font-size:14px;color:var(--ink)"><input type="checkbox" style="width:auto" data-k="set.autoPhase" ${autoPhase()?'checked':''}> Démarrer automatiquement une situation quand je l'ouvre pendant que le chrono tourne (la précédente s'arrête)</label>
       <label>Repère de briques pour envisager la validation d'un palier</label>
       <input data-k="set.seuil" type="number" min="1" max="30" value="${esc(S.settings.seuil||5)}" style="width:110px">
       <p class="muted" style="font-size:13px">Indicatif seulement : la jauge se remplit à ce nombre et le bouton « Palier atteint » se met en avant, mais c'est toujours toi qui valides.</p>
@@ -755,8 +807,9 @@ function navHTML(o){
   const ncomp=(o.bricks||[]).length;
   return o.frames.map(f=>{
     const T=TYPES[f.type]; const n=f.items.length+(hasDraw(f)?1:0);
-    const sub = f.start!=null ? `${f.clock||''} · ${fmtShort((f.end??elapsed(o))-f.start)}${f.end==null?' ●':''}` : T.l!==f.title?T.l:'';
-    return `<button class="it ${curFrame===f.id?'on':''}" data-act="goto" data-id="${f.id}" style="--c:${T.hex}"><span class="n">${esc(f.title)}<small>${esc(sub)}</small></span>${n?`<span class="cnt">${n}</span>`:''}</button>`;
+    const op=openLapOf(f), tt=frameTotals(f,o);
+    const sub = lapsOf(f).length ? `${esc(f.clock||'')} · <span class="dur" data-fid="${f.id}">${fmtShort(tt.all)}</span>${op?` <span class="runk" style="--rk:${LAPK[op.k].col}">● ${op.k==='n'?'en cours':LAPK[op.k].l.toLowerCase()}</span>`:''}` : esc(T.l!==f.title?T.l:'');
+    return `<button class="it ${curFrame===f.id?'on':''} ${op?'running':''}" data-act="goto" data-id="${f.id}" style="--c:${T.hex}"><span class="n">${esc(f.title)}<small>${sub}</small></span>${n?`<span class="cnt">${n}</span>`:''}</button>`;
   }).join('') + `
   <div class="row" style="flex-wrap:nowrap"><select id="addType" style="flex:1;min-height:38px;padding:4px 8px">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k==='sit'?'selected':''}>${v.l}</option>`).join('')}</select><button class="sm yel" data-act="addFrame" title="Ajouter un cadre">＋</button></div>
   <hr>
@@ -765,9 +818,12 @@ function navHTML(o){
   ${sp('__priv','Notes privées','🔒','non exportées','','#c9ccd9')}`;
 }
 function timingHTML(f){
-  if(!f||f.start==null) return '';
-  const o=O(); const d=(f.end??elapsed(o))-f.start;
-  return `début ${f.clock||''} (chrono ${fmtShort(f.start)}) · durée <b>${fmtShort(d)}</b>${f.end==null?' <span style="color:#16a34a">● en cours</span>':''}`;
+  if(!f||!lapsOf(f).length) return f&&hasCT(f)?'<span class="muted">Touche 🗣️ Consignes ou 🏃 Tâche pour chronométrer cette situation.</span>':'';
+  const o=O(), tt=frameTotals(f,o), op=openLapOf(f);
+  const bar = hasCT(f)&&tt.all ? `<span class="ctbar">${lapsOf(f).map(l=>`<i style="flex:${Math.max(1,(l.e??elapsed(o))-l.s)};background:${LAPK[l.k].col}"></i>`).join('')}</span>` : '';
+  return `début ${f.clock||''} (chrono ${fmtShort(f.start)}) · total <b>${fmtShort(tt.all)}</b>`
+    + (hasCT(f)&&(tt.c||tt.t)?` · 🗣️ consignes <b>${fmtShort(tt.c)}</b> (${Math.round(tt.c/Math.max(1,tt.all)*100)} %) · 🏃 tâche <b>${fmtShort(tt.t)}</b> (${Math.round(tt.t/Math.max(1,tt.all)*100)} %)`:'')
+    + (op?` <span style="color:${LAPK[op.k].col};font-weight:800">● ${op.k==='n'?'en cours':LAPK[op.k].l.toLowerCase()+' en cours'}</span>`:'') + bar;
 }
 function mainHTML(o){
   if(curFrame==='__comp') return compHTML(o);
@@ -780,7 +836,9 @@ function mainHTML(o){
   return `
   <div class="fhead" style="--c:${T.hex}">
     <input class="title" data-k="f.title" value="${esc(f.title)}">
-    <button class="sm ${f.start!=null&&f.end==null?'':'pri'}" data-act="startPhase">${f.start!=null&&f.end==null?'⏹ Terminer la phase':(f.start!=null?'↻ Redémarrer la phase':'▶ Débuter la phase')}</button>
+    ${(()=>{ const op=openLapOf(f), tt=frameTotals(f,O());
+      if(hasCT(f)) return `<div class="ct">${['c','t'].map(k=>`<button class="ctb ${k} ${op?.k===k?'on':''}" data-act="lap" data-k="${k}" title="${k==='c'?'Le stagiaire donne les consignes':'Les élèves sont en activité'}">${LAPK[k].ic} ${LAPK[k].l} <b class="lapv" data-lk="${k}">${fmtShort(tt[k])}</b></button>`).join('')}${op?`<button class="sm" data-act="startPhase" title="Arrêter le chrono de cette situation">⏹</button>`:''}</div>`;
+      return `<button class="sm ${op?'':'pri'}" data-act="startPhase">${op?'⏹ Terminer la phase':(lapsOf(f).length?'▶ Reprendre la phase':'▶ Débuter la phase')}</button>${lapsOf(f).length?` <b class="lapv" data-lk="all" style="font-family:var(--fh);font-size:18px">${fmtShort(tt.all)}</b>`:''}`; })()}
     <button class="sm yel" data-act="shiftPhase" title="J'ai oublié : la phase a commencé plus tôt">⏪ ${f.start!=null?'Décaler le début':'Commencée il y a…'}</button>
     <button class="sm ghost danger" data-act="delFrame" title="Supprimer ce cadre">🗑</button>
   </div>
@@ -1317,7 +1375,9 @@ function openDrawer(title,url){
 async function buildPrint(){
   const o=O(), t=trainee(o.traineeId)||{}, st=S.settings, ref=refList();
   const imgs={}; for(const f of o.frames) if(hasDraw(f)) imgs[f.id]=await composite(f);
-  const timed=o.frames.filter(f=>f.start!=null); const total=timed.reduce((s,f)=>s+((f.end??elapsed(o))-f.start),0);
+  const timed=o.frames.filter(f=>lapsOf(f).length); const TT=Object.fromEntries(timed.map(f=>[f.id,frameTotals(f,o)])); const total=timed.reduce((s,f)=>s+TT[f.id].all,0);
+  const allLaps=timed.flatMap(f=>lapsOf(f).map(l=>({...l,f,d:Math.max(0,(l.e??elapsed(o))-l.s)}))).sort((a,b)=>a.s-b.s);
+  const sumK=k=>timed.filter(hasCT).reduce((s,f)=>s+TT[f.id][k],0), totC=sumK('c'), totT=sumK('t');
   const ev={}; o.frames.forEach(f=>f.items.forEach(it=>{ if(it.comp)(ev[it.comp]=ev[it.comp]||[]).push(it); }));
   const mineB=o.bricks||[]; const bRows=ref.filter(c=>mineB.some(b=>b.comp===c.code));
   const tr=t, upto=bricksOf(o.traineeId,o), upBy={}; upto.forEach(b=>(upBy[brickKey(b)]=upBy[brickKey(b)]||[]).push(b));
@@ -1331,11 +1391,15 @@ async function buildPrint(){
     ${o.prevAxes.map((a,i)=>{ const st=axStats(o,a); return `<div style="margin-top:4px">Axe ${i+1} : ${esc(a.text)} ${a.comp?`<i style="color:#64748b">(${esc(a.comp)})</i>`:''} → <b>${AX_STATUS[a.status||0]}</b>
       · <b>${st.mine.length}</b> élément${st.mine.length>1?'s':''} mis en place cette leçon${st.before?` (${st.before+st.mine.length} depuis le début du suivi)`:''}</div>
       ${st.mine.map(b=>`<div class="p-step"><span class="p-b" style="--pc:${PAL[b.p||0].c};margin:0 4px 0 0">${b.p?'P'+b.p:'P?'}</span>${esc(b.text)}${b.ph?` <span style="color:#94a3b8">· ${esc(b.ph)}</span>`:''}</div>`).join('')}`; }).join('')}</div>`:''}
-  ${total?`<div class="p-h2">Gestion du temps</div><div class="p-tl">${timed.map(f=>{const d=(f.end??elapsed(o))-f.start;return `<div style="flex:${d};background:${TYPES[f.type].hex}">${d/total>.09?esc(f.title)+' '+fmtShort(d):''}</div>`}).join('')}</div>
-    <div style="font-size:8.5pt;color:#475569">${timed.map(f=>`${esc(f.title)} ${fmtShort((f.end??elapsed(o))-f.start)}`).join(' · ')}</div>`:''}
+  ${total?`<div class="p-h2">Gestion du temps</div>
+    ${totC+totT?`<div class="p-kpi"><span><b>${fmtShort(totC)}</b> de consignes (${Math.round(totC/(totC+totT)*100)} %)</span><span><b>${fmtShort(totT)}</b> d'activité des élèves (${Math.round(totT/(totC+totT)*100)} %)</span><span style="color:#64748b">sur les situations et l'échauffement</span></div>`:''}
+    <div class="p-tl">${allLaps.map((l,i)=>`<div class="${l.k==='c'?'cons':''} ${i&&allLaps[i-1].f!==l.f?'fs':''}" style="flex:${Math.max(1,l.d)};background:${TYPES[l.f.type].hex}">${l.d/total>.1?esc(l.f.title)+(l.k==='c'?' · consignes':l.k==='t'?' · tâche':'')+' '+fmtShort(l.d):''}</div>`).join('')}</div>
+    <div class="p-leg"><i style="background:#64748b"></i> tâche / phase <i class="cons" style="background:#64748b"></i> consignes (hachuré)</div>
+    <table class="p-table p-time"><tr><th>Phase</th><th>Début</th><th>Durée</th><th>🗣️ Consignes</th><th>🏃 Tâche</th></tr>
+    ${timed.map(f=>{ const tt=TT[f.id], ct=hasCT(f)&&(tt.c||tt.t); return `<tr><td><b>${esc(f.title)}</b></td><td>${esc(f.clock||'')}</td><td>${fmtShort(tt.all)}</td><td>${ct?fmtShort(tt.c)+` (${Math.round(tt.c/Math.max(1,tt.all)*100)} %)`:'—'}</td><td>${ct?fmtShort(tt.t)+` (${Math.round(tt.t/Math.max(1,tt.all)*100)} %)`:'—'}</td></tr>`; }).join('')}</table>`:''}
   <div class="p-h2">Déroulé de la leçon</div>
   ${o.frames.filter(f=>f.text.trim()||f.items.length||hasDraw(f)).map(f=>`<div class="p-frame" style="--c:${TYPES[f.type].hex}">
-    <h3><span>${esc(f.title)}</span><small>${f.clock?f.clock+' · ':''}${f.start!=null?fmtShort((f.end??elapsed(o))-f.start):''}</small></h3>
+    <h3><span>${esc(f.title)}</span><small>${f.clock?f.clock+' · ':''}${(()=>{ if(!lapsOf(f).length) return ''; const tt=frameTotals(f,o); return fmtShort(tt.all)+(hasCT(f)&&(tt.c||tt.t)?` (consignes ${fmtShort(tt.c)} · tâche ${fmtShort(tt.t)})`:''); })()}</small></h3>
     ${f.text.trim()?`<div class="p-txt">${esc(f.text)}</div>`:''}
     ${f.items.filter(i=>i.kind==='secu').map(itemP).join('')}${f.items.filter(i=>i.kind!=='secu'&&i.kind!=='conseil').map(itemP).join('')}${f.items.filter(i=>i.kind==='conseil').map(itemP).join('')}
     ${imgs[f.id]?`<img class="p-img" src="${imgs[f.id]}">`:''}</div>`).join('')||'<p style="color:#64748b">—</p>'}
@@ -1375,20 +1439,21 @@ const clockAt = msAgo => new Date(Date.now()-msAgo).toLocaleTimeString('fr-FR',{
 /* décale tout le chronométrage de d ms : le chrono avance, les phases gardent leurs heures réelles */
 function addChrono(o,d){
   if(d<0) d=-Math.min(-d, Math.min(elapsed(o), ...o.frames.filter(x=>x.start!=null).map(x=>x.start)));
-  o.chrono.acc+=d; o.frames.forEach(x=>{ if(x.start!=null) x.start+=d; if(x.end!=null) x.end+=d; });
+  o.chrono.acc+=d; o.frames.forEach(x=>{ lapsOf(x).forEach(l=>{ l.s+=d; if(l.e!=null) l.e+=d; }); syncFrame(x); });
   return d;
 }
 function setPhaseStart(o,f,ns){
   if(!o.chrono.startedAt) o.chrono.startedAt=Date.now();
   if(ns<0) ns+=addChrono(o,-ns);            // pas assez de chrono : on l'avance d'autant
   const now=elapsed(o); ns=Math.max(0,Math.min(ns,now));
-  if(f.start==null) f.end=null;
-  const wasNew=f.start==null||f.end!=null;
-  o.frames.forEach(x=>{ if(x===f||x.start==null) return;
-    if(x.start<ns && (x.end==null || x.end>ns)) x.end=ns;       // la phase précédente s'arrête au nouveau début
-    else if(wasNew && x.end==null) x.end=now; });                // une seule phase en cours à la fois
-  f.start=ns; if(f.end!=null && f.end<ns) f.end=ns;
-  f.clock=clockAt(now-ns);
+  const L=lapsOf(f);
+  if(!L.length) L.push({k:defaultKind(f),s:ns});                    // phase oubliée : elle tourne depuis ns
+  else { L.sort((a,b)=>a.s-b.s); L[0].s=Math.min(ns, L[0].e??ns); }  // on décale le début de la 1re séquence
+  syncFrame(f);
+  o.frames.forEach(x=>{ if(x===f||!lapsOf(x).length) return;
+    if(x.start<ns && (x.end==null || x.end>ns)) closeFrame(x,ns);   // la phase précédente s'arrête au nouveau début
+    else if(openLapOf(f) && openLapOf(x)) closeFrame(x,now); });     // une seule phase en cours à la fois
+  f.clock=clockAt(now-f.start);
 }
 function minsPicker(list,act,extra=''){ return `<div class="mins">${list.map(m=>`<button data-m="${m}" data-x="${act}">${m>0&&act!=='ago'?'+':''}${m===0?'maintenant':m+' min'}</button>`).join('')}${extra}</div>`; }
 function timeModal(html,onPick){
@@ -1441,7 +1506,7 @@ function applyPacket(p){
     if(!ex){ const same=S.trainees.find(x=>x.name.trim().toLowerCase()===(t.name||'').trim().toLowerCase()); if(same){ idMap[t.id]=same.id; ex=same; } }
     if(!ex){ S.trainees.push(t); nt++; } else if((t.u||0)>(ex.u||0)){ const keep=ex.id; Object.assign(ex,t,{id:keep}); } });
   (p.o||[]).forEach(o=>{ if(idMap[o.traineeId]) o.traineeId=idMap[o.traineeId];
-    o.frames.forEach(f=>{ if(!f.strokes) f.strokes=[]; }); if(!o.bricks) o.bricks=[];
+    o.frames.forEach(f=>{ if(!f.strokes) f.strokes=[]; lapsOf(f); }); if(!o.bricks) o.bricks=[];
     const i=S.obs.findIndex(x=>x.id===o.id);
     if(i<0){ S.obs.push(o); no++; return; }
     const ex=S.obs[i];
@@ -1480,9 +1545,9 @@ const ACT={
   editObs(b,e){ e.preventDefault(); obsModal(O()); },
   openObs(b){ cur=b.dataset.id; const o=O(); curFrame=o.frames[0]?.id||'__synth'; view='obs'; render(); },
   delObs(b){ if(!confirm('Supprimer cette visite ?')) return; S.obs=S.obs.filter(o=>o.id!==b.dataset.id); save(true); render(); },
-  goto(b){ curFrame=b.dataset.id; refreshMain(); renderBubble(); window.scrollTo({top:0}); const m=$('#main'); if(m) m.scrollTop=0; },
+  goto(b){ curFrame=b.dataset.id; autoStart(); refreshMain(); renderBubble(); window.scrollTo({top:0}); const m=$('#main'); if(m) m.scrollTop=0; },
   chrono(){ const c=O().chrono; if(c.startedAt){ c.acc+=Date.now()-c.startedAt; c.startedAt=null; } else c.startedAt=Date.now(); save(true); render(); },
-  chronoReset(){ if(!confirm('Remettre le chrono à zéro ? (les durées de phase seront effacées)')) return; const o=O(); o.chrono={acc:0,startedAt:null}; o.frames.forEach(f=>{f.start=f.end=null;f.clock='';}); measureStart=null; save(true); render(); },
+  chronoReset(){ if(!confirm('Remettre le chrono à zéro ? (les durées de phase seront effacées)')) return; const o=O(); o.chrono={acc:0,startedAt:null}; o.frames.forEach(f=>{f.start=f.end=null;f.clock='';f.laps=[];}); measureStart=null; save(true); render(); },
   measure(){
     const o=O(); if(!o.chrono.startedAt){ ACT.chrono(); }
     if(measureStart===null){ measureStart=elapsed(); render(); return; }
@@ -1519,16 +1584,17 @@ const ACT={
     (k,m)=>{ if(!o.chrono.startedAt) o.chrono.startedAt=Date.now(); const d=addChrono(o,m*MIN); save(true); render(); toast(`⏱ Chrono ${d>=0?'+':'−'}${fmtShort(Math.abs(d))} → ${fmt(elapsed(o))}`); });
   },
   startPhase(){
-    const o=O(), f=F(); if(!o.chrono.startedAt){ const c=o.chrono; c.startedAt=Date.now(); }
-    const now=elapsed(o);
-    if(f.start!=null && f.end==null){ f.end=now; }
-    else { o.frames.forEach(x=>{ if(x.start!=null&&x.end==null) x.end=now; }); f.start=now; f.end=null; f.clock=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }
+    const o=O(), f=F();
+    if(openLapOf(f)) stopFrame(o,f); else openLap(o,f,defaultKind(f));
     save(true); render();
   },
+  lap(b){ const o=O(), f=F(); const k=b.dataset.k; const op=openLapOf(f);
+    if(op&&op.k===k) return toast(`${LAPK[k].ic} ${LAPK[k].l} déjà en cours`);
+    openLap(o,f,k); save(true); render(); },
   addFrame(){ const o=O(), type=$('#addType').value, r=TYPES[type].r;
     let idx=-1; o.frames.forEach((f,i)=>{ if(TYPES[f.type].r<=r) idx=i; });
     const n=newFrame(type, type==='sit'?'Situation '+(o.frames.filter(f=>f.type==='sit').length+1):null);
-    o.frames.splice(idx+1,0,n); curFrame=n.id; save(); refreshMain(); },
+    o.frames.splice(idx+1,0,n); curFrame=n.id; autoStart(); save(); refreshMain(); },
   delFrame(){ const o=O(), f=F(); if((f.text||f.items.length||hasDraw(f))&&!confirm('Supprimer « '+f.title+' » et son contenu ?')) return; const i=o.frames.indexOf(f); o.frames.splice(i,1); curFrame=(o.frames[i]||o.frames[i-1])?.id||'__synth'; save(); refreshMain(); },
   kind(b){ kind=b.dataset.k; const v=$('#itemIn')?.value; refreshMain(); const i=$('#itemIn'); if(i){ i.value=v||''; i.focus(); } },
   addItem(){ addItem(); },
@@ -1602,6 +1668,7 @@ function bindValue(el){
     case 'set.tutor': S.settings.tutor=v; break;
     case 'set.school': S.settings.school=v; break;
     case 'set.edtUrl': S.settings.edtUrl=v.trim(); break;
+    case 'set.autoPhase': S.settings.autoPhase=!!v; break;
     case 'set.seuil': S.settings.seuil=Math.max(1,+v||5); break;
     case 'set.ref': S.settings.ref=v; break;
     case 'f.title': f.title=v; refreshNav(); break;
